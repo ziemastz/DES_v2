@@ -59,6 +59,18 @@ color: rgb(238, 238, 238)
        </item>
        <item row="0" column="5">
         <widget class="QPushButton" name="pushButton_dashboard">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>35</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="text">
           <string>Dashboard</string>
          </property>
@@ -117,6 +129,18 @@ color: rgb(238, 238, 238)
        </item>
        <item row="0" column="6">
         <widget class="QPushButton" name="pushButton_nuclide">
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>35</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="text">
           <string>Nuclide</string>
          </property>
