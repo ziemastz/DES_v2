@@ -17,7 +17,7 @@ void ParentRecord::setBlank(const QString &newBlank)
 
 QString ParentRecord::getNucid() const
 {
-    return nucid;
+    return nucid.mid(3,2)+"-"+nucid.mid(0,3);
 }
 
 void ParentRecord::setNucid(const QString &newNucid)

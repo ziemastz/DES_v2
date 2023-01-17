@@ -19,14 +19,14 @@
      <item row="0" column="3">
       <widget class="QPushButton" name="pushButton_nuclideDataset">
        <property name="text">
-        <string>Dataset</string>
+        <string>Radionuclide data</string>
        </property>
       </widget>
      </item>
      <item row="0" column="5">
       <widget class="QPushButton" name="pushButton_importENSDF">
        <property name="text">
-        <string>Import from ENSDF</string>
+        <string>Import the data from ENSDF</string>
        </property>
       </widget>
      </item>

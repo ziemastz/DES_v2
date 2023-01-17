@@ -33,6 +33,93 @@ bool WrapperENSDF::read()
     return true;
 }
 
+QString WrapperENSDF::getParent() const
+{
+    if(raw.isEmpty())
+        return QString();
+    return raw.first().getParent().getNucid();
+}
+
+QString WrapperENSDF::getParent(const int &noDaughter) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getParent().getNucid();
+    else
+        return QString();
+}
+
+int WrapperENSDF::countDaughters() const
+{
+    return raw.count();
+}
+
+QString WrapperENSDF::getDaughter(const int &noDaughter) const
+{
+    return raw.at(noDaughter).getLevel().first().getNucid();
+}
+
+int WrapperENSDF::countLevels(const int &noDaughter) const
+{
+    return raw.at(noDaughter).getLevel().count();
+}
+
+QString WrapperENSDF::getLevelEnergy(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getLevel().at(noLevel).getE();
+}
+
+bool WrapperENSDF::findBeta(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getBeta().contains(noLevel);
+}
+
+QString WrapperENSDF::getIntensityBeta(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getBeta().value(noLevel).getIb();
+}
+
+int WrapperENSDF::countGammas(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getGamma().value(noLevel).count();
+}
+
+QString WrapperENSDF::getGammaEnergy(const int &noDaughter, const int &noLevel, const int &noGamma) const
+{
+    return raw.at(noDaughter).getGamma().value(noLevel).at(noGamma).getE();
+}
+
+QString WrapperENSDF::getGammaIntensity(const int &noDaughter, const int &noLevel, const int &noGamma) const
+{
+    return raw.at(noDaughter).getGamma().value(noLevel).at(noGamma).getRi();
+}
+
+QString WrapperENSDF::getGammaMultipolarity(const int &noDaughter, const int &noLevel, const int &noGamma) const
+{
+    return raw.at(noDaughter).getGamma().value(noLevel).at(noGamma).getM();
+}
+
+QString WrapperENSDF::getGammaTotalElectronConvertion(const int &noDaughter, const int &noLevel, const int &noGamma) const
+{
+    return raw.at(noDaughter).getGamma().value(noLevel).at(noGamma).getCc();
+}
+
+QString WrapperENSDF::getFinalLevelEnergy(const int &noDaughter, const int &noLevel, const int &noGamma) const
+{
+    double intial = getLevelEnergy(noDaughter,noLevel).toDouble();
+    double gammaEnergy = getGammaEnergy(noDaughter,noLevel,noGamma).toDouble();
+    double dev = intial - gammaEnergy;
+    int closestLevel = 0;
+    double lowestEnergy = dev;
+    for(int i = noLevel-1; i >= 0; i--) {
+        double nextLevel = getLevelEnergy(noDaughter,i).toDouble();
+        if(abs(nextLevel - dev) <= lowestEnergy){
+            closestLevel = i;
+            lowestEnergy = abs(nextLevel - dev);
+        }
+    }
+    return getLevelEnergy(noDaughter,closestLevel);
+}
+
 bool WrapperENSDF::wrap(const RecordENSDF &line)
 {
     if(line.size() != 80) {

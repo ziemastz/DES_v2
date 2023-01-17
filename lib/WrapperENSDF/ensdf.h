@@ -29,8 +29,16 @@ public:
     void setGamma(const RecordENSDF &line);
 
     void setEnd(const RecordENSDF &line);
+    ParentRecord getParent() const;
 
-private:
+
+    QVector<LevelRecord> getLevel() const;
+
+    QMap<int, BetaRecord> getBeta() const;
+
+    QMap<int, QVector<GammaRecord> > getGamma() const;
+
+protected:
     IdentificationRecord id;
     ParentRecord parent;
     NormalizationRecord normalization;

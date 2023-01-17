@@ -31,8 +31,28 @@ public:
 
     bool read();
 
+    QString getParent() const;
+    QString getParent(const int &noDaughter) const;
+
+    int countDaughters() const;
+    QString getDaughter(const int &noDaughter) const;
+
+    int countLevels(const int &noDaughter) const;
+    QString getLevelEnergy(const int &noDaughter, const int &noLevel) const;
+
+    bool findBeta(const int &noDaughter, const int &noLevel) const;
+    QString getIntensityBeta(const int &noDaughter, const int &noLevel) const;
+
+    int countGammas(const int &noDaughter, const int &noLevel) const;
+    QString getGammaEnergy(const int &noDaughter, const int &noLevel, const int &noGamma) const;
+    QString getGammaIntensity(const int &noDaughter, const int &noLevel, const int &noGamma) const;
+    QString getGammaMultipolarity(const int &noDaughter, const int &noLevel, const int &noGamma) const;
+    QString getGammaTotalElectronConvertion(const int &noDaughter, const int &noLevel, const int &noGamma) const;
+    QString getFinalLevelEnergy(const int &noDaughter, const int &noLevel, const int &noGamma) const;
+
 private:
     QVector<ENSDF> raw;
+
     QString _filename;
     int count_line;
     bool wrap(const RecordENSDF &line);

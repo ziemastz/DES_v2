@@ -176,3 +176,23 @@ void ENSDF::setGamma(const RecordENSDF &line)
         gamma.insert(level.count()-1, QVector<GammaRecord>() << g);
     }
 }
+
+ParentRecord ENSDF::getParent() const
+{
+    return parent;
+}
+
+QVector<LevelRecord> ENSDF::getLevel() const
+{
+    return level;
+}
+
+QMap<int, BetaRecord> ENSDF::getBeta() const
+{
+    return beta;
+}
+
+QMap<int, QVector<GammaRecord> > ENSDF::getGamma() const
+{
+    return gamma;
+}
