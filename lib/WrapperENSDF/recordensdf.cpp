@@ -4,11 +4,10 @@ RecordENSDF::RecordENSDF()
 {
 }
 
-RecordENSDF RecordENSDF::operator=(const QString &str)
+RecordENSDF &RecordENSDF::operator =(const QString &str)
 {
-    RecordENSDF temp;
-    temp._str = str;
-    return temp;
+    this->_str = str;
+    return *this;
 }
 
 int RecordENSDF::size() const

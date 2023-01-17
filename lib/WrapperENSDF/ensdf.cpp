@@ -88,6 +88,7 @@ void ENSDF::setLevel(const RecordENSDF &line)
 void ENSDF::setBeta(const RecordENSDF &line)
 {
     BetaRecord b;
+    b.setNucid(line.mid(1,5));
     b.setBlank(line.mid(6,7));
     b.setBlank(line.at(9));
     b.setE(line.mid(10,19));
@@ -107,6 +108,7 @@ void ENSDF::setBeta(const RecordENSDF &line)
 void ENSDF::setEC(const RecordENSDF &line)
 {
     ECRecord e;
+    e.setNucid(line.mid(1,5));
     e.setBlank(line.mid(6,7));
     e.setBlank(line.at(9));
     e.setE(line.mid(10,19));
@@ -129,6 +131,7 @@ void ENSDF::setEC(const RecordENSDF &line)
 void ENSDF::setAlpha(const RecordENSDF &line)
 {
     AlphaRecord a;
+    a.setNucid(line.mid(1,5));
     a.setBlank(line.mid(6,7));
     a.setBlank(line.at(9));
     a.setE(line.mid(10,19));
@@ -148,6 +151,7 @@ void ENSDF::setAlpha(const RecordENSDF &line)
 void ENSDF::setGamma(const RecordENSDF &line)
 {
     GammaRecord g;
+    g.setNucid(line.mid(1,5));
     g.setBlank(line.mid(6,7));
     g.setBlank(line.at(9));
     g.setE(line.mid(10,19));

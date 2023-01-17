@@ -8,9 +8,14 @@
  *
  * Description:         Library for reading nuclear data contained in ENSDF
  *                      files.
- * Version:             1.0.0
+ * Version:             1.0.1
  *
- * Change log:          1.0.1
+ * Change log
+ *  1.0.1:
+ *          - Loading data only from the first records without continuation
+ *            records.
+ *          - Records related to radionuclide decay are read.
+ *          - Records with references, comments, etc. are omitted.
  *
  *
  ******************************************************************************
@@ -29,6 +34,7 @@ public:
 private:
     QVector<ENSDF> raw;
     QString _filename;
+    int count_line;
     bool wrap(const RecordENSDF &line);
     bool isBlank(const RecordENSDF &str);
     bool isBlank(const QString &str);

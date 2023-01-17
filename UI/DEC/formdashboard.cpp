@@ -2,6 +2,7 @@
 #include "ui_formdashboard.h"
 #include <QFileDialog>
 #include "libensdfreader.h"
+#include "wrapperensdf.h"
 
 FormDashboard::FormDashboard(QWidget *parent) :
     QWidget(parent),
@@ -22,9 +23,13 @@ void FormDashboard::on_pushButton_importENSDF_clicked()
     if(ensdf_path.isEmpty())
         return;
 
-    LibENSDFReader reader;
+   // LibENSDFReader reader;
 
-    reader.load(ensdf_path);
+   // reader.load(ensdf_path);
+    WrapperENSDF wrapper(ensdf_path);
+    if(!wrapper.read())
+        qDebug() << "Failed to load data from ENSDF";
+
 
 }
 

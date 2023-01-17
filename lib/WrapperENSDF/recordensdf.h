@@ -7,7 +7,8 @@ class RecordENSDF
 {
 public:
     RecordENSDF();
-    RecordENSDF operator=(const QString &);
+    RecordENSDF &operator=(const QString &);
+
     int size() const;
     int count(const QRegExp &regExp) const;
     int count(const QString &str) const;

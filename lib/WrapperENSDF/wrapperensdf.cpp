@@ -7,7 +7,7 @@ WrapperENSDF::WrapperENSDF(const QString &filename)
 
 bool WrapperENSDF::read()
 {
-    if(QFile::exists(_filename)) {
+    if(!QFile::exists(_filename)) {
         qWarning() << "File isn't exists! File provided: " << _filename;
         return false;
     }
@@ -19,7 +19,7 @@ bool WrapperENSDF::read()
         return false;
     }
     qDebug() << "File opened.";
-
+    count_line = 1;
     RecordENSDF line;
     QTextStream in(&file);
     while(!in.atEnd()) {
@@ -28,6 +28,7 @@ bool WrapperENSDF::read()
         if(!wrap(line)) {
             return false;
         }
+        count_line++;
     }
     return true;
 }
@@ -35,118 +36,157 @@ bool WrapperENSDF::read()
 bool WrapperENSDF::wrap(const RecordENSDF &line)
 {
     if(line.size() != 80) {
-        qWarning() << "Data format error: Incorrect line lenght."
+        qWarning() << count_line << "\t" << "Data format error: Incorrect line lenght."
                       "Expected is 80 and it is " << line.size();
         return false;
     }
 
-
+    //The End Record
+    if(isBlank(line)) {
+        qDebug() << count_line << "\t"  << "The End Record";
+        return true;
+    }
 
     //Identification Record
     if(isBlank(line.mid(6,9))) {
-        qDebug() << "The Identification Record";
+        qDebug() << count_line << "\t"  << "The Identifi"
+                                           "cation Record";
         raw << ENSDF();
         raw.last().setIdentification(line);
         return true;
     }
 
     //History Record
-    if(line.at(8) == ('H' | 'h')) {
-        qDebug() << "The History Record";
+    if(line.at(8).toUpper() == 'H') {
+        if(isBlank(line.mid(6,7))) {
+            qDebug() << count_line << "\t"  << "The History Record";
+        }else {
+            qDebug() << count_line << "\t"  << "The History Record continuation record";
+        }
         return true;
     }
 
     //The Q-value Record
-    if(line.at(8) == ('Q' | 'q')) {
-        qDebug() << "The Q-value Record";
+    if(line.at(8).toUpper() == 'Q' && isBlank(line.mid(6,7))) {
+        qDebug() << count_line << "\t"  << "The Q-value Record";
         return true;
     }
 
     //The Cross-Reference Record
-    if(line.at(8) == ('X' | 'x')) {
-        qDebug() << "The Cross-Reference Record";
+    if(line.at(8).toUpper() == 'X' && isBlank(line.mid(6,7))) {
+        qDebug() << count_line << "\t"  << "The Cross-Reference Record";
         return true;
     }
 
-    //The Comment Record
-    if(line.at(7) == ('C' | 'c' | 'D' | 'd' | 'T' | 't')) {
-        qDebug() << "The Comment Record";
+    //The Comment/Document/Table Record
+    if(line.at(7).toUpper() == 'C' ||
+       line.at(7).toUpper() == 'D' ||
+       line.at(7).toUpper() == 'T') {
+        if(isBlank(line.at(6))) {
+            qDebug() << count_line << "\t"  << "The Comment/Document/Table Record";
+        }else {
+            qDebug() << count_line << "\t"  << "The Comment/Document/Table Record - continuation record";
+        }
         return true;
     }
 
     //The Parent Record
-    if(line.at(8) == ('P' | 'p') && isBlank(line.mid(6,7))) {
-        qDebug() << "The Parent Record";
+    if(line.at(8).toUpper() == 'P' && isBlank(line.mid(6,7))) {
+        qDebug() << count_line << "\t"  << "The Parent Record";
         raw.last().setParent(line);
         return true;
     }
 
     //The Normalization Record
-    if(line.at(8) == ('N' | 'n') && isBlank(line.mid(6,7))) {
-        qDebug() << "The Normalization Record";
+    if(line.at(8).toUpper() == 'N' && isBlank(line.mid(6,7))) {
+        qDebug() << count_line << "\t"  << "The Normalization Record";
         raw.last().setNormalization(line);
         return true;
     }
 
     //The Production Normalization Record
-    if(line.at(8) == ('N' | 'n') && line.at(7) == ('P' | 'p')  && isBlank(line.at(6))) {
-        qDebug() << "The Production Normalization Record";
-        raw.last().setProductionNormalization(line);
+    if(line.at(8).toUpper() == 'N' && line.at(7).toUpper() == 'P') {
+        if(isBlank(line.at(6))) {
+            qDebug() << count_line << "\t"  << "The Production Normalization Record";
+            raw.last().setProductionNormalization(line);
+        }else {
+            qDebug() << count_line << "\t"  << "The Production Normalization Record - continuation record";
+        }
         return true;
     }
 
     //The Level Record
-    if(line.at(8) == ('L' | 'l') && isBlank(line.mid(6,7))) {
-        qDebug() << "The Level Record";
-        raw.last().setLevel(line);
+    if(line.at(8).toUpper() == 'L') {
+        if(isBlank(line.mid(6,7))) {
+            qDebug() << count_line << "\t"  << "The Level Record";
+            raw.last().setLevel(line);
+        }else {
+            qDebug() << count_line << "\t"  << "The Level Record - continuation record";
+        }
         return true;
     }
 
     //The Beta Record
-    if(line.at(8) == ('B' | 'b') && isBlank(line.mid(6,7))) {
-        qDebug() << "The Beta Record";
-        raw.last().setBeta(line);
+    if(line.at(8).toUpper() == 'B') {
+        if(isBlank(line.mid(6,7))) {
+            qDebug() << count_line << "\t"  << "The Beta Record";
+            raw.last().setBeta(line);
+        }else {
+            qDebug() << count_line << "\t"  << "The Beta Record - continuation record";
+        }
         return true;
     }
 
     //The EC (or EC + beta+) Record
-    if(line.at(8) == ('E' | 'e') && isBlank(line.mid(6,7))) {
-        qDebug() << "The EC (or EC + beta+) Record";
-        raw.last().setEC(line);
+    if(line.at(8).toUpper() == 'E') {
+        if(isBlank(line.mid(6,7))) {
+            qDebug() << count_line << "\t"  << "The EC (or EC + beta+) Record";
+            raw.last().setEC(line);
+        }else {
+            qDebug() << count_line << "\t"  << "The EC (or EC + beta+) Record - continuation record";
+        }
         return true;
     }
 
     //The Alpha Record
-    if(line.at(8) == ('A' | 'a') && isBlank(line.mid(6,7))) {
-        qDebug() << "The Alpha Record";
-        raw.last().setAlpha(line);
+    if(line.at(8).toUpper() == 'A') {
+        if(isBlank(line.mid(6,7))) {
+            qDebug() << count_line << "\t"  << "The Alpha Record";
+            raw.last().setAlpha(line);
+        }else {
+            qDebug() << count_line << "\t"  << "The Alpha Record - continuation record";
+        }
         return true;
     }
 
     //The (Delayed-) Particle Record
-    if(line.at(8) == ('D' | 'd')) {
-        qDebug() << "The (Delayed-) Particle Record";
+    if(line.at(8).toUpper() == 'D') {
+        if(isBlank(line.mid(6,7))) {
+            qDebug() << count_line << "\t"  << "The (Delayed-) Particle Record";
+        }else {
+            qDebug() << count_line << "\t"  << "The (Delayed-) Particle Record - continuation record";
+        }
         return true;
     }
 
     //The Gamma Record
-    if(line.at(8) == ('G' | 'g') && isBlank(line.mid(6,7))) {
-        qDebug() << "The Gamma Record";
-        raw.last().setGamma(line);
+    if(line.at(8).toUpper() == 'G') {
+        if(isBlank(line.mid(6,7))) {
+            qDebug() << count_line << "\t"  << "The Gamma Record";
+            raw.last().setGamma(line);
+        }else {
+            qDebug() << count_line << "\t"  << "The Gamma Record - continuation record";
+        }
         return true;
     }
 
     //The Reference Record
-    if(line.at(8) == ('R' | 'r') && isBlank(line.mid(4,7))) {
-        qDebug() << "The Reference Record";
+    if(line.at(8).toUpper() == 'R' && isBlank(line.mid(4,7))) {
+        qDebug() << count_line << "\t"  << "The Reference Record";
         return true;
     }
 
-    //The End Record
-    if(isBlank(line)) {
-        qDebug() << "The End Record";
-        return true;
-    }
+
 
     return false;
 }

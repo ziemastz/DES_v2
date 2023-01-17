@@ -41,3 +41,10 @@ else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../l
 else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../lib/libENSDFReader/release/libENSDFReader.lib
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../lib/libENSDFReader/debug/libENSDFReader.lib
 else:unix: PRE_TARGETDEPS += $$OUT_PWD/../../lib/libENSDFReader/liblibENSDFReader.a
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../lib/WrapperENSDF/release/ -lWrapperENSDF
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../lib/WrapperENSDF/debug/ -lWrapperENSDF
+else:unix: LIBS += -L$$OUT_PWD/../../lib/WrapperENSDF/ -lWrapperENSDF
+
+INCLUDEPATH += $$PWD/../../lib/WrapperENSDF
+DEPENDPATH += $$PWD/../../lib/WrapperENSDF
