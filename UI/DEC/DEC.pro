@@ -9,12 +9,16 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Models/branchmodel.cpp \
+    Models/nuclidemodel.cpp \
     formdashboard.cpp \
     formnuclide.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    Models/branchmodel.h \
+    Models/nuclidemodel.h \
     formdashboard.h \
     formnuclide.h \
     mainwindow.h

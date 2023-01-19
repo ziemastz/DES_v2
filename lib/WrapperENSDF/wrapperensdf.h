@@ -34,6 +34,12 @@ public:
     QString getParent() const;
     QString getParent(const int &noDaughter) const;
 
+    QString getHalfLifeValueParent() const;
+    QString getHalfLifeUncertaintyParent() const;
+    QString getHalfLifeUnitParent() const;
+
+    QString getSpinParityParent() const;
+
     int countDaughters() const;
     QString getDaughter(const int &noDaughter) const;
 

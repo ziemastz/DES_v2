@@ -2,6 +2,7 @@
 #include "ui_formdashboard.h"
 #include <QFileDialog>
 #include "wrapperensdf.h"
+#include "Models/nuclidemodel.h".h"
 
 FormDashboard::FormDashboard(QWidget *parent) :
     QWidget(parent),
@@ -29,6 +30,14 @@ void FormDashboard::on_pushButton_importENSDF_clicked()
         qDebug() << "Failed to load data from ENSDF";
         return;
     }
+
+    // load radionuclide data from ensdf
+    radionuclide.setSymbol(wrapper.getParent());
+    radionuclide.setHalfLifeValue(wrapper.getHalfLifeValueParent());
+    radionuclide.setHalfLifeUncertainty(wrapper.getHalfLifeUncertaintyParent());
+    radionuclide.setHalfLifeUnit(wrapper.getHalfLifeUnitParent());
+
+    radionuclide.setSpinParity(wrapper.getSpinParityParent());
 
     // load data in ui
     ui->comboBox_schemeRadionuclide->addItem(wrapper.getParent());

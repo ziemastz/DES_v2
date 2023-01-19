@@ -96,11 +96,6 @@
         </attribute>
         <column>
          <property name="text">
-          <string>Grantdaughter</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
           <string>Parent</string>
          </property>
         </column>

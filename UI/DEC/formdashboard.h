@@ -2,6 +2,8 @@
 #define FORMDASHBOARD_H
 
 #include <QWidget>
+#include "Models/nuclidemodel.h"
+#include "Models/branchmodel.h"
 
 namespace Ui {
 class FormDashboard;
@@ -20,6 +22,10 @@ private slots:
 
 private:
     Ui::FormDashboard *ui;
+
+    //data ui
+    NuclideModel radionuclide;
+    QList<BranchModel> branches;
 };
 
 #endif // FORMDASHBOARD_H

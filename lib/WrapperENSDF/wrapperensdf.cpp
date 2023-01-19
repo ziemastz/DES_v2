@@ -48,6 +48,26 @@ QString WrapperENSDF::getParent(const int &noDaughter) const
         return QString();
 }
 
+QString WrapperENSDF::getHalfLifeValueParent() const
+{
+    return raw.first().getParent().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).first();
+}
+
+QString WrapperENSDF::getHalfLifeUncertaintyParent() const
+{
+    return raw.first().getParent().getDt();
+}
+
+QString WrapperENSDF::getHalfLifeUnitParent() const
+{
+    return raw.first().getParent().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).last();
+}
+
+QString WrapperENSDF::getSpinParityParent() const
+{
+   return raw.first().getParent() .getJ();
+}
+
 int WrapperENSDF::countDaughters() const
 {
     return raw.count();
