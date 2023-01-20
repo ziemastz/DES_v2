@@ -17,14 +17,3 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_dashboard_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(0);
-}
-
-
-void MainWindow::on_pushButton_nuclide_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(1);
-}
-

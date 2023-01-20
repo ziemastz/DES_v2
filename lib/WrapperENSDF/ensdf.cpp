@@ -192,6 +192,16 @@ QMap<int, BetaRecord> ENSDF::getBeta() const
     return beta;
 }
 
+QMap<int, AlphaRecord> ENSDF::getAlpha() const
+{
+    return alpha;
+}
+
+QMap<int, ECRecord> ENSDF::getEC() const
+{
+    return ec;
+}
+
 QMap<int, QVector<GammaRecord> > ENSDF::getGamma() const
 {
     return gamma;

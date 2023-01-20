@@ -36,6 +36,10 @@ public:
 
     QMap<int, BetaRecord> getBeta() const;
 
+    QMap<int,AlphaRecord> getAlpha() const;
+
+    QMap<int,ECRecord> getEC() const;
+
     QMap<int, QVector<GammaRecord> > getGamma() const;
 
 protected:

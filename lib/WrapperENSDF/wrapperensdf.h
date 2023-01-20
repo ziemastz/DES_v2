@@ -49,6 +49,12 @@ public:
     bool findBeta(const int &noDaughter, const int &noLevel) const;
     QString getIntensityBeta(const int &noDaughter, const int &noLevel) const;
 
+    bool findAlpha(const int &noDaughter, const int &noLevel) const;
+    QString getIntensityAlpha(const int &noDaughter, const int &noLevel) const;
+
+    bool findEC(const int &noDaughter, const int &noLevel) const;
+    QString getIntensityEC(const int &noDaughter, const int &noLevel) const;
+
     int countGammas(const int &noDaughter, const int &noLevel) const;
     QString getGammaEnergy(const int &noDaughter, const int &noLevel, const int &noGamma) const;
     QString getGammaIntensity(const int &noDaughter, const int &noLevel, const int &noGamma) const;

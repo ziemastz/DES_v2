@@ -4,7 +4,6 @@
 #include <QWidget>
 #include "Models/nuclidemodel.h"
 #include "Models/branchmodel.h"
-#include <QList>
 
 namespace Ui {
 class FormDashboard;

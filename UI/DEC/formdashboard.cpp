@@ -39,7 +39,6 @@ void FormDashboard::on_pushButton_importENSDF_clicked()
 
     radionuclide.setSpinParity(wrapper.getSpinParityParent());
 
-
     // load data in ui
     ui->comboBox_schemeRadionuclide->addItem(wrapper.getParent());
 
@@ -47,10 +46,7 @@ void FormDashboard::on_pushButton_importENSDF_clicked()
     for(int i = 0; i < noDaughters; i++) {
         int noLevels = wrapper.countLevels(i);
         for(int j = 0; j < noLevels; j++) {
-            branches << new BranchModel();
-
             if(wrapper.findBeta(i,j)) {
-
                 QStringList branchRecord;
                 //grantdaughter
                 branchRecord << "-";

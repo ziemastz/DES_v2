@@ -98,6 +98,26 @@ QString WrapperENSDF::getIntensityBeta(const int &noDaughter, const int &noLevel
     return raw.at(noDaughter).getBeta().value(noLevel).getIb();
 }
 
+bool WrapperENSDF::findAlpha(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getAlpha().contains(noLevel);
+}
+
+QString WrapperENSDF::getIntensityAlpha(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getAlpha().value(noLevel).getIa();
+}
+
+bool WrapperENSDF::findEC(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getEC().contains(noLevel);
+}
+
+QString WrapperENSDF::getIntensityEC(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getEC().value(noLevel).getIe();
+}
+
 int WrapperENSDF::countGammas(const int &noDaughter, const int &noLevel) const
 {
     return raw.at(noDaughter).getGamma().value(noLevel).count();

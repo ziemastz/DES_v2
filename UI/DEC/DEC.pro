@@ -10,21 +10,22 @@ CONFIG += c++17
 
 SOURCES += \
     Models/branchmodel.cpp \
+    Models/decayschememodel.cpp \
+    Models/gammamodel.cpp \
     Models/nuclidemodel.cpp \
-    formdashboard.cpp \
     formnuclide.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Models/branchmodel.h \
+    Models/decayschememodel.h \
+    Models/gammamodel.h \
     Models/nuclidemodel.h \
-    formdashboard.h \
     formnuclide.h \
     mainwindow.h
 
 FORMS += \
-    formdashboard.ui \
     formnuclide.ui \
     mainwindow.ui
 
