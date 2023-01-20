@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>Images/more_details.png</file>
+        <file>Images/histogram.png</file>
+        <file>Images/downloads.png</file>
+        <file>Images/add-list.png</file>
+        <file>Images/import.png</file>
     </qresource>
 </RCC>
