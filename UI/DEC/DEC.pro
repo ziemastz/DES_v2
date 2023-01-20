@@ -53,3 +53,6 @@ else:unix: LIBS += -L$$OUT_PWD/../../lib/WrapperENSDF/ -lWrapperENSDF
 
 INCLUDEPATH += $$PWD/../../lib/WrapperENSDF
 DEPENDPATH += $$PWD/../../lib/WrapperENSDF
+
+RESOURCES += \
+    resources.qrc
