@@ -3,6 +3,7 @@
 #include <QDateTime>
 #include "wrapperensdf.h"
 #include <QFileDialog>
+#include "toolwidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -105,6 +106,31 @@ void MainWindow::load()
     }
 
     //branches
+    ToolWidget::clearTableWidget(ui->branches_tableWidget);
+    for(int i=0; i<decay.branches.size(); i++) {
+        QStringList row;
+        row << decay.branches.at(i).parent
+            << decay.branches.at(i).transition
+            << decay.branches.at(i).intensity
+            << decay.branches.at(i).excited_level_keV
+            << decay.branches.at(i).daughter;
+        ToolWidget::addRecord(ui->branches_tableWidget,row);
+    }
 
+    //gamma
+    ToolWidget::clearTableWidget(ui->gamma_emissions_tableWidget);
+    for(int i=0; i<decay.branches.size(); i++) {
+        for(int j=0; j<decay.branches.at(i).gammes.size(); j++) {
+            QStringList row;
+            row << decay.branches.at(i).gammes.at(j).nuclide
+                << decay.branches.at(i).gammes.at(j).initialLevel_keV
+                << decay.branches.at(i).gammes.at(j).finalLevel_keV
+                << decay.branches.at(i).gammes.at(j).energy
+                << decay.branches.at(i).gammes.at(j).intensity
+                << decay.branches.at(i).gammes.at(j).multipolarity
+                << decay.branches.at(i).gammes.at(j).totalElectronConverstion;
+            ToolWidget::addRecord(ui->gamma_emissions_tableWidget,row);
+        }
+    }
 }
 
