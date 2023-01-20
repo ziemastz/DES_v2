@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     UI/DEC \
-    lib/WrapperENSDF
-#lib/libENSDFReader
+    lib/WrapperENSDF \
+    lib/ToolWidget
 
 DEC.depends = WrapperENSDF

@@ -2,17 +2,16 @@
 #define BRANCHMODEL_H
 
 #include <QObject>
-#include "Models/nuclidemodel.h"
 #include "Models/gammamodel.h"
 
 class BranchModel
 {
 public:
-    NuclideModel parent;
+    QString parent;
     QString transition;
     QString intensity;
     QString excited_level_keV;
-    NuclideModel daughter;
+    QString daughter;
 
     QList<GammaModel> gammes;
 

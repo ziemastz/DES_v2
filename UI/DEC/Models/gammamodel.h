@@ -5,7 +5,7 @@
 class GammaModel
 {
 public:
-    QString daughter;
+    QString nuclide;
     QString initialLevel_keV;
     QString finalLevel_keV;
     QString energy;
