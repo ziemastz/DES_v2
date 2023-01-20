@@ -13,6 +13,7 @@ SOURCES += \
     Models/decayschememodel.cpp \
     Models/gammamodel.cpp \
     Models/nuclidemodel.cpp \
+    editbranchdialog.cpp \
     formnuclide.cpp \
     main.cpp \
     mainwindow.cpp
@@ -22,10 +23,12 @@ HEADERS += \
     Models/decayschememodel.h \
     Models/gammamodel.h \
     Models/nuclidemodel.h \
+    editbranchdialog.h \
     formnuclide.h \
     mainwindow.h
 
 FORMS += \
+    editbranchdialog.ui \
     formnuclide.ui \
     mainwindow.ui
 

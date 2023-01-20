@@ -134,3 +134,9 @@ void MainWindow::load()
     }
 }
 
+
+void MainWindow::on_branches_tableWidget_cellDoubleClicked(int row, int column)
+{
+
+}
+

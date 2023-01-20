@@ -19,6 +19,8 @@ public:
 private slots:
     void on_import_ensdf_pushButton_clicked();
 
+    void on_branches_tableWidget_cellDoubleClicked(int row, int column);
+
 private:
     Ui::MainWindow *ui;
     DecaySchemeModel decay;
