@@ -10,14 +10,14 @@
  *    Create date:  12.01.2023
  *  ***************************************************************************
  *  Upgrade
- *  v1.0.0:
+ *  v1.0.1:
  *      - Import dateset of radionuclide from ENSDF
  */
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QApplication::setApplicationName("DES");
-    QApplication::setApplicationVersion("v1.0.0");
+    QApplication::setApplicationVersion("v1.0.1");
 
     MainWindow w;
     w.show();
