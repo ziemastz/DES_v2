@@ -57,5 +57,5 @@ DEPENDPATH += $$PWD/../../lib/WrapperENSDF
 RESOURCES += \
     resources.qrc
 
-DISTFILES += \
+RC_FILE += \
     icon.rc
