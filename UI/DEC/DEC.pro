@@ -29,6 +29,12 @@ FORMS += \
     formnuclide.ui \
     mainwindow.ui
 
+RESOURCES += \
+    resources.qrc
+
+RC_FILE += \
+    icon.rc
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -54,8 +60,17 @@ else:unix: LIBS += -L$$OUT_PWD/../../lib/WrapperENSDF/ -lWrapperENSDF
 INCLUDEPATH += $$PWD/../../lib/WrapperENSDF
 DEPENDPATH += $$PWD/../../lib/WrapperENSDF
 
-RESOURCES += \
-    resources.qrc
 
-RC_FILE += \
-    icon.rc
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../../lib/ToolWidget/release/ -lToolWidget
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../../lib/ToolWidget/debug/ -lToolWidget
+else:unix: LIBS += -L$$OUT_PWD/../../lib/ToolWidget/ -lToolWidget
+
+INCLUDEPATH += $$PWD/../../lib/ToolWidget
+DEPENDPATH += $$PWD/../../lib/ToolWidget
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../lib/ToolWidget/release/libToolWidget.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../lib/ToolWidget/debug/libToolWidget.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../lib/ToolWidget/release/ToolWidget.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$OUT_PWD/../../lib/ToolWidget/debug/ToolWidget.lib
+else:unix: PRE_TARGETDEPS += $$OUT_PWD/../../lib/ToolWidget/libToolWidget.a
