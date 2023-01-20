@@ -53,15 +53,15 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
             }
             if(ensdf.findAlpha(i,j)) {
                 decay.branches.last().parent = ensdf.getParent(i);
-                decay.branches.last().transition = "BETA-";
-                decay.branches.last().intensity = ensdf.getIntensityBeta(i,j);
+                decay.branches.last().transition = "ALPHA";
+                decay.branches.last().intensity = ensdf.getIntensityAlpha(i,j);
                 decay.branches.last().excited_level_keV = ensdf.getLevelEnergy(i,j);
                 decay.branches.last().daughter = ensdf.getDaughter(i);
             }
             if(ensdf.findEC(i,j)) {
                 decay.branches.last().parent = ensdf.getParent(i);
-                decay.branches.last().transition = "BETA-";
-                decay.branches.last().intensity = ensdf.getIntensityBeta(i,j);
+                decay.branches.last().transition = "EC";
+                decay.branches.last().intensity = ensdf.getIntensityEC(i,j);
                 decay.branches.last().excited_level_keV = ensdf.getLevelEnergy(i,j);
                 decay.branches.last().daughter = ensdf.getDaughter(i);
             }
