@@ -121,13 +121,15 @@ void MainWindow::load()
     //branches
     ToolWidget::clearTableWidget(ui->branches_tableWidget);
     for(int i=0; i<decay.branches.size(); i++) {
-        QStringList row;
-        row << decay.branches.at(i).parent.symbol
-            << decay.branches.at(i).transition
-            << decay.branches.at(i).intensity
-            << decay.branches.at(i).level.excited_level_keV
-            << decay.branches.at(i).daughter.symbol;
-        ToolWidget::addRecord(ui->branches_tableWidget,row);
+        if(!decay.branches.at(i).transition.isEmpty()) {
+            QStringList row;
+            row << decay.branches.at(i).parent.symbol
+                << decay.branches.at(i).transition
+                << decay.branches.at(i).intensity
+                << decay.branches.at(i).level.excited_level_keV
+                << decay.branches.at(i).daughter.symbol;
+            ToolWidget::addRecord(ui->branches_tableWidget,row);
+        }
     }
 
     //gamma
