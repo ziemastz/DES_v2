@@ -74,8 +74,8 @@ private:
     QString _filename;
     int count_line;
     bool wrap(const RecordENSDF &line);
-    bool isBlank(const RecordENSDF &str);
-    bool isBlank(const QString &str);
+    bool isBlank(const RecordENSDF &str) const;
+    bool isBlank(const QString &str) const;
 
 };
 

@@ -126,9 +126,12 @@ QString WrapperENSDF::getLevelEnergy(const int &noDaughter, const int &noLevel) 
 
 QString WrapperENSDF::getHalfLifeValueLevel(const int &noDaughter, const int &noLevel) const
 {
-    if(noDaughter < raw.count())
-        return raw.at(noDaughter).getLevel().at(noLevel).getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).first();
-    else
+    if(noDaughter < raw.count()) {
+        if(!isBlank(raw.at(noDaughter).getLevel().at(noLevel).getT()))
+            return raw.at(noDaughter).getLevel().at(noLevel).getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).first();
+        else
+            return QString();
+    }else
         return QString();
 }
 
@@ -143,7 +146,10 @@ QString WrapperENSDF::getHalfLifeUncertaintyLevel(const int &noDaughter, const i
 QString WrapperENSDF::getHalfLifeUnitLevel(const int &noDaughter, const int &noLevel) const
 {
     if(noDaughter < raw.count())
-        return raw.at(noDaughter).getLevel().at(noLevel).getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).last();
+        if(!isBlank(raw.at(noDaughter).getLevel().at(noLevel).getT()))
+            return raw.at(noDaughter).getLevel().at(noLevel).getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).last();
+        else
+            return QString();
     else
         return QString();
 }
@@ -378,7 +384,7 @@ bool WrapperENSDF::wrap(const RecordENSDF &line)
     return false;
 }
 
-bool WrapperENSDF::isBlank(const RecordENSDF &str)
+bool WrapperENSDF::isBlank(const RecordENSDF &str) const
 {
     if(str.count(QRegExp("\\s")) == str.size()) {
         return true;
@@ -387,7 +393,7 @@ bool WrapperENSDF::isBlank(const RecordENSDF &str)
     }
 }
 
-bool WrapperENSDF::isBlank(const QString &str)
+bool WrapperENSDF::isBlank(const QString &str) const
 {
     if(str.count(' ') == str.size()) {
         return true;
