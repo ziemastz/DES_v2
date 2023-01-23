@@ -814,6 +814,10 @@ color: rgb(238, 238, 238)
            <property name="text">
             <string>Atomic data</string>
            </property>
+           <property name="icon">
+            <iconset resource="resources.qrc">
+             <normaloff>:/Images/atomic-data.png</normaloff>:/Images/atomic-data.png</iconset>
+           </property>
           </widget>
          </item>
         </layout>

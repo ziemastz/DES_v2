@@ -7,5 +7,6 @@
         <file>Images/import.png</file>
         <file>Images/cancel.png</file>
         <file>Images/update.png</file>
+        <file>Images/atomic-data.png</file>
     </qresource>
 </RCC>
