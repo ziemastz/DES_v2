@@ -67,6 +67,7 @@ public:
     int countGammas(const int &noDaughter, const int &noLevel) const;
     QString getGammaEnergy(const int &noDaughter, const int &noLevel, const int &noGamma) const;
     QString getGammaIntensity(const int &noDaughter, const int &noLevel, const int &noGamma) const;
+    QString getGammaIntensity(const int &noDaughter, const int &noLevel) const;
     QString getGammaMultipolarity(const int &noDaughter, const int &noLevel, const int &noGamma) const;
     QString getGammaTotalElectronConvertion(const int &noDaughter, const int &noLevel, const int &noGamma) const;
     QString getFinalLevelEnergy(const int &noDaughter, const int &noLevel, const int &noGamma) const;

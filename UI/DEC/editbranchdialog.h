@@ -17,8 +17,20 @@ public:
     ~EditBranchDialog();
     void load(BranchModel *branch);
 
+    BranchModel branch() const;
+
+private slots:
+    void on_addUpdate_subshell_pushButton_clicked();
+
+    void on_cancel_pushButton_clicked();
+
+    void on_save_pushButton_clicked();
+
 private:
     Ui::EditBranchDialog *ui;
+    BranchModel _branch;
+
+    void ReloadECSubshellPropabilityTable();
 };
 
 #endif // EDITBRANCHDIALOG_H

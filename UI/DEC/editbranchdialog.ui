@@ -757,7 +757,153 @@ color: rgb(238, 238, 238)
                    </widget>
                   </item>
                   <item>
-                   <widget class="QComboBox" name="subshell_ec_comboBox"/>
+                   <widget class="QComboBox" name="subshell_ec_comboBox">
+                    <item>
+                     <property name="text">
+                      <string>K</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>L1</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>L2</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>L3</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>M1</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>M2</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>M3</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>M4</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>M5</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>N1</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>N2</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>N3</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>N4</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>N5</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>N6</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>N7</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>O1</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>O2</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>O3</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>O4</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>O5</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>O6</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>O7</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>P1</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>P2</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>P3</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>P4</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>P5</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Q1</string>
+                     </property>
+                    </item>
+                   </widget>
                   </item>
                   <item>
                    <widget class="QLabel" name="label_28">

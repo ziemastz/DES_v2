@@ -223,6 +223,15 @@ QString WrapperENSDF::getGammaIntensity(const int &noDaughter, const int &noLeve
     return raw.at(noDaughter).getGamma().value(noLevel).at(noGamma).getRi();
 }
 
+QString WrapperENSDF::getGammaIntensity(const int &noDaughter, const int &noLevel) const
+{
+    double Ri = 0;
+    for(int i=0; i<countGammas(noDaughter,noLevel);i++) {
+        Ri += raw.at(noDaughter).getGamma().value(noLevel).at(i).getRi().toDouble();
+    }
+    return QString::number(Ri);
+}
+
 QString WrapperENSDF::getGammaMultipolarity(const int &noDaughter, const int &noLevel, const int &noGamma) const
 {
     return raw.at(noDaughter).getGamma().value(noLevel).at(noGamma).getM();

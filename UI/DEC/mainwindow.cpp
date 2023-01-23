@@ -45,33 +45,6 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
         int noLevels = ensdf.countLevels(i);
         for(int j = 0; j < noLevels; j++) {
             decay.branches << BranchModel();
-            if(ensdf.findBeta(i,j)) {
-                decay.branches.last().parent.symbol = ensdf.getParent(i);
-                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
-                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
-                decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
-                decay.branches.last().transition = "BETA-";
-                decay.branches.last().intensity = ensdf.getIntensityBeta(i,j);
-            }
-            if(ensdf.findAlpha(i,j)) {
-                decay.branches.last().parent.symbol = ensdf.getParent(i);
-                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
-                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
-                decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
-                decay.branches.last().transition = "ALPHA";
-                decay.branches.last().intensity = ensdf.getIntensityAlpha(i,j);
-                decay.branches.last().alpha_energy_kev = ensdf.getEnergyAlpha(i,j);
-            }
-            if(ensdf.findEC(i,j)) {
-                decay.branches.last().parent.symbol = ensdf.getParent(i);
-                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
-                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
-                decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
-                decay.branches.last().transition = "EC";
-                decay.branches.last().intensity = ensdf.getIntensityTotalEC(i,j);
-                decay.branches.last().ec.intensityEC = ensdf.getIntensityEC(i,j);
-                decay.branches.last().ec.intensityBetaPlus= ensdf.getIntensityBetaPlus(i,j);
-            }
             //level & daughter
             decay.branches.last().level.excited_level_keV = ensdf.getLevelEnergy(i,j);
             decay.branches.last().level.halfLifeValue = ensdf.getHalfLifeValueLevel(i,j);
@@ -81,6 +54,44 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
             decay.branches.last().daughter.halfLifeValue = ensdf.getHalfLifeValueDaughter(i);
             decay.branches.last().daughter.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyDaughter(i);
             decay.branches.last().daughter.halfLifeUnit = ensdf.getHalfLifeUnitDaughter(i);
+
+            if(ensdf.findBeta(i,j)) {
+                decay.branches.last().parent.symbol = ensdf.getParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
+                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
+                decay.branches.last().transition = "BETA-";
+                decay.branches.last().intensity = ensdf.getIntensityBeta(i,j);
+            }else
+            if(ensdf.findAlpha(i,j)) {
+                decay.branches.last().parent.symbol = ensdf.getParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
+                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
+                decay.branches.last().transition = "ALPHA";
+                decay.branches.last().intensity = ensdf.getIntensityAlpha(i,j);
+                decay.branches.last().alpha_energy_kev = ensdf.getEnergyAlpha(i,j);
+            }else
+            if(ensdf.findEC(i,j)) {
+                decay.branches.last().parent.symbol = ensdf.getParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
+                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
+                decay.branches.last().transition = "EC";
+                decay.branches.last().intensity = ensdf.getIntensityTotalEC(i,j);
+                decay.branches.last().ec.intensityEC = ensdf.getIntensityEC(i,j);
+                decay.branches.last().ec.intensityBetaPlus= ensdf.getIntensityBetaPlus(i,j);
+            }else {
+                decay.branches.last().parent.symbol = ensdf.getParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
+                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
+                if(decay.branches.last().parent.symbol == decay.branches.last().daughter.symbol)
+                    decay.branches.last().transition = "IT";
+                else
+                    decay.branches.last().transition = "GAMMA";
+                decay.branches.last().intensity = ensdf.getGammaIntensity(i,j);
+            }
 
             //gamma
             int noGammas = ensdf.countGammas(i,j);
@@ -124,15 +135,14 @@ void MainWindow::load()
     //branches
     ToolWidget::clearTableWidget(ui->branches_tableWidget);
     for(int i=0; i<decay.branches.size(); i++) {
-        if(!decay.branches.at(i).transition.isEmpty()) {
-            QStringList row;
-            row << decay.branches.at(i).parent.symbol
-                << decay.branches.at(i).transition
-                << decay.branches.at(i).intensity
-                << decay.branches.at(i).level.excited_level_keV
-                << decay.branches.at(i).daughter.symbol;
-            ToolWidget::addRecord(ui->branches_tableWidget,row);
-        }
+        QStringList row;
+        row << decay.branches.at(i).parent.symbol
+            << decay.branches.at(i).transition
+            << decay.branches.at(i).intensity
+            << decay.branches.at(i).level.excited_level_keV
+            << decay.branches.at(i).daughter.symbol;
+        ToolWidget::addRecord(ui->branches_tableWidget,row);
+
     }
 
     //gamma
@@ -155,10 +165,13 @@ void MainWindow::load()
 
 void MainWindow::on_branches_tableWidget_cellDoubleClicked(int row, int column)
 {
+    if(decay.branches.at(row).transition == "GAMMA" || decay.branches.at(row).transition == "IT")
+        return;
+
     EditBranchDialog editBranch(this);
-
     editBranch.load(&decay.branches[row]);
-
-    editBranch.exec();
+    if(editBranch.exec() == QDialog::Accepted) {
+        decay.branches[row] = editBranch.branch();
+    }
 }
 

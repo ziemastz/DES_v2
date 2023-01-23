@@ -1,5 +1,6 @@
 #include "editbranchdialog.h"
 #include "ui_editbranchdialog.h"
+#include "toolwidget.h"
 
 EditBranchDialog::EditBranchDialog(QWidget *parent) :
     QDialog(parent),
@@ -15,6 +16,7 @@ EditBranchDialog::~EditBranchDialog()
 
 void EditBranchDialog::load(BranchModel *branch)
 {
+    _branch = *branch;
     //parent
     ui->parent_label->setText(branch->parent.symbol);
     ui->parent_half_life_value_lineEdit->setText(branch->parent.halfLifeValue);
@@ -45,6 +47,56 @@ void EditBranchDialog::load(BranchModel *branch)
     }
     if(branch->transition == "EC") {
         ui->stackedWidget->setCurrentIndex(2);
-        //ui->intensity_beta_plus_lineEdit->setText(branch->ec.)
+        ui->intensity_beta_plus_lineEdit->setText(branch->ec.intensityBetaPlus);
+        ui->intensity_ec_lineEdit->setText(branch->ec.intensityEC);
+        ReloadECSubshellPropabilityTable();
     }
 }
+
+void EditBranchDialog::on_addUpdate_subshell_pushButton_clicked()
+{
+    QString subshell = ui->subshell_ec_comboBox->currentText();
+    QString intensity = ui->subshell_intensity_ec_lineEdit->text();
+    if(subshell.isEmpty() || intensity.isEmpty())
+        return;
+    //update
+    if(_branch.ec.subshell_probability.contains(subshell)) {
+        _branch.ec.subshell_probability[subshell] = intensity;
+    }else{
+        _branch.ec.subshell_probability.insert(subshell,intensity);
+    }
+
+    ReloadECSubshellPropabilityTable();
+}
+
+BranchModel EditBranchDialog::branch() const
+{
+    return _branch;
+}
+
+void EditBranchDialog::ReloadECSubshellPropabilityTable()
+{
+    ToolWidget::clearTableWidget(ui->subshell_ec_tableWidget);
+    QStringList keys = _branch.ec.subshell_probability.keys();
+    std::sort(keys.begin(), keys.end());
+
+    for(int i=0;i<keys.size();i++) {
+        QStringList row;
+        row << keys.at(i)
+            << _branch.ec.subshell_probability.value(keys.at(i));
+        ToolWidget::addRecord(ui->subshell_ec_tableWidget,row);
+    }
+}
+
+
+void EditBranchDialog::on_cancel_pushButton_clicked()
+{
+    close();
+}
+
+
+void EditBranchDialog::on_save_pushButton_clicked()
+{
+    accept();
+}
+
