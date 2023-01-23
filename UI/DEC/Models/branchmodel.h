@@ -5,7 +5,7 @@
 #include "Models/gammamodel.h"
 #include "Models/nuclidemodel.h"
 #include "Models/levelmodel.h"
-
+#include "Models/ecmodel.h"
 class BranchModel
 {
 public:
@@ -17,6 +17,11 @@ public:
 
     QList<GammaModel> gammes;
 
+    //alpha
+    QString alpha_energy_kev;
+    //beta-
+    //ec (or EC + Beta+)
+    ECModel ec;
 };
 
 #endif // BRANCHMODEL_H

@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     Models/branchmodel.cpp \
     Models/decayschememodel.cpp \
+    Models/ecmodel.cpp \
     Models/gammamodel.cpp \
     Models/levelmodel.cpp \
     Models/nuclidemodel.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 HEADERS += \
     Models/branchmodel.h \
     Models/decayschememodel.h \
+    Models/ecmodel.h \
     Models/gammamodel.h \
     Models/levelmodel.h \
     Models/nuclidemodel.h \

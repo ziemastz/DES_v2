@@ -180,6 +180,11 @@ QString WrapperENSDF::getIntensityAlpha(const int &noDaughter, const int &noLeve
     return raw.at(noDaughter).getAlpha().value(noLevel).getIa();
 }
 
+QString WrapperENSDF::getEnergyAlpha(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getAlpha().value(noLevel).getE();
+}
+
 bool WrapperENSDF::findEC(const int &noDaughter, const int &noLevel) const
 {
     return raw.at(noDaughter).getEC().contains(noLevel);

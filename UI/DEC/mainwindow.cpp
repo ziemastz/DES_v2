@@ -60,6 +60,7 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
                 decay.branches.last().transition = "ALPHA";
                 decay.branches.last().intensity = ensdf.getIntensityAlpha(i,j);
+                decay.branches.last().alpha_energy_kev = ensdf.getEnergyAlpha(i,j);
             }
             if(ensdf.findEC(i,j)) {
                 decay.branches.last().parent.symbol = ensdf.getParent(i);
@@ -68,6 +69,8 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
                 decay.branches.last().transition = "EC";
                 decay.branches.last().intensity = ensdf.getIntensityTotalEC(i,j);
+                decay.branches.last().ec.intensityEC = ensdf.getIntensityEC(i,j);
+                decay.branches.last().ec.intensityBetaPlus= ensdf.getIntensityBetaPlus(i,j);
             }
             //level & daughter
             decay.branches.last().level.excited_level_keV = ensdf.getLevelEnergy(i,j);

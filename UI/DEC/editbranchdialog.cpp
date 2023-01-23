@@ -36,13 +36,15 @@ void EditBranchDialog::load(BranchModel *branch)
     ui->level_half_life_unit_comboBox->setCurrentIndex(ui->parent_half_life_unit_comboBox->findText(branch->level.halfLifeUnit));
 
     //transition type
-    if(branch->transition == "BETA-") {
-
-    }
     if(branch->transition == "ALPHA") {
-
+        ui->stackedWidget->setCurrentIndex(0);
+        ui->alpha_energy_lineEdit->setText(branch->alpha_energy_kev);
+    }
+    if(branch->transition == "BETA-") {
+        ui->stackedWidget->setCurrentIndex(1);
     }
     if(branch->transition == "EC") {
-
+        ui->stackedWidget->setCurrentIndex(2);
+        //ui->intensity_beta_plus_lineEdit->setText(branch->ec.)
     }
 }

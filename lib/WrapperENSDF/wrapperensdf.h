@@ -57,6 +57,7 @@ public:
 
     bool findAlpha(const int &noDaughter, const int &noLevel) const;
     QString getIntensityAlpha(const int &noDaughter, const int &noLevel) const;
+    QString getEnergyAlpha(const int &noDaughter, const int &noLevel) const;
 
     bool findEC(const int &noDaughter, const int &noLevel) const;
     QString getIntensityEC(const int &noDaughter, const int &noLevel) const;
