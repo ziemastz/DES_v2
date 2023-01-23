@@ -67,7 +67,7 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
                 decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
                 decay.branches.last().transition = "EC";
-                decay.branches.last().intensity = ensdf.getIntensityEC(i,j);
+                decay.branches.last().intensity = ensdf.getIntensityTotalEC(i,j);
             }
             //level & daughter
             decay.branches.last().level.excited_level_keV = ensdf.getLevelEnergy(i,j);

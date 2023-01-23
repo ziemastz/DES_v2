@@ -60,6 +60,8 @@ public:
 
     bool findEC(const int &noDaughter, const int &noLevel) const;
     QString getIntensityEC(const int &noDaughter, const int &noLevel) const;
+    QString getIntensityBetaPlus(const int &noDaughter, const int &noLevel) const;
+    QString getIntensityTotalEC(const int &noDaughter, const int &noLevel) const;
 
     int countGammas(const int &noDaughter, const int &noLevel) const;
     QString getGammaEnergy(const int &noDaughter, const int &noLevel, const int &noGamma) const;

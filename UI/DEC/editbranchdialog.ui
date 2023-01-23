@@ -263,7 +263,17 @@ color: rgb(238, 238, 238)
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="transition_lineEdit"/>
+            <widget class="QLineEdit" name="transition_lineEdit">
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_6">

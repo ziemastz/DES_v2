@@ -35,4 +35,14 @@ void EditBranchDialog::load(BranchModel *branch)
     ui->level_half_life_uncertainty_lineEdit->setText(branch->level.halfLifeUncertainty);
     ui->level_half_life_unit_comboBox->setCurrentIndex(ui->parent_half_life_unit_comboBox->findText(branch->level.halfLifeUnit));
 
+    //transition type
+    if(branch->transition == "BETA-") {
+
+    }
+    if(branch->transition == "ALPHA") {
+
+    }
+    if(branch->transition == "EC") {
+
+    }
 }

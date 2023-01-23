@@ -93,7 +93,10 @@ QString WrapperENSDF::getDaughter(const int &noDaughter) const
 QString WrapperENSDF::getHalfLifeValueDaughter(const int &noDaughter) const
 {
     if(noDaughter < raw.count())
-        return raw.at(noDaughter).getLevel().first().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).first();
+        if(!isBlank(raw.at(noDaughter).getLevel().first().getT()))
+            return raw.at(noDaughter).getLevel().first().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).first();
+        else
+            return QString("STABLE");
     else
         return QString();
 }
@@ -109,7 +112,10 @@ QString WrapperENSDF::getHalfLifeUncertaintyDaughter(const int &noDaughter) cons
 QString WrapperENSDF::getHalfLifeUnitDaughter(const int &noDaughter) const
 {
     if(noDaughter < raw.count())
-        return raw.at(noDaughter).getLevel().first().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).last();
+        if(!isBlank(raw.at(noDaughter).getLevel().first().getT()))
+            return raw.at(noDaughter).getLevel().first().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).last();
+        else
+            return QString();
     else
         return QString();
 }
@@ -182,6 +188,19 @@ bool WrapperENSDF::findEC(const int &noDaughter, const int &noLevel) const
 QString WrapperENSDF::getIntensityEC(const int &noDaughter, const int &noLevel) const
 {
     return raw.at(noDaughter).getEC().value(noLevel).getIe();
+}
+
+QString WrapperENSDF::getIntensityBetaPlus(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getEC().value(noLevel).getIb();
+}
+
+QString WrapperENSDF::getIntensityTotalEC(const int &noDaughter, const int &noLevel) const
+{
+    if(!isBlank(raw.at(noDaughter).getEC().value(noLevel).getTi()))
+        return raw.at(noDaughter).getEC().value(noLevel).getTi();
+    else
+        return getIntensityEC(noDaughter,noLevel);
 }
 
 int WrapperENSDF::countGammas(const int &noDaughter, const int &noLevel) const
