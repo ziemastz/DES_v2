@@ -26,6 +26,8 @@ private slots:
 
     void on_save_pushButton_clicked();
 
+    void on_atomic_data_pushButton_clicked();
+
 private:
     Ui::EditBranchDialog *ui;
     BranchModel _branch;

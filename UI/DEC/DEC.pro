@@ -15,6 +15,8 @@ SOURCES += \
     Models/gammamodel.cpp \
     Models/levelmodel.cpp \
     Models/nuclidemodel.cpp \
+    atomicdatadialog.cpp \
+    atomicsubshelldialog.cpp \
     editbranchdialog.cpp \
     formnuclide.cpp \
     main.cpp \
@@ -27,11 +29,15 @@ HEADERS += \
     Models/gammamodel.h \
     Models/levelmodel.h \
     Models/nuclidemodel.h \
+    atomicdatadialog.h \
+    atomicsubshelldialog.h \
     editbranchdialog.h \
     formnuclide.h \
     mainwindow.h
 
 FORMS += \
+    atomicdatadialog.ui \
+    atomicsubshelldialog.ui \
     editbranchdialog.ui \
     formnuclide.ui \
     mainwindow.ui

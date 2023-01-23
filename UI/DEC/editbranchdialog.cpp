@@ -100,3 +100,9 @@ void EditBranchDialog::on_save_pushButton_clicked()
     accept();
 }
 
+
+void EditBranchDialog::on_atomic_data_pushButton_clicked()
+{
+
+}
+
