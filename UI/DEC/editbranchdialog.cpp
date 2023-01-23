@@ -1,6 +1,7 @@
 #include "editbranchdialog.h"
 #include "ui_editbranchdialog.h"
 #include "toolwidget.h"
+#include "atomicdatadialog.h"
 
 EditBranchDialog::EditBranchDialog(QWidget *parent) :
     QDialog(parent),
@@ -103,6 +104,7 @@ void EditBranchDialog::on_save_pushButton_clicked()
 
 void EditBranchDialog::on_atomic_data_pushButton_clicked()
 {
-
+    AtomicDataDialog atomicData;
+    atomicData.setNuclide(ui->daughter_label->text());
 }
 
