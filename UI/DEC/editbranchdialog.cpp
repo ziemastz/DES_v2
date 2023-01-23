@@ -106,5 +106,6 @@ void EditBranchDialog::on_atomic_data_pushButton_clicked()
 {
     AtomicDataDialog atomicData;
     atomicData.setNuclide(ui->daughter_label->text());
+    atomicData.exec();
 }
 
