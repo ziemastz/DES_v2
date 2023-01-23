@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>641</height>
+    <width>545</width>
+    <height>668</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -555,52 +555,181 @@ color: rgb(238, 238, 238)
             </layout>
            </widget>
            <widget class="QWidget" name="page_ec">
-            <widget class="QLabel" name="label_24">
-             <property name="geometry">
-              <rect>
-               <x>30</x>
-               <y>10</y>
-               <width>76</width>
-               <height>21</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Intensity EC (%)</string>
-             </property>
-            </widget>
-            <widget class="QLineEdit" name="lineEdit_16">
-             <property name="geometry">
-              <rect>
-               <x>120</x>
-               <y>10</y>
-               <width>125</width>
-               <height>21</height>
-              </rect>
-             </property>
-            </widget>
-            <widget class="QLabel" name="label_25">
-             <property name="geometry">
-              <rect>
-               <x>270</x>
-               <y>10</y>
-               <width>76</width>
-               <height>21</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Intensity b+ (%)</string>
-             </property>
-            </widget>
-            <widget class="QLineEdit" name="lineEdit_17">
-             <property name="geometry">
-              <rect>
-               <x>360</x>
-               <y>10</y>
-               <width>125</width>
-               <height>21</height>
-              </rect>
-             </property>
-            </widget>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <spacer name="horizontalSpacer_17">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_24">
+                 <property name="text">
+                  <string>Intensity EC (%)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_16"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_25">
+                 <property name="text">
+                  <string>Intensity β+ (%)</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="lineEdit_17"/>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer_18">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_4">
+               <property name="title">
+                <string>Electron-Capture Transition Probability</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_5">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <spacer name="horizontalSpacer_20">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_27">
+                    <property name="text">
+                     <string>Subshell</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="comboBox_3"/>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_28">
+                    <property name="text">
+                     <string>Intensity</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="lineEdit_18"/>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_4">
+                    <property name="text">
+                     <string>Add / Update</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="resources.qrc">
+                      <normaloff>:/Images/update.png</normaloff>:/Images/update.png</iconset>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_19">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_2">
+                  <item>
+                   <spacer name="horizontalSpacer_15">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>37</width>
+                      <height>58</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QTableWidget" name="tableWidget">
+                    <property name="editTriggers">
+                     <set>QAbstractItemView::NoEditTriggers</set>
+                    </property>
+                    <property name="selectionBehavior">
+                     <enum>QAbstractItemView::SelectRows</enum>
+                    </property>
+                    <attribute name="horizontalHeaderStretchLastSection">
+                     <bool>true</bool>
+                    </attribute>
+                    <column>
+                     <property name="text">
+                      <string>Subshell</string>
+                     </property>
+                    </column>
+                    <column>
+                     <property name="text">
+                      <string>Intensity</string>
+                     </property>
+                    </column>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_16">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>37</width>
+                      <height>58</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>
@@ -612,20 +741,37 @@ color: rgb(238, 238, 238)
         <property name="title">
          <string>Daughter</string>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="daughter_label">
-           <property name="font">
-            <font>
-             <bold>true</bold>
-            </font>
-           </property>
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="5">
+          <widget class="QLineEdit" name="daughter_half_life_uncertainty_lineEdit"/>
+         </item>
+         <item row="0" column="3">
+          <widget class="QLineEdit" name="daughter_half_life_value_lineEdit"/>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>X-A</string>
+            <string>Half-life</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item>
+         <item row="0" column="7">
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="1">
           <spacer name="horizontalSpacer_4">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -638,20 +784,22 @@ color: rgb(238, 238, 238)
            </property>
           </spacer>
          </item>
-         <item>
-          <widget class="QLabel" name="label_3">
-           <property name="text">
-            <string>Half-life</string>
+         <item row="0" column="0">
+          <widget class="QLabel" name="daughter_label">
+           <property name="font">
+            <font>
+             <bold>true</bold>
+            </font>
            </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <property name="text">
+            <string>X-A</string>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QLineEdit" name="daughter_half_life_value_lineEdit"/>
+         <item row="0" column="6">
+          <widget class="QComboBox" name="daughter_half_life_unit_comboBox"/>
          </item>
-         <item>
+         <item row="0" column="4">
           <widget class="QLabel" name="label_4">
            <property name="text">
             <string>±</string>
@@ -661,24 +809,12 @@ color: rgb(238, 238, 238)
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QLineEdit" name="daughter_half_life_uncertainty_lineEdit"/>
-         </item>
-         <item>
-          <widget class="QComboBox" name="daughter_half_life_unit_comboBox"/>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_5">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+         <item row="1" column="7">
+          <widget class="QPushButton" name="pushButton_3">
+           <property name="text">
+            <string>Atomic data</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
+          </widget>
          </item>
         </layout>
        </widget>

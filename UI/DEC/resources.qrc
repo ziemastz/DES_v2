@@ -6,5 +6,6 @@
         <file>Images/add-list.png</file>
         <file>Images/import.png</file>
         <file>Images/cancel.png</file>
+        <file>Images/update.png</file>
     </qresource>
 </RCC>
