@@ -10,6 +10,8 @@ AtomicSubshellDialog::AtomicSubshellDialog(const QString &symbol, const QString 
     ui->setupUi(this);
     ui->groupBox_main->setTitle(subshell + " - Subshell");
     ui->label_titleApp->setText("Atomic Subshell "+subshell+" of "+symbol);
+    ui->label_vacancy->setText(subshell);
+    ui->label_vacancy_x->setText(subshell);
 }
 
 AtomicSubshellDialog::~AtomicSubshellDialog()
