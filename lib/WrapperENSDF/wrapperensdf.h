@@ -34,17 +34,23 @@ public:
     QString getParent() const;
     QString getParent(const int &noDaughter) const;
 
-    QString getHalfLifeValueParent() const;
-    QString getHalfLifeUncertaintyParent() const;
-    QString getHalfLifeUnitParent() const;
+    QString getHalfLifeValueParent(const int &noDaughter) const;
+    QString getHalfLifeUncertaintyParent(const int &noDaughter) const;
+    QString getHalfLifeUnitParent(const int &noDaughter) const;
 
-    QString getSpinParityParent() const;
+    QString getSpinParityParent(const int &noDaughter) const;
 
     int countDaughters() const;
     QString getDaughter(const int &noDaughter) const;
+    QString getHalfLifeValueDaughter(const int &noDaughter) const;
+    QString getHalfLifeUncertaintyDaughter(const int &noDaughter) const;
+    QString getHalfLifeUnitDaughter(const int &noDaughter) const;
 
     int countLevels(const int &noDaughter) const;
     QString getLevelEnergy(const int &noDaughter, const int &noLevel) const;
+    QString getHalfLifeValueLevel(const int &noDaughter, const int &noLevel) const;
+    QString getHalfLifeUncertaintyLevel(const int &noDaughter, const int &noLevel) const;
+    QString getHalfLifeUnitLevel(const int &noDaughter, const int &noLevel) const;
 
     bool findBeta(const int &noDaughter, const int &noLevel) const;
     QString getIntensityBeta(const int &noDaughter, const int &noLevel) const;

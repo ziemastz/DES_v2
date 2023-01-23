@@ -12,6 +12,7 @@ SOURCES += \
     Models/branchmodel.cpp \
     Models/decayschememodel.cpp \
     Models/gammamodel.cpp \
+    Models/levelmodel.cpp \
     Models/nuclidemodel.cpp \
     editbranchdialog.cpp \
     formnuclide.cpp \
@@ -22,6 +23,7 @@ HEADERS += \
     Models/branchmodel.h \
     Models/decayschememodel.h \
     Models/gammamodel.h \
+    Models/levelmodel.h \
     Models/nuclidemodel.h \
     editbranchdialog.h \
     formnuclide.h \

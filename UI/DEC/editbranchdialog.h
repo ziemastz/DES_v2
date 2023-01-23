@@ -2,6 +2,7 @@
 #define EDITBRANCHDIALOG_H
 
 #include <QDialog>
+#include "Models/branchmodel.h"
 
 namespace Ui {
 class EditBranchDialog;
@@ -14,6 +15,7 @@ class EditBranchDialog : public QDialog
 public:
     explicit EditBranchDialog(QWidget *parent = nullptr);
     ~EditBranchDialog();
+    void load(BranchModel *branch);
 
 private:
     Ui::EditBranchDialog *ui;

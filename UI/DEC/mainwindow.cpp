@@ -4,6 +4,7 @@
 #include "wrapperensdf.h"
 #include <QFileDialog>
 #include "toolwidget.h"
+#include "editbranchdialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -45,26 +46,38 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
         for(int j = 0; j < noLevels; j++) {
             decay.branches << BranchModel();
             if(ensdf.findBeta(i,j)) {
-                decay.branches.last().parent = ensdf.getParent(i);
+                decay.branches.last().parent.symbol = ensdf.getParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
+                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
                 decay.branches.last().transition = "BETA-";
                 decay.branches.last().intensity = ensdf.getIntensityBeta(i,j);
-                decay.branches.last().excited_level_keV = ensdf.getLevelEnergy(i,j);
-                decay.branches.last().daughter = ensdf.getDaughter(i);
             }
             if(ensdf.findAlpha(i,j)) {
-                decay.branches.last().parent = ensdf.getParent(i);
+                decay.branches.last().parent.symbol = ensdf.getParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
+                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
                 decay.branches.last().transition = "ALPHA";
                 decay.branches.last().intensity = ensdf.getIntensityAlpha(i,j);
-                decay.branches.last().excited_level_keV = ensdf.getLevelEnergy(i,j);
-                decay.branches.last().daughter = ensdf.getDaughter(i);
             }
             if(ensdf.findEC(i,j)) {
-                decay.branches.last().parent = ensdf.getParent(i);
+                decay.branches.last().parent.symbol = ensdf.getParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
+                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
                 decay.branches.last().transition = "EC";
                 decay.branches.last().intensity = ensdf.getIntensityEC(i,j);
-                decay.branches.last().excited_level_keV = ensdf.getLevelEnergy(i,j);
-                decay.branches.last().daughter = ensdf.getDaughter(i);
             }
+            //level & daughter
+            decay.branches.last().level.excited_level_keV = ensdf.getLevelEnergy(i,j);
+            decay.branches.last().level.halfLifeValue = ensdf.getHalfLifeValueLevel(i,j);
+            decay.branches.last().level.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyLevel(i,j);
+            decay.branches.last().level.halfLifeUnit = ensdf.getHalfLifeUnitLevel(i,j);
+            decay.branches.last().daughter.symbol = ensdf.getDaughter(i);
+            decay.branches.last().daughter.halfLifeValue = ensdf.getHalfLifeValueDaughter(i);
+            decay.branches.last().daughter.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyDaughter(i);
+            decay.branches.last().daughter.halfLifeUnit = ensdf.getHalfLifeUnitDaughter(i);
 
             //gamma
             int noGammas = ensdf.countGammas(i,j);
@@ -109,11 +122,11 @@ void MainWindow::load()
     ToolWidget::clearTableWidget(ui->branches_tableWidget);
     for(int i=0; i<decay.branches.size(); i++) {
         QStringList row;
-        row << decay.branches.at(i).parent
+        row << decay.branches.at(i).parent.symbol
             << decay.branches.at(i).transition
             << decay.branches.at(i).intensity
-            << decay.branches.at(i).excited_level_keV
-            << decay.branches.at(i).daughter;
+            << decay.branches.at(i).level.excited_level_keV
+            << decay.branches.at(i).daughter.symbol;
         ToolWidget::addRecord(ui->branches_tableWidget,row);
     }
 
@@ -137,6 +150,10 @@ void MainWindow::load()
 
 void MainWindow::on_branches_tableWidget_cellDoubleClicked(int row, int column)
 {
+    EditBranchDialog editBranch(this);
 
+    editBranch.load(&decay.branches[row]);
+
+    editBranch.exec();
 }
 

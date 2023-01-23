@@ -48,24 +48,36 @@ QString WrapperENSDF::getParent(const int &noDaughter) const
         return QString();
 }
 
-QString WrapperENSDF::getHalfLifeValueParent() const
+QString WrapperENSDF::getHalfLifeValueParent(const int &noDaughter) const
 {
-    return raw.first().getParent().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).first();
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getParent().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).first();
+    else
+        return QString();
 }
 
-QString WrapperENSDF::getHalfLifeUncertaintyParent() const
+QString WrapperENSDF::getHalfLifeUncertaintyParent(const int &noDaughter) const
 {
-    return raw.first().getParent().getDt();
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getParent().getDt();
+    else
+        return QString();
 }
 
-QString WrapperENSDF::getHalfLifeUnitParent() const
+QString WrapperENSDF::getHalfLifeUnitParent(const int &noDaughter) const
 {
-    return raw.first().getParent().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).last();
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getParent().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).last();
+    else
+        return QString();
 }
 
-QString WrapperENSDF::getSpinParityParent() const
+QString WrapperENSDF::getSpinParityParent(const int &noDaughter) const
 {
-   return raw.first().getParent() .getJ();
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getParent().getJ();
+    else
+        return QString();
 }
 
 int WrapperENSDF::countDaughters() const
@@ -78,6 +90,30 @@ QString WrapperENSDF::getDaughter(const int &noDaughter) const
     return raw.at(noDaughter).getLevel().first().getNucid();
 }
 
+QString WrapperENSDF::getHalfLifeValueDaughter(const int &noDaughter) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getLevel().first().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).first();
+    else
+        return QString();
+}
+
+QString WrapperENSDF::getHalfLifeUncertaintyDaughter(const int &noDaughter) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getLevel().first().getDt();
+    else
+        return QString();
+}
+
+QString WrapperENSDF::getHalfLifeUnitDaughter(const int &noDaughter) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getLevel().first().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).last();
+    else
+        return QString();
+}
+
 int WrapperENSDF::countLevels(const int &noDaughter) const
 {
     return raw.at(noDaughter).getLevel().count();
@@ -86,6 +122,30 @@ int WrapperENSDF::countLevels(const int &noDaughter) const
 QString WrapperENSDF::getLevelEnergy(const int &noDaughter, const int &noLevel) const
 {
     return raw.at(noDaughter).getLevel().at(noLevel).getE();
+}
+
+QString WrapperENSDF::getHalfLifeValueLevel(const int &noDaughter, const int &noLevel) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getLevel().at(noLevel).getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).first();
+    else
+        return QString();
+}
+
+QString WrapperENSDF::getHalfLifeUncertaintyLevel(const int &noDaughter, const int &noLevel) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getLevel().at(noLevel).getDt();
+    else
+        return QString();
+}
+
+QString WrapperENSDF::getHalfLifeUnitLevel(const int &noDaughter, const int &noLevel) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getLevel().at(noLevel).getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).last();
+    else
+        return QString();
 }
 
 bool WrapperENSDF::findBeta(const int &noDaughter, const int &noLevel) const

@@ -3,15 +3,17 @@
 
 #include <QObject>
 #include "Models/gammamodel.h"
+#include "Models/nuclidemodel.h"
+#include "Models/levelmodel.h"
 
 class BranchModel
 {
 public:
-    QString parent;
+    NuclideModel parent;
     QString transition;
     QString intensity;
-    QString excited_level_keV;
-    QString daughter;
+    LevelModel level;
+    NuclideModel daughter;
 
     QList<GammaModel> gammes;
 
