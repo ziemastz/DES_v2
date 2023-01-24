@@ -16,6 +16,9 @@ public:
     explicit AtomicSubshellDialog(const QString &symbol, const QString &subshell, QWidget *parent = nullptr);
     ~AtomicSubshellDialog();
 
+private slots:
+    void on_comboBox_occupancy_currentTextChanged(const QString &arg1);
+
 private:
     Ui::AtomicSubshellDialog *ui;
     QString _symbol;

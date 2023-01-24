@@ -21,3 +21,14 @@ AtomicSubshellDialog::~AtomicSubshellDialog()
 {
     delete ui;
 }
+
+void AtomicSubshellDialog::on_comboBox_occupancy_currentTextChanged(const QString &arg1)
+{
+    QString current_emitting = ui->comboBox_emitting->currentText();
+
+    ui->comboBox_emitting->clear();
+    ui->comboBox_emitting->addItem(arg1);
+    ui->comboBox_emitting->addItems(data.getSubshells(arg1));
+    ui->comboBox_emitting->setCurrentIndex(ui->comboBox_emitting->findText(current_emitting));
+}
+
