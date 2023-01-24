@@ -9,6 +9,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Models/atomicdatamodel.cpp \
+    Models/atomicsubshellmodel.cpp \
     Models/branchmodel.cpp \
     Models/decayschememodel.cpp \
     Models/ecmodel.cpp \
@@ -23,6 +25,8 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Models/atomicdatamodel.h \
+    Models/atomicsubshellmodel.h \
     Models/branchmodel.h \
     Models/decayschememodel.h \
     Models/ecmodel.h \
