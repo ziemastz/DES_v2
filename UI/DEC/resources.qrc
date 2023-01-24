@@ -8,5 +8,6 @@
         <file>Images/cancel.png</file>
         <file>Images/update.png</file>
         <file>Images/atomic-data.png</file>
+        <file>DB/des_1.db</file>
     </qresource>
 </RCC>

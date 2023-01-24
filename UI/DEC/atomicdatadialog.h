@@ -2,7 +2,8 @@
 #define ATOMICDATADIALOG_H
 
 #include <QDialog>
-#include "Models/atomicdatamodel.h"
+#include "Controllers/atomicdatacontroller.h"
+
 namespace Ui {
 class AtomicDataDialog;
 }

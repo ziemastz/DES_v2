@@ -2,6 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     UI/DEC \
+    lib/Database \
     lib/WrapperENSDF \
     lib/ToolWidget
 

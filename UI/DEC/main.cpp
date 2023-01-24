@@ -13,6 +13,7 @@
  *  v1.0.1:
  *      - Import dateset of radionuclide from ENSDF
  */
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
