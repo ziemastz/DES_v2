@@ -17,6 +17,10 @@ public:
     void setNuclide(const QString &symbol);
 private slots:
     void openSubshell();
+    void on_cancel_pushButton_clicked();
+
+    void on_save_pushButton_clicked();
+
 private:
     Ui::AtomicDataDialog *ui;
     QString _symbol;

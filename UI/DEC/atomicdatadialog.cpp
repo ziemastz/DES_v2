@@ -71,3 +71,15 @@ void AtomicDataDialog::loadData()
 {
 
 }
+
+void AtomicDataDialog::on_cancel_pushButton_clicked()
+{
+    close();
+}
+
+
+void AtomicDataDialog::on_save_pushButton_clicked()
+{
+
+}
+
