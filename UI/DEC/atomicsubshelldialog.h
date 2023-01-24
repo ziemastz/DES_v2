@@ -2,6 +2,7 @@
 #define ATOMICSUBSHELLDIALOG_H
 
 #include <QDialog>
+#include "Models/atomicsubshellmodel.h"
 
 namespace Ui {
 class AtomicSubshellDialog;
@@ -19,6 +20,8 @@ private:
     Ui::AtomicSubshellDialog *ui;
     QString _symbol;
     QString _subshell;
+
+    AtomicSubshellModel data;
 };
 
 #endif // ATOMICSUBSHELLDIALOG_H

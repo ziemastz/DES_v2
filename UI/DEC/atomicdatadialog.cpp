@@ -54,6 +54,8 @@ void AtomicDataDialog::setNuclide(const QString &symbol)
     _symbol = symbol;
     ui->groupBox->setTitle(symbol);
     ui->label_titleApp->setText("Atomic Data of "+symbol);
+
+    loadData();
 }
 
 void AtomicDataDialog::openSubshell()
@@ -63,4 +65,9 @@ void AtomicDataDialog::openSubshell()
 
     subshell = new AtomicSubshellDialog(_symbol,pushButton->text(),this);
     subshell->show();
+}
+
+void AtomicDataDialog::loadData()
+{
+
 }

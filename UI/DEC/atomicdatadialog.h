@@ -2,7 +2,7 @@
 #define ATOMICDATADIALOG_H
 
 #include <QDialog>
-
+#include "Models/atomicdatamodel.h"
 namespace Ui {
 class AtomicDataDialog;
 }
@@ -20,6 +20,9 @@ private slots:
 private:
     Ui::AtomicDataDialog *ui;
     QString _symbol;
+
+    AtomicDataModel data;
+    void loadData();
 };
 
 #endif // ATOMICDATADIALOG_H
