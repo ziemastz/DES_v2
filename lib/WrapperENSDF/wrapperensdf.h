@@ -33,6 +33,8 @@ public:
 
     QString getParent() const;
     QString getParent(const int &noDaughter) const;
+    QString getA_Parent(const int &noDaughter) const;
+    int getZ_Parent(const int &noDaughter) const;
 
     QString getHalfLifeValueParent(const int &noDaughter) const;
     QString getHalfLifeUncertaintyParent(const int &noDaughter) const;
@@ -42,9 +44,13 @@ public:
 
     int countDaughters() const;
     QString getDaughter(const int &noDaughter) const;
+    QString getA_Daughter(const int &noDaughter) const;
+    int getZ_Daughter(const int &noDaughter) const;
+
     QString getHalfLifeValueDaughter(const int &noDaughter) const;
     QString getHalfLifeUncertaintyDaughter(const int &noDaughter) const;
     QString getHalfLifeUnitDaughter(const int &noDaughter) const;
+    QString getSpinParityDaughter(const int &noDaughter) const;
 
     int countLevels(const int &noDaughter) const;
     QString getLevelEnergy(const int &noDaughter, const int &noLevel) const;

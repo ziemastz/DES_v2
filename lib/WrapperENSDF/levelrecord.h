@@ -2,6 +2,7 @@
 #define LEVELRECORD_H
 
 #include <QString>
+#include <QStringList>
 
 class LevelRecord
 {
@@ -11,8 +12,11 @@ public:
     void setBlank(const QString &newBlank);
 
     QString getNucid() const;
-
     void setNucid(const QString &newNucid);
+
+    QString getA() const;
+    QString getX() const;
+    int getZ() const;
 
     QString getE() const;
     void setE(const QString &newE);
@@ -62,6 +66,8 @@ private:
     QString c;
     QString ms;
     QString q;
+
+    QStringList symbols;
 };
 
 #endif // LEVELRECORD_H

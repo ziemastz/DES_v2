@@ -1,7 +1,7 @@
 #ifndef PARENTRECORD_H
 #define PARENTRECORD_H
 #include <QString>
-
+#include <QStringList>
 class ParentRecord
 {
 public:
@@ -11,6 +11,10 @@ public:
 
     QString getNucid() const;
     void setNucid(const QString &newNucid);
+
+    QString getA() const;
+    QString getX() const;
+    int getZ() const;
 
     QString getE() const;
     void setE(const QString &newE);
@@ -48,6 +52,8 @@ private:
     QString qp;
     QString dqp;
     QString ion;
+
+    QStringList symbols;
 
 };
 

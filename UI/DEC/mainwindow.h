@@ -24,6 +24,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     DecaySchemeModel decay;
-    void load();
+    void loadENSDF();
 };
 #endif // MAINWINDOW_H

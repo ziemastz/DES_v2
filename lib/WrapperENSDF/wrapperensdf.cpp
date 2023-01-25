@@ -48,6 +48,22 @@ QString WrapperENSDF::getParent(const int &noDaughter) const
         return QString();
 }
 
+QString WrapperENSDF::getA_Parent(const int &noDaughter) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getParent().getA();
+    else
+        return QString();
+}
+
+int WrapperENSDF::getZ_Parent(const int &noDaughter) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getParent().getZ();
+    else
+        return 0;
+}
+
 QString WrapperENSDF::getHalfLifeValueParent(const int &noDaughter) const
 {
     if(noDaughter < raw.count())
@@ -87,7 +103,26 @@ int WrapperENSDF::countDaughters() const
 
 QString WrapperENSDF::getDaughter(const int &noDaughter) const
 {
-    return raw.at(noDaughter).getLevel().first().getNucid();
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getLevel().first().getNucid();
+    else
+        return QString();
+}
+
+QString WrapperENSDF::getA_Daughter(const int &noDaughter) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getLevel().first().getA();
+    else
+        return QString();
+}
+
+int WrapperENSDF::getZ_Daughter(const int &noDaughter) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getLevel().first().getZ();
+    else
+        return 0;
 }
 
 QString WrapperENSDF::getHalfLifeValueDaughter(const int &noDaughter) const
@@ -116,6 +151,14 @@ QString WrapperENSDF::getHalfLifeUnitDaughter(const int &noDaughter) const
             return raw.at(noDaughter).getLevel().first().getT().split(QRegExp("\\s"),Qt::SkipEmptyParts).last();
         else
             return QString();
+    else
+        return QString();
+}
+
+QString WrapperENSDF::getSpinParityDaughter(const int &noDaughter) const
+{
+    if(noDaughter < raw.count())
+        return raw.at(noDaughter).getLevel().first().getJ();
     else
         return QString();
 }

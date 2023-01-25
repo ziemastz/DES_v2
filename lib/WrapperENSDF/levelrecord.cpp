@@ -2,7 +2,24 @@
 
 LevelRecord::LevelRecord()
 {
-
+    symbols     << "H " << "He" << "Li" << "Be" << "B " << "C "
+                << "N " << "O " << "F " << "Ne" << "Na" << "Mg"
+                << "Al" << "Si" << "P " << "S " << "Cl" << "Ar"
+                << "K " << "Ca" << "Sc" << "Ti" << "V " << "Cr"
+                << "Mn" << "Fe" << "Co" << "Ni" << "Cu" << "Zn"
+                << "Ga" << "Ge" << "As" << "Se" << "Br" << "Kr"
+                << "Rb" << "Sr" << "Y " << "Zr" << "Nb" << "Mo"
+                << "Tc" << "Ru" << "Rh" << "Pd" << "Ag" << "Cd"
+                << "In" << "Sn" << "Sb" << "Te" << "I " << "Xe"
+                << "Cs" << "Ba" << "La" << "Ce" << "Pr" << "Nd"
+                << "Pm" << "Sm" << "Eu" << "Gd" << "Tb" << "Dy"
+                << "Ho" << "Er" << "Tm" << "Yb" << "Lu" << "Hf"
+                << "Ta" << "W " << "Re" << "Os" << "Ir" << "Pt"
+                << "Au" << "Hg" << "Tl" << "Pb" << "Bi" << "Po"
+                << "At" << "Rn" << "Fr" << "Ra" << "Ac" << "Th"
+                << "Pa" << "U " << "Np" << "Pu" << "Am" << "Cm"
+                << "Bk" << "Cf" << "Es" << "Fm" << "Md" << "No"
+                << "Lr" << "Rf";
 }
 
 QString LevelRecord::getBlank() const
@@ -17,12 +34,27 @@ void LevelRecord::setBlank(const QString &newBlank)
 
 QString LevelRecord::getNucid() const
 {
-    return nucid.mid(3,2)+"-"+nucid.mid(0,3);
+    return getX()+"-"+getA();
 }
 
 void LevelRecord::setNucid(const QString &newNucid)
 {
     nucid = newNucid;
+}
+
+QString LevelRecord::getA() const
+{
+    return nucid.mid(0,3);
+}
+
+QString LevelRecord::getX() const
+{
+    return QString(nucid.at(3).toUpper())+QString(nucid.at(4).toLower());
+}
+
+int LevelRecord::getZ() const
+{
+    return symbols.indexOf(getX())+1;
 }
 
 QString LevelRecord::getE() const

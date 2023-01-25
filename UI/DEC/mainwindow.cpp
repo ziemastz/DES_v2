@@ -6,6 +6,8 @@
 #include "toolwidget.h"
 #include "editbranchdialog.h"
 
+#include "Controllers/nuclidecontroller.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -13,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->label_versionApp->setText(QApplication::applicationVersion());
     ui->label_currentDate->setText(QDateTime::currentDateTime().toString("dddd, d MMMM yyyy"));
+
+    NuclideController nuclide;
+    ui->selected_radionuclide_comboBox->addItems(nuclide.getNuclides());
 }
 
 MainWindow::~MainWindow()
@@ -50,42 +55,58 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
             decay.branches.last().level.halfLifeValue = ensdf.getHalfLifeValueLevel(i,j);
             decay.branches.last().level.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyLevel(i,j);
             decay.branches.last().level.halfLifeUnit = ensdf.getHalfLifeUnitLevel(i,j);
+
+            decay.branches.last().daughter.a = ensdf.getA_Daughter(i).toInt();
+            decay.branches.last().daughter.z = ensdf.getZ_Daughter(i);
             decay.branches.last().daughter.symbol = ensdf.getDaughter(i);
-            decay.branches.last().daughter.halfLifeValue = ensdf.getHalfLifeValueDaughter(i);
-            decay.branches.last().daughter.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyDaughter(i);
+            decay.branches.last().daughter.halfLifeValue = ensdf.getHalfLifeValueDaughter(i).toDouble();
+            decay.branches.last().daughter.halfLifeUncery = ensdf.getHalfLifeUncertaintyDaughter(i).toDouble();
             decay.branches.last().daughter.halfLifeUnit = ensdf.getHalfLifeUnitDaughter(i);
+            decay.branches.last().daughter.spinParity = ensdf.getSpinParityDaughter(i);
 
             if(ensdf.findBeta(i,j)) {
+                decay.branches.last().parent.a = ensdf.getA_Parent(i).toInt();
+                decay.branches.last().parent.z = ensdf.getZ_Parent(i);
                 decay.branches.last().parent.symbol = ensdf.getParent(i);
-                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
-                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i).toDouble();
+                decay.branches.last().parent.halfLifeUncery = ensdf.getHalfLifeUncertaintyParent(i).toDouble();
                 decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
+                decay.branches.last().parent.spinParity = ensdf.getSpinParityParent(i);
                 decay.branches.last().transition = "BETA-";
                 decay.branches.last().intensity = ensdf.getIntensityBeta(i,j);
             }else
             if(ensdf.findAlpha(i,j)) {
+                decay.branches.last().parent.a = ensdf.getA_Parent(i).toInt();
+                decay.branches.last().parent.z = ensdf.getZ_Parent(i);
                 decay.branches.last().parent.symbol = ensdf.getParent(i);
-                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
-                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i).toDouble();
+                decay.branches.last().parent.halfLifeUncery = ensdf.getHalfLifeUncertaintyParent(i).toDouble();
                 decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
+                decay.branches.last().parent.spinParity = ensdf.getSpinParityParent(i);
                 decay.branches.last().transition = "ALPHA";
                 decay.branches.last().intensity = ensdf.getIntensityAlpha(i,j);
                 decay.branches.last().alpha_energy_kev = ensdf.getEnergyAlpha(i,j);
             }else
             if(ensdf.findEC(i,j)) {
+                decay.branches.last().parent.a = ensdf.getA_Parent(i).toInt();
+                decay.branches.last().parent.z = ensdf.getZ_Parent(i);
                 decay.branches.last().parent.symbol = ensdf.getParent(i);
-                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
-                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i).toDouble();
+                decay.branches.last().parent.halfLifeUncery = ensdf.getHalfLifeUncertaintyParent(i).toDouble();
                 decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
+                decay.branches.last().parent.spinParity = ensdf.getSpinParityParent(i);
                 decay.branches.last().transition = "EC";
                 decay.branches.last().intensity = ensdf.getIntensityTotalEC(i,j);
                 decay.branches.last().ec.intensityEC = ensdf.getIntensityEC(i,j);
                 decay.branches.last().ec.intensityBetaPlus= ensdf.getIntensityBetaPlus(i,j);
             }else {
+                decay.branches.last().parent.a = ensdf.getA_Parent(i).toInt();
+                decay.branches.last().parent.z = ensdf.getZ_Parent(i);
                 decay.branches.last().parent.symbol = ensdf.getParent(i);
-                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i);
-                decay.branches.last().parent.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyParent(i);
+                decay.branches.last().parent.halfLifeValue = ensdf.getHalfLifeValueParent(i).toDouble();
+                decay.branches.last().parent.halfLifeUncery = ensdf.getHalfLifeUncertaintyParent(i).toDouble();
                 decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
+                decay.branches.last().parent.spinParity = ensdf.getSpinParityParent(i);
                 if(decay.branches.last().parent.symbol == decay.branches.last().daughter.symbol)
                     decay.branches.last().transition = "IT";
                 else
@@ -117,10 +138,10 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
     }
     //end load into decay model
 
-    load();
+    loadENSDF();
 }
 
-void MainWindow::load()
+void MainWindow::loadENSDF()
 {
     int index = ui->selected_radionuclide_comboBox->findText(decay.radionuclide);
 
@@ -129,7 +150,9 @@ void MainWindow::load()
         ui->selected_radionuclide_comboBox->addItem(decay.radionuclide);
         ui->selected_radionuclide_comboBox->blockSignals(false);
     }else {
+        ui->selected_radionuclide_comboBox->blockSignals(true);
         ui->selected_radionuclide_comboBox->setCurrentIndex(index);
+        ui->selected_radionuclide_comboBox->blockSignals(false);
     }
 
     //branches
