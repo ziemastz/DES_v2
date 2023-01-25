@@ -5,7 +5,7 @@
 #include <QFileDialog>
 #include "toolwidget.h"
 #include "editbranchdialog.h"
-
+#include <QMessageBox>
 #include "Controllers/nuclidecontroller.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -42,6 +42,13 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
         return;
     }
 
+    int index = ui->selected_radionuclide_comboBox->findText(ensdf.getParent());
+
+    if(index != -1) {
+        if(QMessageBox::question(this,tr("Replace"),tr("Radionuclide exists! Do you want to replace it?")) != QMessageBox::Yes) {
+            return;
+        }
+    }
     //load data to decay model
     decay.radionuclide = ensdf.getParent();
     decay.branches.clear();
