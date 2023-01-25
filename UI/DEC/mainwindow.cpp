@@ -51,9 +51,9 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
         for(int j = 0; j < noLevels; j++) {
             decay.branches << BranchModel();
             //level & daughter
-            decay.branches.last().level.excited_level_keV = ensdf.getLevelEnergy(i,j);
-            decay.branches.last().level.halfLifeValue = ensdf.getHalfLifeValueLevel(i,j);
-            decay.branches.last().level.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyLevel(i,j);
+            decay.branches.last().level.excited_level_keV = ensdf.getLevelEnergy(i,j).toDouble();
+            decay.branches.last().level.halfLifeValue = ensdf.getHalfLifeValueLevel(i,j).toDouble();
+            decay.branches.last().level.halfLifeUncertainty = ensdf.getHalfLifeUncertaintyLevel(i,j).toDouble();
             decay.branches.last().level.halfLifeUnit = ensdf.getHalfLifeUnitLevel(i,j);
 
             decay.branches.last().daughter.a = ensdf.getA_Daughter(i).toInt();
@@ -73,7 +73,7 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
                 decay.branches.last().parent.spinParity = ensdf.getSpinParityParent(i);
                 decay.branches.last().transition = "BETA-";
-                decay.branches.last().intensity = ensdf.getIntensityBeta(i,j);
+                decay.branches.last().intensity = ensdf.getIntensityBeta(i,j).toDouble();
             }else
             if(ensdf.findAlpha(i,j)) {
                 decay.branches.last().parent.a = ensdf.getA_Parent(i).toInt();
@@ -84,7 +84,7 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
                 decay.branches.last().parent.spinParity = ensdf.getSpinParityParent(i);
                 decay.branches.last().transition = "ALPHA";
-                decay.branches.last().intensity = ensdf.getIntensityAlpha(i,j);
+                decay.branches.last().intensity = ensdf.getIntensityAlpha(i,j).toDouble();
                 decay.branches.last().alpha_energy_kev = ensdf.getEnergyAlpha(i,j);
             }else
             if(ensdf.findEC(i,j)) {
@@ -96,7 +96,7 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 decay.branches.last().parent.halfLifeUnit = ensdf.getHalfLifeUnitParent(i);
                 decay.branches.last().parent.spinParity = ensdf.getSpinParityParent(i);
                 decay.branches.last().transition = "EC";
-                decay.branches.last().intensity = ensdf.getIntensityTotalEC(i,j);
+                decay.branches.last().intensity = ensdf.getIntensityTotalEC(i,j).toDouble();
                 decay.branches.last().ec.intensityEC = ensdf.getIntensityEC(i,j);
                 decay.branches.last().ec.intensityBetaPlus= ensdf.getIntensityBetaPlus(i,j);
             }else {
@@ -111,7 +111,7 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                     decay.branches.last().transition = "IT";
                 else
                     decay.branches.last().transition = "GAMMA";
-                decay.branches.last().intensity = ensdf.getGammaIntensity(i,j);
+                decay.branches.last().intensity = ensdf.getGammaIntensity(i,j).toDouble();
             }
 
             //gamma
@@ -122,17 +122,17 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 //Nuclid
                 decay.branches.last().gammes.last().nuclide = ensdf.getDaughter(i);
                 //Initial level
-                decay.branches.last().gammes.last().initialLevel_keV = ensdf.getLevelEnergy(i,j);
+                decay.branches.last().gammes.last().initialLevel_keV = ensdf.getLevelEnergy(i,j).toDouble();
                 //Final Level
-                decay.branches.last().gammes.last().finalLevel_keV = ensdf.getFinalLevelEnergy(i,j,g);
+                decay.branches.last().gammes.last().finalLevel_keV = ensdf.getFinalLevelEnergy(i,j,g).toDouble();
                 //energy g
-                decay.branches.last().gammes.last().energy = ensdf.getGammaEnergy(i,j,g);
+                decay.branches.last().gammes.last().energy = ensdf.getGammaEnergy(i,j,g).toDouble();
                 //intensity g
-                decay.branches.last().gammes.last().intensity = ensdf.getGammaIntensity(i,j,g);
+                decay.branches.last().gammes.last().intensity = ensdf.getGammaIntensity(i,j,g).toDouble();
                 //multipolarity
                 decay.branches.last().gammes.last().multipolarity = ensdf.getGammaMultipolarity(i,j,g);
                 //electron convertion total
-                decay.branches.last().gammes.last().totalElectronConverstion = ensdf.getGammaTotalElectronConvertion(i,j,g);
+                decay.branches.last().gammes.last().total_internal_conversion = ensdf.getGammaTotalElectronConvertion(i,j,g).toDouble();
             }
         }
     }
@@ -162,8 +162,8 @@ void MainWindow::loadENSDF()
         QStringList row;
         row << decay.branches.at(i).parent.symbol
             << decay.branches.at(i).transition
-            << decay.branches.at(i).intensity
-            << decay.branches.at(i).level.excited_level_keV
+            << QString::number(decay.branches.at(i).intensity)
+            << QString::number(decay.branches.at(i).level.excited_level_keV)
             << decay.branches.at(i).daughter.symbol;
         ToolWidget::addRecord(ui->branches_tableWidget,row);
 
@@ -175,15 +175,22 @@ void MainWindow::loadENSDF()
         for(int j=0; j<decay.branches.at(i).gammes.size(); j++) {
             QStringList row;
             row << decay.branches.at(i).gammes.at(j).nuclide
-                << decay.branches.at(i).gammes.at(j).initialLevel_keV
-                << decay.branches.at(i).gammes.at(j).finalLevel_keV
-                << decay.branches.at(i).gammes.at(j).energy
-                << decay.branches.at(i).gammes.at(j).intensity
+                << QString::number(decay.branches.at(i).gammes.at(j).initialLevel_keV)
+                << QString::number(decay.branches.at(i).gammes.at(j).finalLevel_keV)
+                << QString::number(decay.branches.at(i).gammes.at(j).energy)
+                << QString::number(decay.branches.at(i).gammes.at(j).intensity)
                 << decay.branches.at(i).gammes.at(j).multipolarity
-                << decay.branches.at(i).gammes.at(j).totalElectronConverstion;
+                << QString::number(decay.branches.at(i).gammes.at(j).total_internal_conversion);
             ToolWidget::addRecord(ui->gamma_emissions_tableWidget,row);
         }
     }
+}
+
+void MainWindow::load(const QString &nuclide)
+{
+    decay.radionuclide = nuclide;
+
+
 }
 
 
@@ -197,5 +204,11 @@ void MainWindow::on_branches_tableWidget_cellDoubleClicked(int row, int column)
     if(editBranch.exec() == QDialog::Accepted) {
         decay.branches[row] = editBranch.branch();
     }
+}
+
+
+void MainWindow::on_selected_radionuclide_comboBox_currentTextChanged(const QString &arg1)
+{
+    load(arg1);
 }
 

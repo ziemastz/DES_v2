@@ -21,9 +21,16 @@ private slots:
 
     void on_branches_tableWidget_cellDoubleClicked(int row, int column);
 
+    void on_selected_radionuclide_comboBox_currentTextChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
+
     DecaySchemeModel decay;
+
     void loadENSDF();
+
+    void load(const QString &nuclide);
+
 };
 #endif // MAINWINDOW_H

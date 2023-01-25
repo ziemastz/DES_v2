@@ -6,10 +6,10 @@
 class LevelModel
 {
 public:
-   QString excited_level_keV;
+   double excited_level_keV;
 
-   QString halfLifeValue;
-   QString halfLifeUncertainty;
+   double halfLifeValue;
+   double halfLifeUncertainty;
    QString halfLifeUnit;
 
    QString spinParity;

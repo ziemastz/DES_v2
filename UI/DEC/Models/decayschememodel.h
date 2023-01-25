@@ -7,7 +7,7 @@ class DecaySchemeModel
 {
 public:
     QString radionuclide;
-    QList<BranchModel> branches;
+    QVector<BranchModel> branches;
 };
 
 #endif // DECAYSCHEMEMODEL_H

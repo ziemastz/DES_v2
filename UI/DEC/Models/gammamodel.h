@@ -6,12 +6,12 @@ class GammaModel
 {
 public:
     QString nuclide;
-    QString initialLevel_keV;
-    QString finalLevel_keV;
-    QString energy;
-    QString intensity;
+    double initialLevel_keV;
+    double finalLevel_keV;
+    double energy;
+    double intensity;
     QString multipolarity;
-    QString totalElectronConverstion;
+    double total_internal_conversion;
 
 };
 
