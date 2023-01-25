@@ -60,8 +60,11 @@ void EditBranchDialog::on_addUpdate_subshell_pushButton_clicked()
     QString intensity = ui->subshell_intensity_ec_lineEdit->text();
     if(subshell.isEmpty() || intensity.isEmpty())
         return;
-    //update
-    if(_branch.ec.subshell_probability.contains(subshell)) {
+
+    if(intensity.toDouble() == 0.0) {
+        _branch.ec.subshell_probability.remove(subshell);
+
+    }else if(_branch.ec.subshell_probability.contains(subshell)) {
         _branch.ec.subshell_probability[subshell] = intensity;
     }else{
         _branch.ec.subshell_probability.insert(subshell,intensity);
