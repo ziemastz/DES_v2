@@ -20,14 +20,14 @@ void EditBranchDialog::load(BranchModel *branch)
     _branch = *branch;
     //parent
     ui->parent_label->setText(branch->parent.symbol);
-    ui->parent_half_life_value_lineEdit->setText(branch->parent.halfLifeValue);
-    ui->parent_half_life_uncertainty_lineEdit->setText(branch->parent.halfLifeUncertainty);
+    ui->parent_half_life_value_lineEdit->setText(QString::number(branch->parent.halfLifeValue));
+    ui->parent_half_life_uncertainty_lineEdit->setText(QString::number(branch->parent.halfLifeUncery));
     ui->parent_half_life_unit_comboBox->setCurrentIndex(ui->parent_half_life_unit_comboBox->findText(branch->parent.halfLifeUnit));
 
     //daughter
     ui->daughter_label->setText(branch->daughter.symbol);
-    ui->daughter_half_life_value_lineEdit->setText(branch->daughter.halfLifeValue);
-    ui->daughter_half_life_uncertainty_lineEdit->setText(branch->daughter.halfLifeUncertainty);
+    ui->daughter_half_life_value_lineEdit->setText(QString::number(branch->daughter.halfLifeValue));
+    ui->daughter_half_life_uncertainty_lineEdit->setText(QString::number(branch->daughter.halfLifeUncery));
     ui->daughter_half_life_unit_comboBox->setCurrentIndex(ui->parent_half_life_unit_comboBox->findText(branch->daughter.halfLifeUnit));
 
     //transition

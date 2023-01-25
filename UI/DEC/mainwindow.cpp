@@ -148,6 +148,7 @@ void MainWindow::loadENSDF()
     if(index == -1) {
         ui->selected_radionuclide_comboBox->blockSignals(true);
         ui->selected_radionuclide_comboBox->addItem(decay.radionuclide);
+        ui->selected_radionuclide_comboBox->setCurrentIndex(ui->selected_radionuclide_comboBox->findText(decay.radionuclide));
         ui->selected_radionuclide_comboBox->blockSignals(false);
     }else {
         ui->selected_radionuclide_comboBox->blockSignals(true);
