@@ -6,15 +6,18 @@
 class NuclideModel
 {
 public:
+    int id;
+    int a;
+    int z;
     QString symbol;
 
-    QString halfLifeValue;
-    QString halfLifeUncertainty;
+    double halfLifeValue;
+    double halfLifeUncery;
     QString halfLifeUnit;
 
-    QString radius;
-
     QString spinParity;
+
+    double radius;
 
 };
 
