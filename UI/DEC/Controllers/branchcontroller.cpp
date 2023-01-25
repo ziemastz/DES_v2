@@ -50,6 +50,15 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
             ret.last().gammes.last().total_internal_conversion = g_res.at(g).at(j++).toDouble();
         }
 
+        if(ret.last().transition == "ALPHA") {
+
+        }
+        if(ret.last().transition == "BETA-") {
+
+        }
+        if(ret.last().transition == "EC") {
+
+        }
 
     }
 
