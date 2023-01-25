@@ -8,13 +8,13 @@
 class AtomicDataModel
 {
 public:
-    QString radius;
+    double radius;
     //fluorescence Yields
-    QMap<QString,QString> fluorescenceYields; // <1, 2> 1:subshell, 2:intensity
+    QMap<QString,double> fluorescenceYields; // <1, 2> 1:subshell, 2:intensity
     //Coster-Kronig Yields
-    QString f12;
-    QString f13;
-    QString f23;
+    double f12;
+    double f13;
+    double f23;
 
 };
 

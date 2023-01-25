@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     Controllers/atomicdatacontroller.cpp \
     Controllers/basecontroller.cpp \
+    Controllers/nuclidecontroller.cpp \
     Models/atomicdatamodel.cpp \
     Models/atomicsubshellmodel.cpp \
     Models/branchmodel.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
 HEADERS += \
     Controllers/atomicdatacontroller.h \
     Controllers/basecontroller.h \
+    Controllers/nuclidecontroller.h \
     Models/atomicdatamodel.h \
     Models/atomicsubshellmodel.h \
     Models/branchmodel.h \

@@ -16,9 +16,6 @@ public:
     QString halfLifeUnit;
 
     QString spinParity;
-
-    double radius;
-
 };
 
 #endif // NUCLIDEMODEL_H
