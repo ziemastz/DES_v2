@@ -9,6 +9,7 @@ public:
     BaseController();
 protected:
     Database db;
+    QString statement;
 };
 
 #endif // BASECONTROLLER_H

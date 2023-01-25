@@ -1,8 +1,8 @@
 #include "atomicdatacontroller.h"
 
-AtomicDataController::AtomicDataController()
+AtomicDataController::AtomicDataController() : BaseController()
 {
-    qDebug() << "AtomicDataController contructor";
+
 }
 
 AtomicDataModel AtomicDataController::getAtomicData(const QString &nuclide)
