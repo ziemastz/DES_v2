@@ -7,6 +7,8 @@
 #include "Models/nuclidemodel.h"
 #include "Models/levelmodel.h"
 #include "Models/ecmodel.h"
+#include "Models/betatransitionmodel.h"
+
 class BranchModel
 {
 public:
@@ -21,7 +23,7 @@ public:
     //alpha
     QString alpha_energy_kev;
     //beta-
-
+    BetaTransitionModel beta;
     //ec (or EC + Beta+)
     ECModel ec;
 };

@@ -415,7 +415,7 @@ color: rgb(238, 238, 238)
          <item>
           <widget class="QStackedWidget" name="stackedWidget">
            <property name="currentIndex">
-            <number>2</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="page_alpha">
             <layout class="QGridLayout" name="gridLayout_2">

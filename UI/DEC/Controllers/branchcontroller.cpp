@@ -31,6 +31,8 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
         ret.last().level.spinParity = result.at(b).at(i++).toString();
         ret.last().daughter = nuclideController.getNuclide(result.at(b).at(i++).toString());
 
+
+        //gamma emission of level
         statement = QString("SELECT * "
                             "FROM gamma_emission "
                             "WHERE idDaughter = '%1' AND initialLevel_keV = %2")
@@ -51,10 +53,45 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
         }
 
         if(ret.last().transition == "ALPHA") {
+            statement = QString("SELECT energy_alpha "
+                                "FROM alpha_transition "
+                                "WHERE idParent = '%1' AND level_energy_keV = %2")
+                    .arg(ret.last().parent.symbol)
+                    .arg(ret.last().level.excited_level_keV);
 
+            QVector<QVariantList> a_res = db.read(statement);
+            if(a_res.size() == 1) {
+                ret.last().alpha_energy_kev = a_res.first().first().toDouble();
+            }
         }
         if(ret.last().transition == "BETA-") {
-
+            statement = QString("SELECT b.endpoint_energy_keV, "
+                                "f.type, b.coeff_a, b.coeff_b, b.coeff_c, b.coeff_d, b.coeff_e, "
+                                "e.type, b.exp_coeff_a, b.exp_coeff_b, b.exp_coeff_c, b.exp_coeff_d, "
+                                "b.mixing_ratio "
+                                "FROM beta_transition b "
+                                "LEFT JOIN forbiddenness_type f on b.forbiddenness = f.id "
+                                "LEFT JOIN exp_shape_factor_type e on b.exp_shape_factor = e.id "
+                                "WHERE b.idParent = '%1' AND b.level_energy_keV = %2")
+                    .arg(ret.last().parent.symbol)
+                    .arg(ret.last().level.excited_level_keV);
+            QVector<QVariantList> b_res = db.read(statement);
+            if(b_res.size() == 1) {
+                int i=0;
+                ret.last().beta.endpoint_energy_keV = b_res.first().at(i++).toDouble();
+                ret.last().beta.forbiddenness = b_res.first().at(i++).toString();
+                ret.last().beta.coeff_a = b_res.first().at(i++).toDouble();
+                ret.last().beta.coeff_b = b_res.first().at(i++).toDouble();
+                ret.last().beta.coeff_c = b_res.first().at(i++).toDouble();
+                ret.last().beta.coeff_d = b_res.first().at(i++).toDouble();
+                ret.last().beta.coeff_e = b_res.first().at(i++).toDouble();
+                ret.last().beta.exp_shape_factor = b_res.first().at(i++).toString();
+                ret.last().beta.exp_coeff_a = b_res.first().at(i++).toDouble();
+                ret.last().beta.exp_coeff_b = b_res.first().at(i++).toDouble();
+                ret.last().beta.exp_coeff_c = b_res.first().at(i++).toDouble();
+                ret.last().beta.exp_coeff_d = b_res.first().at(i++).toDouble();
+                ret.last().beta.mixing_ratio = b_res.first().at(i++).toDouble();
+            }
         }
         if(ret.last().transition == "EC") {
 
