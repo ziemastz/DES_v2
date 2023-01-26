@@ -36,3 +36,25 @@ QStringList NuclideController::getNuclides()
     }
     return ret;
 }
+
+QString NuclideController::getStandardFormatHalfLifeUnit(const QString &unit)
+{
+    QString ret;
+    statement = QString("SELECT unit FROM unit_halflife WHERE forms LIKE '% "+unit+" %'");
+    QVector<QVariantList> result = db.read(statement);
+    if(result.size() == 1) {
+        ret = result.first().first().toString();
+    }
+    return ret;
+}
+
+QStringList NuclideController::getStandardFormatHalfLifeUnits()
+{
+    QStringList ret;
+    statement = QString("SELECT unit FROM unit_halflife");
+    QVector<QVariantList> result = db.read(statement);
+    for(int i=0; i<result.size(); i++) {
+        ret << result.at(i).first().toString();
+    }
+    return ret;
+}

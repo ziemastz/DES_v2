@@ -2,12 +2,18 @@
 #include "ui_editbranchdialog.h"
 #include "toolwidget.h"
 #include "atomicdatadialog.h"
-
+#include "Controllers/nuclidecontroller.h"
 EditBranchDialog::EditBranchDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditBranchDialog)
 {
     ui->setupUi(this);
+    NuclideController nuc_contr;
+    QStringList unit_hl = nuc_contr.getStandardFormatHalfLifeUnits();
+    ui->parent_half_life_unit_comboBox->addItems(unit_hl);
+    ui->level_half_life_unit_comboBox->addItems(unit_hl);
+    ui->daughter_half_life_unit_comboBox->addItems(unit_hl);
+
 }
 
 EditBranchDialog::~EditBranchDialog()

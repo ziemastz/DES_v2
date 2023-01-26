@@ -8,6 +8,8 @@ public:
     NuclideController();
     NuclideModel getNuclide(const QString &symbol);
     QStringList getNuclides();
+    QString getStandardFormatHalfLifeUnit(const QString &unit);
+    QStringList getStandardFormatHalfLifeUnits();
 };
 
 #endif // NUCLIDECONTROLLER_H

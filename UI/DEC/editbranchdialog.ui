@@ -154,63 +154,7 @@ color: rgb(238, 238, 238)
           <widget class="QLineEdit" name="parent_half_life_uncertainty_lineEdit"/>
          </item>
          <item>
-          <widget class="QComboBox" name="parent_half_life_unit_comboBox">
-           <item>
-            <property name="text">
-             <string>Y</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>D</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>H</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>M</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>S</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>MS</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>US</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>NS</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>PS</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>FS</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>AS</string>
-            </property>
-           </item>
-          </widget>
+          <widget class="QComboBox" name="parent_half_life_unit_comboBox"/>
          </item>
          <item>
           <spacer name="horizontalSpacer_3">
@@ -316,63 +260,7 @@ color: rgb(238, 238, 238)
             </spacer>
            </item>
            <item row="1" column="5">
-            <widget class="QComboBox" name="level_half_life_unit_comboBox">
-             <item>
-              <property name="text">
-               <string>Y</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>D</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>H</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>M</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>S</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>MS</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>US</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>NS</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>PS</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>FS</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>AS</string>
-              </property>
-             </item>
-            </widget>
+            <widget class="QComboBox" name="level_half_life_unit_comboBox"/>
            </item>
            <item row="1" column="2">
             <widget class="QLineEdit" name="level_half_life_value_lineEdit"/>
@@ -1065,63 +953,7 @@ color: rgb(238, 238, 238)
           </widget>
          </item>
          <item row="0" column="6">
-          <widget class="QComboBox" name="daughter_half_life_unit_comboBox">
-           <item>
-            <property name="text">
-             <string>Y</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>D</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>H</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>M</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>S</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>MS</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>US</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>NS</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>PS</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>FS</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>AS</string>
-            </property>
-           </item>
-          </widget>
+          <widget class="QComboBox" name="daughter_half_life_unit_comboBox"/>
          </item>
          <item row="0" column="4">
           <widget class="QLabel" name="label_4">
