@@ -7,9 +7,9 @@
 class ECModel
 {
 public:
-    QString intensityEC;
-    QString intensityBetaPlus;
-    QMap<QString,QString> subshell_probability;
+    double intensityEC;
+    double intensityBetaPlus;
+    QMap<QString,double> subshell_probability;
 
 
 };

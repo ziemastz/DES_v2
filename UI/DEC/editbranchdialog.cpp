@@ -48,8 +48,8 @@ void EditBranchDialog::load(BranchModel *branch)
     }
     if(branch->transition == "EC") {
         ui->stackedWidget->setCurrentIndex(2);
-        ui->intensity_beta_plus_lineEdit->setText(branch->ec.intensityBetaPlus);
-        ui->intensity_ec_lineEdit->setText(branch->ec.intensityEC);
+        ui->intensity_beta_plus_lineEdit->setText(QString::number(branch->ec.intensityBetaPlus));
+        ui->intensity_ec_lineEdit->setText(QString::number(branch->ec.intensityEC));
         ReloadECSubshellPropabilityTable();
     }
 }
@@ -65,9 +65,9 @@ void EditBranchDialog::on_addUpdate_subshell_pushButton_clicked()
         _branch.ec.subshell_probability.remove(subshell);
 
     }else if(_branch.ec.subshell_probability.contains(subshell)) {
-        _branch.ec.subshell_probability[subshell] = intensity;
+        _branch.ec.subshell_probability[subshell] = intensity.toDouble();
     }else{
-        _branch.ec.subshell_probability.insert(subshell,intensity);
+        _branch.ec.subshell_probability.insert(subshell,intensity.toDouble());
     }
 
     ReloadECSubshellPropabilityTable();
@@ -87,7 +87,7 @@ void EditBranchDialog::ReloadECSubshellPropabilityTable()
     for(int i=0;i<keys.size();i++) {
         QStringList row;
         row << keys.at(i)
-            << _branch.ec.subshell_probability.value(keys.at(i));
+            << QString::number(_branch.ec.subshell_probability.value(keys.at(i)));
         ToolWidget::addRecord(ui->subshell_ec_tableWidget,row);
     }
 }

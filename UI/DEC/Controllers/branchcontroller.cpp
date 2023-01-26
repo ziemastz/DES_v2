@@ -94,7 +94,29 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
             }
         }
         if(ret.last().transition == "EC") {
-
+             statement = QString("SELECT intensity_ec, intensity_beta_plus "
+                                 "FROM ec_transition "
+                                 "WHERE idParent = '%1' AND level_energy_keV = %2")
+                     .arg(ret.last().parent.symbol)
+                     .arg(ret.last().level.excited_level_keV);
+             QVector<QVariantList> e_res = db.read(statement);
+             if(e_res.size() == 1) {
+                ret.last().ec.intensityEC = e_res.first().at(0).toDouble();
+                ret.last().ec.intensityBetaPlus = e_res.first().at(1).toDouble();
+             }
+             //subsell propability of ec
+             statement = QString("SELECT s.symbol, e.intensity "
+                                 "FROM ec_probability e "
+                                 "LEFT JOIN subshell s on s.id = e.idSubshell "
+                                 "WHERE e.idParent = '%1' and e.level_energy_keV = %2")
+                     .arg(ret.last().parent.symbol)
+                     .arg(ret.last().level.excited_level_keV);
+            e_res = db.read(statement);
+            for(int i=0; i<e_res.size(); i++) {
+                QString key = e_res.at(i).at(0).toString();
+                double value = e_res.at(i).at(1).toDouble();
+                ret.last().ec.subshell_probability.insert(key,value);
+            }
         }
 
     }

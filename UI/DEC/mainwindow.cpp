@@ -104,8 +104,8 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 decay.branches.last().parent.spinParity = ensdf.getSpinParityParent(i);
                 decay.branches.last().transition = "EC";
                 decay.branches.last().intensity = ensdf.getIntensityTotalEC(i,j).toDouble();
-                decay.branches.last().ec.intensityEC = ensdf.getIntensityEC(i,j);
-                decay.branches.last().ec.intensityBetaPlus= ensdf.getIntensityBetaPlus(i,j);
+                decay.branches.last().ec.intensityEC = ensdf.getIntensityEC(i,j).toDouble();
+                decay.branches.last().ec.intensityBetaPlus= ensdf.getIntensityBetaPlus(i,j).toDouble();
             }else {
                 decay.branches.last().parent.a = ensdf.getA_Parent(i).toInt();
                 decay.branches.last().parent.z = ensdf.getZ_Parent(i);
