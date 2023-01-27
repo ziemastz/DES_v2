@@ -23,6 +23,10 @@ private slots:
 
     void on_selected_radionuclide_comboBox_currentTextChanged(const QString &arg1);
 
+    void on_save_data_pushButton_clicked();
+
+    void on_gamma_emissions_tableWidget_cellDoubleClicked(int row, int column);
+
 private:
     Ui::MainWindow *ui;
 

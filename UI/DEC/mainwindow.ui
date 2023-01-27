@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>846</width>
+    <height>681</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -280,11 +280,11 @@ color: rgb(238, 238, 238)
          <item>
           <widget class="QPushButton" name="save_data_pushButton">
            <property name="text">
-            <string>Save</string>
+            <string>Save to database</string>
            </property>
            <property name="icon">
             <iconset resource="resources.qrc">
-             <normaloff>:/Images/downloads.png</normaloff>:/Images/downloads.png</iconset>
+             <normaloff>:/Images/database.png</normaloff>:/Images/database.png</iconset>
            </property>
           </widget>
          </item>
@@ -303,6 +303,11 @@ color: rgb(238, 238, 238)
          </item>
          <item>
           <widget class="QPushButton" name="generate_spectrumpushButton">
+           <property name="font">
+            <font>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
             <string>Generate spectrum</string>
            </property>

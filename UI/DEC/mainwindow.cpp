@@ -5,6 +5,8 @@
 #include <QFileDialog>
 #include "toolwidget.h"
 #include "editbranchdialog.h"
+#include "editgammadialog.h"
+
 #include <QMessageBox>
 #include "Controllers/nuclidecontroller.h"
 #include "Controllers/branchcontroller.h"
@@ -222,5 +224,41 @@ void MainWindow::on_branches_tableWidget_cellDoubleClicked(int row, int column)
 void MainWindow::on_selected_radionuclide_comboBox_currentTextChanged(const QString &arg1)
 {
     load(arg1);
+}
+
+
+void MainWindow::on_save_data_pushButton_clicked()
+{
+    if(QMessageBox::question(this,tr("Save to database"),tr("Existing data will be permanently replaced with new data. Do you want to continue?")) != QMessageBox::Yes) {
+        return;
+    }
+
+    qDebug() << "Save decay to database";
+
+}
+
+
+void MainWindow::on_gamma_emissions_tableWidget_cellDoubleClicked(int row, int column)
+{
+    EditGammaDialog editGamma(this);
+    int b = 0;
+    int g = 0;
+    int c = 0;
+    for(int i=0;i<decay.branches.size();i++) {
+        b=i;
+        for(int j=0; j<decay.branches.at(i).gammes.size();j++) {
+            g=j;
+            c++;
+            if(c-1 == row)
+                break;
+
+        }
+        if(c-1 == row)
+            break;
+    }
+    editGamma.load(&decay.branches[b].gammes[g]);
+    if(editGamma.exec() == QDialog::Accepted) {
+        decay.branches[b].gammes[g] = editGamma.gamma();
+    }
 }
 

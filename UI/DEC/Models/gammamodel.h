@@ -1,6 +1,7 @@
 #ifndef GAMMAMODEL_H
 #define GAMMAMODEL_H
 
+#include <QMap>
 #include <QString>
 class GammaModel
 {
@@ -12,6 +13,7 @@ public:
     double intensity;
     QString multipolarity;
     double total_internal_conversion;
+    QMap<QString,double> conversion_electrons; //Subshell, Yield
 
 };
 

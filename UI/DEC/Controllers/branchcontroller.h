@@ -9,7 +9,7 @@ class BranchController : public BaseController
 public:
     BranchController();
     QVector<BranchModel> getBranches(const QString &nuclide);
-
+    bool updateBranches(const QString &radionuclide, const QVector<BranchModel> &branches);
 
 };
 

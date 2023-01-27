@@ -26,6 +26,7 @@ SOURCES += \
     atomicdatadialog.cpp \
     atomicsubshelldialog.cpp \
     editbranchdialog.cpp \
+    editgammadialog.cpp \
     formnuclide.cpp \
     main.cpp \
     mainwindow.cpp
@@ -48,6 +49,7 @@ HEADERS += \
     atomicdatadialog.h \
     atomicsubshelldialog.h \
     editbranchdialog.h \
+    editgammadialog.h \
     formnuclide.h \
     mainwindow.h
 
@@ -55,6 +57,7 @@ FORMS += \
     atomicdatadialog.ui \
     atomicsubshelldialog.ui \
     editbranchdialog.ui \
+    editgammadialog.ui \
     formnuclide.ui \
     mainwindow.ui
 

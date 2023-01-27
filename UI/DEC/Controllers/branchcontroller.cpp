@@ -123,3 +123,8 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
 
     return ret;
 }
+
+bool BranchController::updateBranches(const QString &radionuclide, const QVector<BranchModel> &branches)
+{
+
+}
