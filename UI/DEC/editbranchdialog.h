@@ -79,6 +79,10 @@ private slots:
 
     void on_mixing_ratio_lineEdit_editingFinished();
 
+    void on_intensity_ec_lineEdit_editingFinished();
+
+    void on_intensity_beta_plus_lineEdit_editingFinished();
+
 private:
     Ui::EditBranchDialog *ui;
     BranchModel _branch;

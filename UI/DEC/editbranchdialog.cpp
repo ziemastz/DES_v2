@@ -16,7 +16,9 @@ EditBranchDialog::EditBranchDialog(QWidget *parent) :
     ui->daughter_half_life_unit_comboBox->addItems(unit_hl);
 
     BranchController branchContr;
+    ui->forbiddenness_comboBox->addItem("");
     ui->forbiddenness_comboBox->addItems(branchContr.forbiddenness());
+    ui->expShapeFactor_comboBox->addItem("");
     ui->expShapeFactor_comboBox->addItems(branchContr.expShapeFactors());
 
 
@@ -36,13 +38,14 @@ EditBranchDialog::EditBranchDialog(QWidget *parent) :
     connect(ui->coeff_c_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
     connect(ui->coeff_d_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
     connect(ui->coeff_e_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
-
     connect(ui->exp_a_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
     connect(ui->exp_b_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
     connect(ui->exp_c_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
     connect(ui->exp_d_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
-
     connect(ui->mixing_ratio_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+
+    connect(ui->intensity_ec_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
+    connect(ui->intensity_beta_plus_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
 }
 
 EditBranchDialog::~EditBranchDialog()
@@ -80,6 +83,19 @@ void EditBranchDialog::load(BranchModel *branch)
     }
     if(branch->transition == "BETA-") {
         ui->stackedWidget->setCurrentIndex(1);
+        ui->beta_endpoint_energy_lineEdit->setText(QString::number(branch->beta.endpoint_energy_keV));
+        ui->forbiddenness_comboBox->setCurrentIndex(ui->forbiddenness_comboBox->findText(branch.beta.forbiddenness));
+        ui->coeff_a_lineEdit->setText(QString::number(branch->beta.coeff_a));
+        ui->coeff_b_lineEdit->setText(QString::number(branch->beta.coeff_b));
+        ui->coeff_c_lineEdit->setText(QString::number(branch->beta.coeff_c));
+        ui->coeff_d_lineEdit->setText(QString::number(branch->beta.coeff_d));
+        ui->coeff_e_lineEdit->setText(QString::number(branch->beta.coeff_e));
+        ui->expShapeFactor_comboBox->setCurrentIndex(ui->expShapeFactor_comboBox->findText(branch->beta.exp_shape_factor));
+        ui->exp_a_lineEdit->setText(QString::number(branch->beta.exp_coeff_a));
+        ui->exp_b_lineEdit->setText(QString::number(branch->beta.exp_coeff_b));
+        ui->exp_c_lineEdit->setText(QString::number(branch->beta.exp_coeff_c));
+        ui->exp_d_lineEdit->setText(QString::number(branch->beta.exp_coeff_d));
+        ui->mixing_ratio_lineEdit->setText(QString::number(branch->beta.mixing_ratio));
     }
     if(branch->transition == "EC") {
         ui->stackedWidget->setCurrentIndex(2);
@@ -315,5 +331,17 @@ void EditBranchDialog::on_exp_d_lineEdit_editingFinished()
 void EditBranchDialog::on_mixing_ratio_lineEdit_editingFinished()
 {
     _branch.beta.mixing_ratio = ui->mixing_ratio_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_intensity_ec_lineEdit_editingFinished()
+{
+    _branch.ec.intensityEC = ui->intensity_ec_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_intensity_beta_plus_lineEdit_editingFinished()
+{
+    _branch.ec.intensityBetaPlus = ui->intensity_beta_plus_lineEdit->text().toDouble();
 }
 
