@@ -84,7 +84,7 @@ void EditBranchDialog::load(BranchModel *branch)
     if(branch->transition == "BETA-") {
         ui->stackedWidget->setCurrentIndex(1);
         ui->beta_endpoint_energy_lineEdit->setText(QString::number(branch->beta.endpoint_energy_keV));
-        ui->forbiddenness_comboBox->setCurrentIndex(ui->forbiddenness_comboBox->findText(branch.beta.forbiddenness));
+        ui->forbiddenness_comboBox->setCurrentIndex(ui->forbiddenness_comboBox->findText(branch->beta.forbiddenness));
         ui->coeff_a_lineEdit->setText(QString::number(branch->beta.coeff_a));
         ui->coeff_b_lineEdit->setText(QString::number(branch->beta.coeff_b));
         ui->coeff_c_lineEdit->setText(QString::number(branch->beta.coeff_c));
