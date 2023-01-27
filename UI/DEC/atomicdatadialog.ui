@@ -6,14 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>641</width>
-    <height>698</height>
+    <width>623</width>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Atomic Data DES</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QFrame" name="frame_top">
      <property name="styleSheet">
@@ -775,12 +790,17 @@ color: rgb(238, 238, 238)
         </item>
         <item>
          <widget class="QPushButton" name="save_pushButton">
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
-           <string>Save</string>
+           <string>Save to database</string>
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/Images/downloads.png</normaloff>:/Images/downloads.png</iconset>
+            <normaloff>:/Images/database.png</normaloff>:/Images/database.png</iconset>
           </property>
          </widget>
         </item>

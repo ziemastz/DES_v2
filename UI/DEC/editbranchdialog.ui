@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>545</width>
-    <height>576</height>
+    <height>677</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1007,8 +1007,13 @@ color: rgb(238, 238, 238)
         </item>
         <item>
          <widget class="QPushButton" name="save_pushButton">
+          <property name="font">
+           <font>
+            <bold>true</bold>
+           </font>
+          </property>
           <property name="text">
-           <string>Save</string>
+           <string>Update</string>
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
