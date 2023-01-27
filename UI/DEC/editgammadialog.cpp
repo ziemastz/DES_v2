@@ -86,12 +86,12 @@ void EditGammaDialog::on_energy_g_lineEdit_editingFinished()
 
 void EditGammaDialog::on_intensity_g_lineEdit_editingFinished()
 {
-    _gamma.intensity = ui->intensity_g_lineEdit.text().toDouble();
+    _gamma.intensity = ui->intensity_g_lineEdit->text().toDouble();
 }
 
 void EditGammaDialog::on_total_internal_conversion_lineEdit_editingFinished()
 {
-    _gamma.total_internal_conversion = ui->total_internal_conversion_lineEdit.text().toDouble();
+    _gamma.total_internal_conversion = ui->total_internal_conversion_lineEdit->text().toDouble();
 }
 
 void EditGammaDialog::on_multipolarity_lineEdit_editingFinished()

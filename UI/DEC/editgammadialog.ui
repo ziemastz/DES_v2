@@ -576,6 +576,21 @@ color: rgb(238, 238, 238)
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>energy_g_lineEdit</tabstop>
+  <tabstop>intensity_g_lineEdit</tabstop>
+  <tabstop>total_internal_conversion_lineEdit</tabstop>
+  <tabstop>multipolarity_lineEdit</tabstop>
+  <tabstop>subshell_cc_comboBox</tabstop>
+  <tabstop>intensity_cc_lineEdit</tabstop>
+  <tabstop>addUpdate_subshell_pushButton</tabstop>
+  <tabstop>subshell_cc_tableWidget</tabstop>
+  <tabstop>update_pushButton</tabstop>
+  <tabstop>cancel_pushButton</tabstop>
+  <tabstop>initial_level_lineEdit</tabstop>
+  <tabstop>nuclide_lineEdit</tabstop>
+  <tabstop>final_level_lineEdit</tabstop>
+ </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>
