@@ -49,7 +49,36 @@ private slots:
     void on_daughter_half_life_unit_comboBox_currentTextChanged(const QString &arg1);
 
     void urealNumberLineEdit(const QString &arg1);
+    void realNumberLineEdit(const QString &arg1);
     void percentageNumberLineEdit(const QString &arg1);
+    void on_alpha_energy_lineEdit_editingFinished();
+
+    void on_beta_endpoint_energy_lineEdit_editingFinished();
+
+    void on_forbiddenness_comboBox_currentTextChanged(const QString &arg1);
+
+    void on_coeff_a_lineEdit_editingFinished();
+
+    void on_coeff_b_lineEdit_editingFinished();
+
+    void on_coeff_c_lineEdit_editingFinished();
+
+    void on_coeff_d_lineEdit_editingFinished();
+
+    void on_coeff_e_lineEdit_editingFinished();
+
+    void on_expShapeFactor_comboBox_currentTextChanged(const QString &arg1);
+
+    void on_exp_a_lineEdit_editingFinished();
+
+    void on_exp_b_lineEdit_editingFinished();
+
+    void on_exp_c_lineEdit_editingFinished();
+
+    void on_exp_d_lineEdit_editingFinished();
+
+    void on_mixing_ratio_lineEdit_editingFinished();
+
 private:
     Ui::EditBranchDialog *ui;
     BranchModel _branch;

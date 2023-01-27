@@ -11,6 +11,9 @@ public:
     QVector<BranchModel> getBranches(const QString &nuclide);
     bool updateBranches(const QString &radionuclide, const QVector<BranchModel> &branches);
 
+    QStringList forbiddenness();
+    QStringList expShapeFactors();
+
 };
 
 #endif // BRANCHCONTROLLER_H

@@ -213,6 +213,16 @@ QString WrapperENSDF::getIntensityBeta(const int &noDaughter, const int &noLevel
     return raw.at(noDaughter).getBeta().value(noLevel).getIb();
 }
 
+QString WrapperENSDF::getEndpointEnergyBeta(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getBeta().value(noLevel).getE();
+}
+
+QString WrapperENSDF::getForbiddennessBeta(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getBeta().value(noLevel).getUn();
+}
+
 bool WrapperENSDF::findAlpha(const int &noDaughter, const int &noLevel) const
 {
     return raw.at(noDaughter).getAlpha().contains(noLevel);

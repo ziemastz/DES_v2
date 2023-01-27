@@ -3,6 +3,7 @@
 #include "toolwidget.h"
 #include "atomicdatadialog.h"
 #include "Controllers/nuclidecontroller.h"
+#include "Controllers/branchcontroller.h"
 EditBranchDialog::EditBranchDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditBranchDialog)
@@ -14,6 +15,11 @@ EditBranchDialog::EditBranchDialog(QWidget *parent) :
     ui->level_half_life_unit_comboBox->addItems(unit_hl);
     ui->daughter_half_life_unit_comboBox->addItems(unit_hl);
 
+    BranchController branchContr;
+    ui->forbiddenness_comboBox->addItems(branchContr.forbiddenness());
+    ui->expShapeFactor_comboBox->addItems(branchContr.expShapeFactors());
+
+
     connect(ui->parent_half_life_value_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
     connect(ui->parent_half_life_uncertainty_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
     connect(ui->daughter_half_life_value_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
@@ -22,6 +28,21 @@ EditBranchDialog::EditBranchDialog(QWidget *parent) :
     connect(ui->level_half_life_uncertainty_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
     connect(ui->total_intensity_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
 
+    connect(ui->alpha_energy_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+
+    connect(ui->beta_endpoint_energy_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->coeff_a_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->coeff_b_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->coeff_c_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->coeff_d_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->coeff_e_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+
+    connect(ui->exp_a_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->exp_b_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->exp_c_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->exp_d_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+
+    connect(ui->mixing_ratio_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
 }
 
 EditBranchDialog::~EditBranchDialog()
@@ -195,6 +216,12 @@ void EditBranchDialog::urealNumberLineEdit(const QString &arg1)
     }
 }
 
+void EditBranchDialog::realNumberLineEdit(const QString &arg1)
+{
+    QLineEdit *line = (QLineEdit *)sender();
+    ToolWidget::realNumberModeLineEdit(arg1,line);
+}
+
 void EditBranchDialog::percentageNumberLineEdit(const QString &arg1)
 {
     QLineEdit *line = (QLineEdit *)sender();
@@ -204,5 +231,89 @@ void EditBranchDialog::percentageNumberLineEdit(const QString &arg1)
     }else if(line->text().toDouble() > 100) {
         line->setText("100");
     }
+}
+
+
+void EditBranchDialog::on_alpha_energy_lineEdit_editingFinished()
+{
+    _branch.alpha_energy_kev = ui->alpha_energy_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_beta_endpoint_energy_lineEdit_editingFinished()
+{
+    _branch.beta.endpoint_energy_keV = ui->beta_endpoint_energy_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_forbiddenness_comboBox_currentTextChanged(const QString &arg1)
+{
+    _branch.beta.forbiddenness = arg1;
+}
+
+
+void EditBranchDialog::on_coeff_a_lineEdit_editingFinished()
+{
+    _branch.beta.coeff_a = ui->coeff_a_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_coeff_b_lineEdit_editingFinished()
+{
+    _branch.beta.coeff_b = ui->coeff_b_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_coeff_c_lineEdit_editingFinished()
+{
+    _branch.beta.coeff_c = ui->coeff_c_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_coeff_d_lineEdit_editingFinished()
+{
+    _branch.beta.coeff_d = ui->coeff_d_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_coeff_e_lineEdit_editingFinished()
+{
+    _branch.beta.coeff_e = ui->coeff_e_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_expShapeFactor_comboBox_currentTextChanged(const QString &arg1)
+{
+    _branch.beta.exp_shape_factor = arg1;
+}
+
+
+void EditBranchDialog::on_exp_a_lineEdit_editingFinished()
+{
+    _branch.beta.exp_coeff_a = ui->exp_a_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_exp_b_lineEdit_editingFinished()
+{
+    _branch.beta.exp_coeff_b = ui->exp_b_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_exp_c_lineEdit_editingFinished()
+{
+    _branch.beta.exp_coeff_c = ui->exp_c_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_exp_d_lineEdit_editingFinished()
+{
+    _branch.beta.exp_coeff_d = ui->exp_d_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_mixing_ratio_lineEdit_editingFinished()
+{
+    _branch.beta.mixing_ratio = ui->mixing_ratio_lineEdit->text().toDouble();
 }
 

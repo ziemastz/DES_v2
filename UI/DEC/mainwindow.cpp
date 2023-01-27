@@ -86,6 +86,7 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 decay.branches.last().parent.spinParity = ensdf.getSpinParityParent(i);
                 decay.branches.last().transition = "BETA-";
                 decay.branches.last().intensity = ensdf.getIntensityBeta(i,j).toDouble();
+                decay.branches.last().beta.endpoint_energy_keV = ensdf.getEndpointEnergyBeta(i,j).toDouble();
             }else
             if(ensdf.findAlpha(i,j)) {
                 decay.branches.last().parent.a = ensdf.getA_Parent(i).toInt();

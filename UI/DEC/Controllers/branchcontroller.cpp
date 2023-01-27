@@ -128,3 +128,25 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
 {
 
 }
+
+QStringList BranchController::forbiddenness()
+{
+    QStringList ret;
+    statement = QString("SELECT type FROM forbiddenness_type");
+    QVector<QVariantList> result = db.read(statement);
+    for(int i = 0; i< result.size(); i++) {
+        ret << result.at(i).first().toString();
+    }
+    return ret;
+}
+
+QStringList BranchController::expShapeFactors()
+{
+    QStringList ret;
+    statement = QString("SELECT type FROM exp_shape_factor_type");
+    QVector<QVariantList> result = db.read(statement);
+    for(int i = 0; i< result.size(); i++) {
+        ret << result.at(i).first().toString();
+    }
+    return ret;
+}
