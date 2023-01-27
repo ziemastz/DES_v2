@@ -5,6 +5,20 @@ NuclideController::NuclideController() : BaseController()
 
 }
 
+void NuclideController::setNuclide(const NuclideModel &nuclide)
+{
+    db.write(QString("DELETE FROM nuclide WHERE symbol='%1'").arg(nuclide.symbol));
+
+    statement = QString("INSERT INTO nuclide VALUES (%1,%2,'%3',%4,%5,(SELECT id FROM unit_halflife WHERE unit='%6'),'%7')")
+            .arg(nuclide.a)
+            .arg(nuclide.z)
+            .arg(nuclide.symbol)
+            .arg(nuclide.halfLifeValue)
+            .arg(nuclide.halfLifeUncery)
+            .arg(nuclide.halfLifeUnit)
+            .arg(nuclide.spinParity);
+}
+
 NuclideModel NuclideController::getNuclide(const QString &symbol)
 {
     NuclideModel ret;

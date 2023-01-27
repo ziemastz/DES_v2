@@ -126,7 +126,24 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
 
 bool BranchController::updateBranches(const QString &radionuclide, const QVector<BranchModel> &branches)
 {
-
+   //step 1: find in nuclide: parent and daughter
+    NuclideController nuclContr;
+    QStringList savedNuclides;
+    for(int i=0; i<branches.size(); i++) {
+       if(!savedNuclides.contains(branches.at(i).parent.symbol)) {
+           nuclContr.setNuclide(branches.at(i).parent);
+           savedNuclides << branches.at(i).parent.symbol;
+       }
+       if(!savedNuclides.contains(branches.at(i).daughter.symbol)) {
+           nuclContr.setNuclide(branches.at(i).daughter);
+           savedNuclides<< branches.at(i).daughter.symbol;
+       }
+    }
+    //step 2: update branches
+    for(int i=0; i<branches.size(); i++) {
+        db.write(QString("DELETE FROM branch WHERE id"))
+    }
+    return true;
 }
 
 QStringList BranchController::forbiddenness()
