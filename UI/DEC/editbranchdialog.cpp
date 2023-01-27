@@ -14,6 +14,14 @@ EditBranchDialog::EditBranchDialog(QWidget *parent) :
     ui->level_half_life_unit_comboBox->addItems(unit_hl);
     ui->daughter_half_life_unit_comboBox->addItems(unit_hl);
 
+    connect(ui->parent_half_life_value_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->parent_half_life_uncertainty_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->daughter_half_life_value_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->daughter_half_life_uncertainty_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->level_half_life_value_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->level_half_life_uncertainty_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->total_intensity_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
+
 }
 
 EditBranchDialog::~EditBranchDialog()
@@ -116,5 +124,85 @@ void EditBranchDialog::on_atomic_data_pushButton_clicked()
     AtomicDataDialog atomicData;
     atomicData.setNuclide(ui->daughter_label->text());
     atomicData.exec();
+}
+
+
+void EditBranchDialog::on_parent_half_life_value_lineEdit_editingFinished()
+{
+    _branch.parent.halfLifeValue = ui->parent_half_life_value_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_parent_half_life_uncertainty_lineEdit_editingFinished()
+{
+    _branch.parent.halfLifeUncery = ui->parent_half_life_uncertainty_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_parent_half_life_unit_comboBox_currentTextChanged(const QString &arg1)
+{
+    _branch.parent.halfLifeUnit = arg1;
+}
+
+
+void EditBranchDialog::on_total_intensity_lineEdit_editingFinished()
+{
+    _branch.intensity = ui->total_intensity_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_level_half_life_value_lineEdit_editingFinished()
+{
+    _branch.level.halfLifeValue = ui->level_half_life_value_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_level_half_life_uncertainty_lineEdit_editingFinished()
+{
+    _branch.level.halfLifeUncertainty = ui->level_half_life_uncertainty_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_level_half_life_unit_comboBox_currentTextChanged(const QString &arg1)
+{
+    _branch.level.halfLifeUnit = arg1;
+}
+
+
+void EditBranchDialog::on_daughter_half_life_value_lineEdit_editingFinished()
+{
+    _branch.daughter.halfLifeValue = ui->daughter_half_life_value_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_daughter_half_life_uncertainty_lineEdit_editingFinished()
+{
+    _branch.daughter.halfLifeUncery = ui->daughter_half_life_uncertainty_lineEdit->text().toDouble();
+}
+
+
+void EditBranchDialog::on_daughter_half_life_unit_comboBox_currentTextChanged(const QString &arg1)
+{
+    _branch.daughter.halfLifeUnit = arg1;
+}
+
+void EditBranchDialog::urealNumberLineEdit(const QString &arg1)
+{
+    QLineEdit *line = (QLineEdit *)sender();
+    ToolWidget::realNumberModeLineEdit(arg1,line);
+    if(line->text().toDouble() < 0) {
+        line->setText("0");
+    }
+}
+
+void EditBranchDialog::percentageNumberLineEdit(const QString &arg1)
+{
+    QLineEdit *line = (QLineEdit *)sender();
+    ToolWidget::realNumberModeLineEdit(arg1,line);
+    if(line->text().toDouble() < 0) {
+        line->setText("0");
+    }else if(line->text().toDouble() > 100) {
+        line->setText("100");
+    }
 }
 

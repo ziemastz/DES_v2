@@ -28,6 +28,28 @@ private slots:
 
     void on_atomic_data_pushButton_clicked();
 
+    void on_parent_half_life_value_lineEdit_editingFinished();
+
+    void on_parent_half_life_uncertainty_lineEdit_editingFinished();
+
+    void on_parent_half_life_unit_comboBox_currentTextChanged(const QString &arg1);
+
+    void on_total_intensity_lineEdit_editingFinished();
+
+    void on_level_half_life_value_lineEdit_editingFinished();
+
+    void on_level_half_life_uncertainty_lineEdit_editingFinished();
+
+    void on_level_half_life_unit_comboBox_currentTextChanged(const QString &arg1);
+
+    void on_daughter_half_life_value_lineEdit_editingFinished();
+
+    void on_daughter_half_life_uncertainty_lineEdit_editingFinished();
+
+    void on_daughter_half_life_unit_comboBox_currentTextChanged(const QString &arg1);
+
+    void urealNumberLineEdit(const QString &arg1);
+    void percentageNumberLineEdit(const QString &arg1);
 private:
     Ui::EditBranchDialog *ui;
     BranchModel _branch;

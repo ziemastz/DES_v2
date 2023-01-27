@@ -296,14 +296,21 @@ color: rgb(238, 238, 238)
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="QLineEdit" name="excited_level_lineEdit"/>
+            <widget class="QLineEdit" name="excited_level_lineEdit">
+             <property name="frame">
+              <bool>false</bool>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
          <item>
           <widget class="QStackedWidget" name="stackedWidget">
            <property name="currentIndex">
-            <number>2</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page_alpha">
             <layout class="QGridLayout" name="gridLayout_2">
