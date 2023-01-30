@@ -232,6 +232,35 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
         }
 
         // beta- transition
+        if(branches.at(i).transition == "BETA-") {
+            statement = QString("INSERT INTO beta_transition "
+                                "VALUES(%1, %2, "
+                                "(SELECT id FROM forbiddenness_type WHERE type='%3'), "
+                                "%4, %5, %6, %7, %8,"
+                                "(SELECT id FROM exp_shape_factor_type WHERE type='%9'), "
+                                "%10, %11, %12, %13, %14)")
+                    .arg(id_branch)
+                    .arg(branches.at(i).beta.endpoint_energy_keV)
+                    .arg(branches.at(i).beta.forbiddenness)
+                    .arg(branches.at(i).beta.coeff_a)
+                    .arg(branches.at(i).beta.coeff_b)
+                    .arg(branches.at(i).beta.coeff_c)
+                    .arg(branches.at(i).beta.coeff_d)
+                    .arg(branches.at(i).beta.coeff_e)
+                    .arg(branches.at(i).beta.exp_shape_factor)
+                    .arg(branches.at(i).beta.exp_coeff_a)
+                    .arg(branches.at(i).beta.exp_coeff_b)
+                    .arg(branches.at(i).beta.exp_coeff_c)
+                    .arg(branches.at(i).beta.exp_coeff_d)
+                    .arg(branches.at(i).beta.mixing_ratio);
+            if(!db->write(statement)) {
+                db->write("ROLLBACK");
+                return false;
+            }
+        }
+
+        //EC transition
+
     }
     db->write("COMMIT");
     return true;
