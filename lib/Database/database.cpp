@@ -65,7 +65,7 @@ bool Database::write(const QString &statement)
     }
 
     if(_query->exec(statement)) {
-        lastInsertId = _query->lastInsertId().toInt();
+        lastInsertId = _query->lastInsertId().toUInt();
         return true;
     }else {
         qWarning() << "Wrong writing query: " << _query->lastError().text();
@@ -109,7 +109,7 @@ QVector<QVariantList> Database::read(const QString &statement)
     }
 }
 
-int Database::getLastInsertId() const
+uint Database::getLastInsertId() const
 {
     return lastInsertId;
 }

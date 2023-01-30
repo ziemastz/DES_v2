@@ -1,5 +1,6 @@
 #include "branchcontroller.h"
 #include "Controllers/nuclidecontroller.h"
+#include <QMapIterator>
 
 BranchController::BranchController() : BaseController()
 {
@@ -169,7 +170,68 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
     //step 3: insert branches
     for(int i=0; i<branches.size(); i++) {
         // insert branch
-        statement = QString("INSERT");
+        statement = QString("INSERT INTO branch(idRadionuclide, idParent, transition, intensity, excited_level_keV, halfLifeValue, halfLifeUncer, halfLifeUnit, spinParity, idDaughter) "
+                            "VALUES('%1', '%2', '%3', %4, %5, %6, %7, (SELECT id FROM unit_halflife WHERE unit='%8'), '%9', '%10')")
+                .arg(radionuclide)
+                .arg(branches.at(i).parent.symbol)
+                .arg(branches.at(i).transition)
+                .arg(branches.at(i).intensity)
+                .arg(branches.at(i).level.excited_level_keV)
+                .arg(branches.at(i).level.halfLifeValue)
+                .arg(branches.at(i).level.halfLifeUncertainty)
+                .arg(branches.at(i).level.halfLifeUnit)
+                .arg(branches.at(i).level.spinParity)
+                .arg(branches.at(i).daughter.symbol);
+        if(!db->write(statement)) {
+            db->write("ROLLBACK");
+            return false;
+        }
+        uint id_branch = db->getLastInsertId();
+
+        //gamma emisions
+        for(int g=0;g<branches.at(i).gammes.size();g++) {
+            statement = QString("INSERT INTO gamma_emission(id_branch, finalLevel_keV, energy, intensity, multipolarity, total_internal_conversion) "
+                                "VALUES(%1, %2, %3, %4, '%5', %6)")
+                    .arg(id_branch)
+                    .arg(branches.at(i).gammes.at(g).finalLevel_keV)
+                    .arg(branches.at(i).gammes.at(g).energy)
+                    .arg(branches.at(i).gammes.at(g).intensity)
+                    .arg(branches.at(i).gammes.at(g).multipolarity)
+                    .arg(branches.at(i).gammes.at(g).total_internal_conversion);
+            if(!db->write(statement)) {
+                db->write("ROLLBACK");
+                return false;
+            }
+            // conversion electron emisions
+            QMapIterator<QString,double> iter(branches.at(i).gammes.at(g).conversion_electrons);
+            while(iter.hasNext()) {
+                QString key = iter.key();
+                double value = iter.value();
+                statement = QString("INSERT INTO gamma_ce(id_branch, id_subshell, intensity) "
+                                    "VALUES (%1, (SELECT id FROM subshell WHERE symbol ='%2'), %3)")
+                        .arg(id_branch)
+                        .arg(key)
+                        .arg(value);
+                if(!db->write(statement)) {
+                    db->write("ROLLBACK");
+                    return false;
+                }
+            }
+        }
+
+        // alpha transition
+        if(branches.at(i).transition == "ALPHA") {
+            statement = QString("INSERT INTO alpha_transition(id_branch,energy_alpha)"
+                                "VALUES(%1, %2)")
+                    .arg(id_branch)
+                    .arg(branches.at(i).alpha_energy_kev);
+            if(!db->write(statement)) {
+                db->write("ROLLBACK");
+                return false;
+            }
+        }
+
+        // beta- transition
     }
     db->write("COMMIT");
     return true;

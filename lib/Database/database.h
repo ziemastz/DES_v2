@@ -24,7 +24,7 @@ public:
     bool write(const QString& statement);
     QVector<QVariantList> read(const QString& statement);
 
-    int getLastInsertId() const;
+    uint getLastInsertId() const;
 
 private:
     Database();
@@ -34,7 +34,7 @@ private:
     QSqlDatabase *_db;
     QSqlQuery *_query;
     QString _connectionName;
-    int lastInsertId;
+    uint lastInsertId;
 };
 
 #endif // DATABASE_H
