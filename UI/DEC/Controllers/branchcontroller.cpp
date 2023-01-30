@@ -15,7 +15,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
                         "LEFT JOIN unit_halflife u ON u.id = b.halfLifeUnit "
                         "WHERE b.idRadionuclide = '%1' "
                         "ORDER BY b.idParent, b.excited_level_keV").arg(nuclide);
-    QVector<QVariantList> result = db.read(statement);
+    QVector<QVariantList> result = db->read(statement);
     NuclideController nuclideController;
 
     for(int b=0; b<result.size(); b++) {
@@ -39,7 +39,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
                             "WHERE id_branch = %1")
                 .arg(ret.last().id);
 
-        QVector<QVariantList> g_res = db.read(statement);
+        QVector<QVariantList> g_res = db->read(statement);
         for(int g = 0; g< g_res.size(); g++) {
             ret.last().gammes << GammaModel();
             ret.last().gammes.last().idBranch = ret.last().id;
@@ -59,7 +59,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
                                 "LEFT JOIN subshell s ON g.id_subshell = s.id "
                                 "WHERE id_branch = %1")
                     .arg(ret.last().id);
-            QVector<QVariantList> g_ce_res = db.read(statement);
+            QVector<QVariantList> g_ce_res = db->read(statement);
             for(int c=0;c<g_ce_res.size();c++) {
                 ret.last().gammes.last().conversion_electrons.insert(g_ce_res.at(c).first().toString(),
                                                                      g_ce_res.at(c).last().toDouble());
@@ -72,7 +72,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
                                 "WHERE id_branch = %1")
                     .arg(ret.last().id);
 
-            QVector<QVariantList> a_res = db.read(statement);
+            QVector<QVariantList> a_res = db->read(statement);
             if(a_res.size() == 1) {
                 ret.last().alpha_energy_kev = a_res.first().first().toDouble();
             }
@@ -88,7 +88,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
                                 "WHERE b.id_branch = %1")
                     .arg(ret.last().id);
 
-            QVector<QVariantList> b_res = db.read(statement);
+            QVector<QVariantList> b_res = db->read(statement);
             if(b_res.size() == 1) {
                 ret.last().beta.idBranch = ret.last().id;
                 int i=0;
@@ -113,7 +113,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
                                  "WHERE id_branch = %1")
                      .arg(ret.last().id);
 
-             QVector<QVariantList> e_res = db.read(statement);
+             QVector<QVariantList> e_res = db->read(statement);
              if(e_res.size() == 1) {
                 ret.last().ec.intensityEC = e_res.first().at(0).toDouble();
                 ret.last().ec.intensityBetaPlus = e_res.first().at(1).toDouble();
@@ -125,7 +125,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
                                  "WHERE e.id_branch = %1")
                      .arg(ret.last().id);
 
-             e_res = db.read(statement);
+             e_res = db->read(statement);
             for(int i=0; i<e_res.size(); i++) {
                 QString key = e_res.at(i).at(0).toString();
                 double value = e_res.at(i).at(1).toDouble();
@@ -140,7 +140,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
 
 bool BranchController::updateBranches(const QString &radionuclide, const QVector<BranchModel> &branches)
 {
-    if(!db.write("BEGIN TRANSACTION"))
+    if(!db->write("BEGIN TRANSACTION"))
         return false;
    //step 1: find in nuclide: parent and daughter
     NuclideController nuclContr;
@@ -148,30 +148,30 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
     for(int i=0; i<branches.size(); i++) {
        if(!savedNuclides.contains(branches.at(i).parent.symbol)) {
            if(!nuclContr.setNuclide(branches.at(i).parent)) {
-               db.write("ROLLBACK");
+               db->write("ROLLBACK");
                return false;
            }
            savedNuclides << branches.at(i).parent.symbol;
        }
        if(!savedNuclides.contains(branches.at(i).daughter.symbol)) {
            if(!nuclContr.setNuclide(branches.at(i).daughter)) {
-               db.write("ROLLBACK");
+               db->write("ROLLBACK");
                return false;
            }
            savedNuclides<< branches.at(i).daughter.symbol;
        }
     }
     //step 2: delete old branches
-    if(!db.write(QString("DELETE FROM branch WHERE idRadionuclide='%1").arg(radionuclide))) {
-        db.write("ROLLBACK");
+    if(!db->write(QString("DELETE FROM branch WHERE idRadionuclide='%1").arg(radionuclide))) {
+        db->write("ROLLBACK");
         return false;
     }
     //step 3: insert branches
     for(int i=0; i<branches.size(); i++) {
         // insert branch
-        statement = QString("INSERT")
+        statement = QString("INSERT");
     }
-    db.write("COMMIT");
+    db->write("COMMIT");
     return true;
 }
 
@@ -179,7 +179,7 @@ QStringList BranchController::forbiddenness()
 {
     QStringList ret;
     statement = QString("SELECT type FROM forbiddenness_type");
-    QVector<QVariantList> result = db.read(statement);
+    QVector<QVariantList> result = db->read(statement);
     for(int i = 0; i< result.size(); i++) {
         ret << result.at(i).first().toString();
     }
@@ -190,7 +190,7 @@ QStringList BranchController::expShapeFactors()
 {
     QStringList ret;
     statement = QString("SELECT type FROM exp_shape_factor_type");
-    QVector<QVariantList> result = db.read(statement);
+    QVector<QVariantList> result = db->read(statement);
     for(int i = 0; i< result.size(); i++) {
         ret << result.at(i).first().toString();
     }

@@ -7,8 +7,9 @@ class BaseController
 {
 public:
     BaseController();
+    ~BaseController();
 protected:
-    Database db;
+    Database *db;
     QString statement;
 };
 

@@ -22,4 +22,10 @@ BaseController::BaseController()
     }
     Database::setDriver(driver);
     Database::setDatabaseName(databaseName);
+    db = Database::database();
+}
+
+BaseController::~BaseController()
+{
+    delete db;
 }

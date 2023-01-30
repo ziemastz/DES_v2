@@ -1,5 +1,6 @@
 #include "database.h"
 
+Database *Database::_instance = nullptr;
 QString Database::_driver = "";
 QString Database::_databaseName = "";
 
@@ -20,6 +21,14 @@ Database::~Database()
         delete _db;
         QSqlDatabase::removeDatabase(_connectionName);
     }
+}
+
+Database *Database::database()
+{
+    if(_instance == nullptr) {
+        _instance = new Database();
+    }
+    return _instance;
 }
 
 void Database::setDriver(const QString &newDriver)

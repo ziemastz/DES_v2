@@ -13,9 +13,11 @@
 class Database
 {
 public:
-    Database();
+    Database(Database &other) = delete;
+    void operator=(const Database &other) = delete;
     ~Database();
 
+    static Database *database();
     static void setDriver(const QString &newDriver);
     static void setDatabaseName(const QString &newDatabaseName);
 
@@ -25,6 +27,8 @@ public:
     int getLastInsertId() const;
 
 private:
+    Database();
+    static Database* _instance;
     static QString _driver;
     static QString _databaseName;
     QSqlDatabase *_db;

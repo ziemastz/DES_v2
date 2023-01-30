@@ -7,7 +7,7 @@ NuclideController::NuclideController() : BaseController()
 
 bool NuclideController::setNuclide(const NuclideModel &nuclide)
 {
-    if(!db.write(QString("DELETE FROM nuclide WHERE symbol='%1'").arg(nuclide.symbol)))
+    if(!db->write(QString("DELETE FROM nuclide WHERE symbol='%1'").arg(nuclide.symbol)))
         return false;
 
     statement = QString("INSERT INTO nuclide VALUES (%1,%2,'%3',%4,%5,(SELECT id FROM unit_halflife WHERE unit='%6'),'%7')")
@@ -18,7 +18,7 @@ bool NuclideController::setNuclide(const NuclideModel &nuclide)
             .arg(nuclide.halfLifeUncery)
             .arg(nuclide.halfLifeUnit)
             .arg(nuclide.spinParity);
-    return db.write(statement);
+    return db->write(statement);
 }
 
 NuclideModel NuclideController::getNuclide(const QString &symbol)
@@ -28,7 +28,7 @@ NuclideModel NuclideController::getNuclide(const QString &symbol)
                         "FROM nuclide n "
                         "INNER JOIN unit_halflife u ON n.halfLifeUnit = u.id "
                         "WHERE symbol = '%1'").arg(symbol);
-    QVector<QVariantList> result = db.read(statement);
+    QVector<QVariantList> result = db->read(statement);
     if(result.size() == 1) {
         ret.id = result.first().at(0).toInt();
         ret.a = result.first().at(0).toInt();
@@ -46,7 +46,7 @@ QStringList NuclideController::getNuclides()
 {
     QStringList ret;
     statement = QString("SELECT symbol FROM nuclide ORDER BY a");
-    QVector<QVariantList> result = db.read(statement);
+    QVector<QVariantList> result = db->read(statement);
     for(int i=0; i<result.size(); i++) {
         ret << result.at(i).first().toString();
     }
@@ -57,7 +57,7 @@ QString NuclideController::getStandardFormatHalfLifeUnit(const QString &unit)
 {
     QString ret;
     statement = QString("SELECT unit FROM unit_halflife WHERE forms LIKE '% "+unit+" %'");
-    QVector<QVariantList> result = db.read(statement);
+    QVector<QVariantList> result = db->read(statement);
     if(result.size() == 1) {
         ret = result.first().first().toString();
     }
@@ -68,7 +68,7 @@ QStringList NuclideController::getStandardFormatHalfLifeUnits()
 {
     QStringList ret;
     statement = QString("SELECT unit FROM unit_halflife");
-    QVector<QVariantList> result = db.read(statement);
+    QVector<QVariantList> result = db->read(statement);
     for(int i=0; i<result.size(); i++) {
         ret << result.at(i).first().toString();
     }
