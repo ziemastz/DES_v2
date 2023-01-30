@@ -12,6 +12,7 @@
 class BranchModel
 {
 public:
+    uint id;
     NuclideModel parent;
     QString transition;
     double intensity;

@@ -6,6 +6,7 @@
 class GammaModel
 {
 public:
+    uint idBranch;
     QString nuclide;
     double initialLevel_keV;
     double finalLevel_keV;

@@ -9,7 +9,7 @@ BranchController::BranchController() : BaseController()
 QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
 {
     QVector<BranchModel> ret;
-    statement = QString("SELECT b.idParent, b.transition, b.intensity, b.excited_level_keV, "
+    statement = QString("SELECT b.id, b.idParent, b.transition, b.intensity, b.excited_level_keV, "
                         "b.halfLifeValue, b.halfLifeUncer, u.unit, b.spinParity "
                         "FROM branch b "
                         "LEFT JOIN unit_halflife u ON u.id = b.halfLifeUnit "
@@ -21,6 +21,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
     for(int b=0; b<result.size(); b++) {
         ret << BranchModel();
         int i=0;
+        ret.last().id = result.at(b).at(i++).toUInt();
         ret.last().parent = nuclideController.getNuclide(result.at(b).at(i++).toString());
         ret.last().transition = result.at(b).at(i++).toString();
         ret.last().intensity = result.at(b).at(i++).toDouble();
@@ -33,18 +34,19 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
 
 
         //gamma emission of level
-        statement = QString("SELECT * "
+        statement = QString("SELECT finalLevel_keV, energy, intensity, multipolarity, total_internal_conversion "
                             "FROM gamma_emission "
-                            "WHERE idDaughter = '%1' AND initialLevel_keV = %2")
-                .arg(ret.last().daughter.symbol)
-                .arg(ret.last().level.excited_level_keV);
+                            "WHERE id_branch = %1")
+                .arg(ret.last().id);
 
         QVector<QVariantList> g_res = db.read(statement);
         for(int g = 0; g< g_res.size(); g++) {
             ret.last().gammes << GammaModel();
+            ret.last().gammes.last().idBranch = ret.last().id;
+            ret.last().gammes.last().nuclide = ret.last().daughter.symbol;
+            ret.last().gammes.last().initialLevel_keV = ret.last().level.excited_level_keV;
+
             int j=0;
-            ret.last().gammes.last().nuclide = g_res.at(g).at(j++).toString();
-            ret.last().gammes.last().initialLevel_keV = g_res.at(g).at(j++).toDouble();
             ret.last().gammes.last().finalLevel_keV = g_res.at(g).at(j++).toDouble();
             ret.last().gammes.last().energy = g_res.at(g).at(j++).toDouble();
             ret.last().gammes.last().intensity = g_res.at(g).at(j++).toDouble();
@@ -126,6 +128,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
 
 bool BranchController::updateBranches(const QString &radionuclide, const QVector<BranchModel> &branches)
 {
+    db.write("BEGIN TRANSACTION");
    //step 1: find in nuclide: parent and daughter
     NuclideController nuclContr;
     QStringList savedNuclides;
@@ -141,8 +144,10 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
     }
     //step 2: update branches
     for(int i=0; i<branches.size(); i++) {
-        db.write(QString("DELETE FROM branch WHERE id"))
+        db.write(QString("DELETE FROM branch WHERE idRadionuclide='%1").arg(radionuclide));
+
     }
+    db.write("COMMIT");
     return true;
 }
 
