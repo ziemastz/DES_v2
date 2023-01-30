@@ -5,6 +5,21 @@ QString Database::_databaseName = "";
 
 Database::Database()
 {
+    _query = nullptr;
+    _db = nullptr;
+}
+
+Database::~Database()
+{
+    if(_query != nullptr) {
+        _query->finish();
+        delete _query;
+    }
+    if(_db != nullptr) {
+        _db->close();
+        delete _db;
+        QSqlDatabase::removeDatabase(_connectionName);
+    }
 }
 
 void Database::setDriver(const QString &newDriver)
@@ -25,61 +40,64 @@ void Database::setDatabaseName(const QString &newDatabaseName)
 
 bool Database::write(const QString &statement)
 {
-    QString connectionName;
-    bool ret = false;
-    {
-        QSqlDatabase db = QSqlDatabase::addDatabase(_driver);
-        db.setDatabaseName(_databaseName);
-        if(db.open()) {
-            connectionName = db.connectionName();
-            QSqlQuery query;
-            if(query.exec(statement))
-            {
-                lastInsertId = query.lastInsertId().toInt();
-                ret = true;
-            }else{
-                qWarning() << "Wrong writing query: " << query.lastError().text();
-                ret = false;
-            }
-        }else {
-            qWarning() << "Error opening of database: " << db.lastError().text();
-            ret = false;
-        }
+    if(_db == nullptr) {
+        _db = new QSqlDatabase;
+        *_db = QSqlDatabase::addDatabase(_driver,QDateTime::currentDateTime().toString("yyyyMMddhhmmsszzz"));
+        _db->setDatabaseName(_databaseName);
     }
-    QSqlDatabase::removeDatabase(connectionName);
-    return ret;
+
+    if(!_db->isOpen()) {
+        if(!_db->open()) {
+            qWarning() << "Error opening of database: " << _db->lastError().text();
+            return false;
+        }
+        _connectionName = _db->connectionName();
+        _query = new QSqlQuery(*_db);
+    }
+
+    if(_query->exec(statement)) {
+        lastInsertId = _query->lastInsertId().toInt();
+        return true;
+    }else {
+        qWarning() << "Wrong writing query: " << _query->lastError().text();
+        return false;
+    }
 }
 
 QVector<QVariantList> Database::read(const QString &statement)
 {
-    QString connectionName;
     QVector<QVariantList> ret;
-    {
-        QSqlDatabase db = QSqlDatabase::addDatabase(_driver);
-        db.setDatabaseName(_databaseName);
-        if(db.open()) {
-            connectionName = db.connectionName();
-            QSqlQuery query;
-            if(query.exec(statement))
-            {
-                while(query.next())
-                {
-                    QVariantList record;
-                    for(int i=0;i<query.record().count();i++)
-                    {
-                        record << query.value(i);
-                    }
-                    ret << record;
-                }
-            }else{
-                qWarning() << "Wrong reading query: " << query.lastError().text();
-            }
-        }else {
-            qWarning() << "Error opening of database: " << db.lastError().text();
-        }
+
+    if(_db == nullptr) {
+        _db = new QSqlDatabase;
+        *_db = QSqlDatabase::addDatabase(_driver,QDateTime::currentDateTime().toString("yyyyMMddhhmmsszzz"));
+        _db->setDatabaseName(_databaseName);
     }
-    QSqlDatabase::removeDatabase(connectionName);
-    return ret;
+
+    if(!_db->isOpen()) {
+        if(!_db->open()) {
+            qWarning() << "Error opening of database: " << _db->lastError().text();
+            return ret;
+        }
+        _connectionName = _db->connectionName();
+        _query = new QSqlQuery(*_db);
+    }
+
+    if(_query->exec(statement)) {
+        while(_query->next())
+        {
+            QVariantList record;
+            for(int i=0;i<_query->record().count();i++)
+            {
+                record << _query->value(i);
+            }
+            ret << record;
+        }
+        return ret;
+    }else {
+        qWarning() << "Wrong writing query: " << _query->lastError().text();
+        return ret;
+    }
 }
 
 int Database::getLastInsertId() const

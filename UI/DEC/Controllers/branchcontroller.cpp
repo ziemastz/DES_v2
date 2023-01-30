@@ -110,9 +110,9 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
         if(ret.last().transition == "EC") {
              statement = QString("SELECT intensity_ec, intensity_beta_plus "
                                  "FROM ec_transition "
-                                 "WHERE idParent = '%1' AND level_energy_keV = %2")
-                     .arg(ret.last().parent.symbol)
-                     .arg(ret.last().level.excited_level_keV);
+                                 "WHERE id_branch = %1")
+                     .arg(ret.last().id);
+
              QVector<QVariantList> e_res = db.read(statement);
              if(e_res.size() == 1) {
                 ret.last().ec.intensityEC = e_res.first().at(0).toDouble();
@@ -121,11 +121,11 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
              //subsell propability of ec
              statement = QString("SELECT s.symbol, e.intensity "
                                  "FROM ec_probability e "
-                                 "LEFT JOIN subshell s on s.id = e.idSubshell "
-                                 "WHERE e.idParent = '%1' and e.level_energy_keV = %2")
-                     .arg(ret.last().parent.symbol)
-                     .arg(ret.last().level.excited_level_keV);
-            e_res = db.read(statement);
+                                 "LEFT JOIN subshell s on s.id = e.id_subshell "
+                                 "WHERE e.id_branch = %1")
+                     .arg(ret.last().id);
+
+             e_res = db.read(statement);
             for(int i=0; i<e_res.size(); i++) {
                 QString key = e_res.at(i).at(0).toString();
                 double value = e_res.at(i).at(1).toDouble();
@@ -140,24 +140,36 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
 
 bool BranchController::updateBranches(const QString &radionuclide, const QVector<BranchModel> &branches)
 {
-    db.write("BEGIN TRANSACTION");
+    if(!db.write("BEGIN TRANSACTION"))
+        return false;
    //step 1: find in nuclide: parent and daughter
     NuclideController nuclContr;
     QStringList savedNuclides;
     for(int i=0; i<branches.size(); i++) {
        if(!savedNuclides.contains(branches.at(i).parent.symbol)) {
-           nuclContr.setNuclide(branches.at(i).parent);
+           if(!nuclContr.setNuclide(branches.at(i).parent)) {
+               db.write("ROLLBACK");
+               return false;
+           }
            savedNuclides << branches.at(i).parent.symbol;
        }
        if(!savedNuclides.contains(branches.at(i).daughter.symbol)) {
-           nuclContr.setNuclide(branches.at(i).daughter);
+           if(!nuclContr.setNuclide(branches.at(i).daughter)) {
+               db.write("ROLLBACK");
+               return false;
+           }
            savedNuclides<< branches.at(i).daughter.symbol;
        }
     }
-    //step 2: update branches
+    //step 2: delete old branches
+    if(!db.write(QString("DELETE FROM branch WHERE idRadionuclide='%1").arg(radionuclide))) {
+        db.write("ROLLBACK");
+        return false;
+    }
+    //step 3: insert branches
     for(int i=0; i<branches.size(); i++) {
-        db.write(QString("DELETE FROM branch WHERE idRadionuclide='%1").arg(radionuclide));
-
+        // insert branch
+        statement = QString("INSERT")
     }
     db.write("COMMIT");
     return true;

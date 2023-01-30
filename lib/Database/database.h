@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QDebug>
-
+#include <QDateTime>
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlQuery>
@@ -14,6 +14,7 @@ class Database
 {
 public:
     Database();
+    ~Database();
 
     static void setDriver(const QString &newDriver);
     static void setDatabaseName(const QString &newDatabaseName);
@@ -26,6 +27,9 @@ public:
 private:
     static QString _driver;
     static QString _databaseName;
+    QSqlDatabase *_db;
+    QSqlQuery *_query;
+    QString _connectionName;
     int lastInsertId;
 };
 

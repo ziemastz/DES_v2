@@ -6,7 +6,7 @@ class NuclideController : public BaseController
 {
 public:
     NuclideController();
-    void setNuclide(const NuclideModel &nuclide);
+    bool setNuclide(const NuclideModel &nuclide);
     NuclideModel getNuclide(const QString &symbol);
     QStringList getNuclides();
     QString getStandardFormatHalfLifeUnit(const QString &unit);

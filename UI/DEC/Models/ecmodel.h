@@ -7,6 +7,7 @@
 class ECModel
 {
 public:
+    uint idBranch;
     double intensityEC;
     double intensityBetaPlus;
     QMap<QString,double> subshell_probability;
