@@ -6,6 +6,7 @@
 class BetaTransitionModel
 {
 public:
+    uint idBranch;
     double endpoint_energy_keV;
     QString forbiddenness;
     double coeff_a;

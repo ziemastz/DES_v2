@@ -52,14 +52,25 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
             ret.last().gammes.last().intensity = g_res.at(g).at(j++).toDouble();
             ret.last().gammes.last().multipolarity = g_res.at(g).at(j++).toString();
             ret.last().gammes.last().total_internal_conversion = g_res.at(g).at(j++).toDouble();
+
+            // gamma conversion electron intensity
+            statement = QString("SELECT s.symbol, g.intensity "
+                                "FROM gamma_ce g "
+                                "LEFT JOIN subshell s ON g.id_subshell = s.id "
+                                "WHERE id_branch = %1")
+                    .arg(ret.last().id);
+            QVector<QVariantList> g_ce_res = db.read(statement);
+            for(int c=0;c<g_ce_res.size();c++) {
+                ret.last().gammes.last().conversion_electrons.insert(g_ce_res.at(c).first().toString(),
+                                                                     g_ce_res.at(c).last().toDouble());
+            }
         }
 
         if(ret.last().transition == "ALPHA") {
             statement = QString("SELECT energy_alpha "
                                 "FROM alpha_transition "
-                                "WHERE idParent = '%1' AND level_energy_keV = %2")
-                    .arg(ret.last().parent.symbol)
-                    .arg(ret.last().level.excited_level_keV);
+                                "WHERE id_branch = %1")
+                    .arg(ret.last().id);
 
             QVector<QVariantList> a_res = db.read(statement);
             if(a_res.size() == 1) {
@@ -74,11 +85,12 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
                                 "FROM beta_transition b "
                                 "LEFT JOIN forbiddenness_type f on b.forbiddenness = f.id "
                                 "LEFT JOIN exp_shape_factor_type e on b.exp_shape_factor = e.id "
-                                "WHERE b.idParent = '%1' AND b.level_energy_keV = %2")
-                    .arg(ret.last().parent.symbol)
-                    .arg(ret.last().level.excited_level_keV);
+                                "WHERE b.id_branch = %1")
+                    .arg(ret.last().id);
+
             QVector<QVariantList> b_res = db.read(statement);
             if(b_res.size() == 1) {
+                ret.last().beta.idBranch = ret.last().id;
                 int i=0;
                 ret.last().beta.endpoint_energy_keV = b_res.first().at(i++).toDouble();
                 ret.last().beta.forbiddenness = b_res.first().at(i++).toString();

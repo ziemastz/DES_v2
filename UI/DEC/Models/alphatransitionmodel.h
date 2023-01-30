@@ -6,8 +6,7 @@
 class AlphaTransitionModel
 {
 public:
-    QString parent;
-    double level_energy_keV;
+    uint idBranch;
     double alpha_energy_keV;
 };
 
