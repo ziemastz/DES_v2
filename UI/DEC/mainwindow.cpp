@@ -299,9 +299,9 @@ void MainWindow::on_save_data_pushButton_clicked()
     if(QMessageBox::question(this,tr("Save to database"),tr("Existing data will be permanently replaced with new data. Do you want to continue?")) != QMessageBox::Yes) {
         return;
     }
-
-    qDebug() << "Save decay to database";
-
+    BranchController branchContr;
+    if(branchContr.updateBranches(decay.radionuclide,decay.branches))
+        qDebug() << "Save decay to database";
 }
 
 

@@ -27,5 +27,5 @@ BaseController::BaseController()
 
 BaseController::~BaseController()
 {
-    delete db;
+
 }
