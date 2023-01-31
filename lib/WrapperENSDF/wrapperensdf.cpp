@@ -223,6 +223,11 @@ QString WrapperENSDF::getForbiddennessBeta(const int &noDaughter, const int &noL
     return raw.at(noDaughter).getBeta().value(noLevel).getUn();
 }
 
+QString WrapperENSDF::getLogFtBeta(const int &noDaughter, const int &noLevel) const
+{
+    return raw.at(noDaughter).getBeta().value(noLevel).getLogft();
+}
+
 bool WrapperENSDF::findAlpha(const int &noDaughter, const int &noLevel) const
 {
     return raw.at(noDaughter).getAlpha().contains(noLevel);

@@ -6,7 +6,6 @@
 class NuclideModel
 {
 public:
-    int id;
     int a;
     int z;
     QString symbol;

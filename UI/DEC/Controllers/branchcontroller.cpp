@@ -11,7 +11,7 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
 {
     QVector<BranchModel> ret;
     statement = QString("SELECT b.id, b.idParent, b.transition, b.intensity, b.excited_level_keV, "
-                        "b.halfLifeValue, b.halfLifeUncer, u.unit, b.spinParity "
+                        "b.halfLifeValue, b.halfLifeUncer, u.unit, b.spinParity, b.idDaughter "
                         "FROM branch b "
                         "LEFT JOIN unit_halflife u ON u.id = b.halfLifeUnit "
                         "WHERE b.idRadionuclide = '%1' "
@@ -260,7 +260,31 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
         }
 
         //EC transition
-
+        if(branches.at(i).transition == "EC") {
+            statement = QString("INSERT INTO ec_transition(id_branch, intensity_ec, intensity_beta_plus) "
+                                "VALUES(%1, %2, %3)")
+                    .arg(id_branch)
+                    .arg(branches.at(i).ec.intensityEC)
+                    .arg(branches.at(i).ec.intensityBetaPlus);
+            if(!db->write(statement)) {
+                db->write("ROLLBACK");
+                return false;
+            }
+            QMapIterator<QString,double> iter(branches.at(i).ec.subshell_probability);
+            while(iter.hasNext()) {
+                QString key = iter.key();
+                double value = iter.value();
+                statement = QString("INSERT INTO ec_probability(id_branch, id_subshell, intensity) "
+                                    "VALUES (%1, (SELECT id FROM subshell WHERE symbol ='%2'), %3)")
+                        .arg(id_branch)
+                        .arg(key)
+                        .arg(value);
+                if(!db->write(statement)) {
+                    db->write("ROLLBACK");
+                    return false;
+                }
+            }
+        }
     }
     db->write("COMMIT");
     return true;

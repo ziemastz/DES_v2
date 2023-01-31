@@ -36,5 +36,7 @@ private:
 
     void load(const QString &nuclide);
 
+    QString findForbiddenness(const QString &forbiddenness, const QString &logft);
+
 };
 #endif // MAINWINDOW_H

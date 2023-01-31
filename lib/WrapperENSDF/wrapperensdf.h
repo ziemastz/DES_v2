@@ -62,6 +62,7 @@ public:
     QString getIntensityBeta(const int &noDaughter, const int &noLevel) const;
     QString getEndpointEnergyBeta(const int &noDaughter, const int &noLevel) const;
     QString getForbiddennessBeta(const int &noDaughter, const int &noLevel) const;
+    QString getLogFtBeta(const int &noDaughter, const int &noLevel) const;
 
     bool findAlpha(const int &noDaughter, const int &noLevel) const;
     QString getIntensityAlpha(const int &noDaughter, const int &noLevel) const;

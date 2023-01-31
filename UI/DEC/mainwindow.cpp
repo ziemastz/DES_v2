@@ -87,6 +87,8 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 decay.branches.last().transition = "BETA-";
                 decay.branches.last().intensity = ensdf.getIntensityBeta(i,j).toDouble();
                 decay.branches.last().beta.endpoint_energy_keV = ensdf.getEndpointEnergyBeta(i,j).toDouble();
+                decay.branches.last().beta.forbiddenness = findForbiddenness(ensdf.getForbiddennessBeta(i,j),ensdf.getLogFtBeta(i,j));
+
             }else
             if(ensdf.findAlpha(i,j)) {
                 decay.branches.last().parent.a = ensdf.getA_Parent(i).toInt();
@@ -206,6 +208,70 @@ void MainWindow::load(const QString &nuclide)
     decay.branches = branchesController.getBranches(nuclide);
 
     loadENSDF();
+}
+
+QString MainWindow::findForbiddenness(const QString &forbiddenness, const QString &logft)
+{
+    QString ret;
+    QStringList listForbiddenness;
+    BranchController branch;
+    listForbiddenness = branch.forbiddenness();
+
+    if(forbiddenness.count(' ') == forbiddenness.size()) {
+        if(logft.toDouble()<3.5) {
+            //super-allowed
+            ret = listForbiddenness.at(0);
+        }else {
+            //allowed
+            ret = listForbiddenness.at(1);
+        }
+    }else {
+        if(forbiddenness.at(1) == ' ') {
+            //non-unique
+            switch (QString(forbiddenness.at(0)).toInt()) {
+            case 1:
+            {
+                ret = listForbiddenness.at(4);
+                break;
+            }
+            case 2:
+            {
+                ret = listForbiddenness.at(6);
+                break;
+            }
+            case 3:
+            {
+                ret = listForbiddenness.at(8);
+                break;
+            }
+            default:
+                break;
+            }
+        }else {
+            //unique
+            switch (QString(forbiddenness.at(0)).toInt()) {
+            case 1:
+            {
+                ret = listForbiddenness.at(3);
+                break;
+            }
+            case 2:
+            {
+                ret = listForbiddenness.at(5);
+                break;
+            }
+            case 3:
+            {
+                ret = listForbiddenness.at(7);
+                break;
+            }
+            default:
+                break;
+            }
+
+        }
+    }
+    return ret;
 }
 
 
