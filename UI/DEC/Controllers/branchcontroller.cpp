@@ -1,6 +1,6 @@
 #include "branchcontroller.h"
 #include "Controllers/nuclidecontroller.h"
-#include <QMapIterator>
+#include <QMap>
 
 BranchController::BranchController() : BaseController()
 {
@@ -203,8 +203,9 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
                 return false;
             }
             // conversion electron emisions
-            QMapIterator<QString,double> iter(branches.at(i).gammes.at(g).conversion_electrons);
-            while(iter.hasNext()) {
+            //QMapIterator<QString,double> iter(branches.at(i).gammes.at(g).conversion_electrons);
+            QMap<QString,double>::const_iterator iter = branches.at(i).gammes.at(g).conversion_electrons.begin();
+            while(iter != branches.at(i).gammes.at(g).conversion_electrons.end()) {
                 QString key = iter.key();
                 double value = iter.value();
                 statement = QString("INSERT INTO gamma_ce(id_branch, id_subshell, intensity) "
@@ -216,6 +217,7 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
                     db->write("ROLLBACK");
                     return false;
                 }
+                ++iter;
             }
         }
 
@@ -270,8 +272,8 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
                 db->write("ROLLBACK");
                 return false;
             }
-            QMapIterator<QString,double> iter(branches.at(i).ec.subshell_probability);
-            while(iter.hasNext()) {
+            QMap<QString,double>::const_iterator iter = branches.at(i).ec.subshell_probability.begin();
+            while(iter != branches.at(i).ec.subshell_probability.end()) {
                 QString key = iter.key();
                 double value = iter.value();
                 statement = QString("INSERT INTO ec_probability(id_branch, id_subshell, intensity) "
@@ -283,6 +285,7 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
                     db->write("ROLLBACK");
                     return false;
                 }
+                ++iter;
             }
         }
     }
