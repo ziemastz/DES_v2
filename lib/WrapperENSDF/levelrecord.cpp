@@ -34,7 +34,7 @@ void LevelRecord::setBlank(const QString &newBlank)
 
 QString LevelRecord::getNucid() const
 {
-    return getX()+"-"+getA();
+    return getX().remove(' ')+"-"+getA().remove(' ');
 }
 
 void LevelRecord::setNucid(const QString &newNucid)

@@ -34,7 +34,7 @@ void ParentRecord::setBlank(const QString &newBlank)
 
 QString ParentRecord::getNucid() const
 {
-    return getX()+"-"+getA();
+    return getX().remove(' ')+"-"+getA().remove(' ');
 }
 
 void ParentRecord::setNucid(const QString &newNucid)

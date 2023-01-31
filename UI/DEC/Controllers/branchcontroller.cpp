@@ -163,7 +163,7 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
        }
     }
     //step 2: delete old branches
-    if(!db->write(QString("DELETE FROM branch WHERE idRadionuclide='%1").arg(radionuclide))) {
+    if(!db->write(QString("DELETE FROM branch WHERE idRadionuclide='%1'").arg(radionuclide))) {
         db->write("ROLLBACK");
         return false;
     }
