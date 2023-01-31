@@ -15,10 +15,12 @@ Database::~Database()
     if(_query != nullptr) {
         _query->finish();
         delete _query;
+        _query = nullptr;
     }
     if(_db != nullptr) {
         _db->close();
         delete _db;
+         _db = nullptr;
         QSqlDatabase::removeDatabase(_connectionName);
     }
 }
