@@ -27,6 +27,8 @@ private:
     QString _symbol;
 
     AtomicDataModel data;
+
+
     void loadData();
 };
 

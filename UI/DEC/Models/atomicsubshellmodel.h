@@ -7,8 +7,8 @@
 class AtomicSubshellModel
 {
 public:
-    QString binding_energy_keV;
-    QString elektrons_max;
+    double binding_energy_keV;
+    int elektrons_max;
     QMap<QString,QString> auger;
     QMap<QString,QString> xRay;
 

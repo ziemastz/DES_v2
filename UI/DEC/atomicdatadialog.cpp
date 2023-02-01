@@ -2,6 +2,8 @@
 #include "ui_atomicdatadialog.h"
 #include "atomicsubshelldialog.h"
 #include <QPushButton>
+#include "Controllers/atomicdatacontroller.h"
+
 AtomicDataDialog::AtomicDataDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AtomicDataDialog)
@@ -69,7 +71,8 @@ void AtomicDataDialog::openSubshell()
 
 void AtomicDataDialog::loadData()
 {
-
+    AtomicDataController atomicContr;
+    data = atomicContr.getAtomicData(_symbol);
 }
 
 void AtomicDataDialog::on_cancel_pushButton_clicked()

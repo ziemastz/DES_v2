@@ -28,5 +28,9 @@ AtomicDataModel AtomicDataController::getAtomicData(const QString &nuclide)
     if(result.size() == 1) {
         ret.radius = result.first().first().toDouble();
     }
+    // subshells
+    statement = QString("Select");
+    result = db->read(statement);
+
     return ret;
 }
