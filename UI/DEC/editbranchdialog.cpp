@@ -46,6 +46,7 @@ EditBranchDialog::EditBranchDialog(QWidget *parent) :
 
     connect(ui->intensity_ec_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
     connect(ui->intensity_beta_plus_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
+    connect(ui->subshell_intensity_ec_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
 }
 
 EditBranchDialog::~EditBranchDialog()
