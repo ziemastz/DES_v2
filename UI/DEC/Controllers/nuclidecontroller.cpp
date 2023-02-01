@@ -26,7 +26,7 @@ NuclideModel NuclideController::getNuclide(const QString &symbol)
     NuclideModel ret;
     statement = QString("SELECT n.a, n.z, n.symbol, n.halfLifeValue, n.halfLifeUncer, u.unit, n.spinParity "
                         "FROM nuclide n "
-                        "INNER JOIN unit_halflife u ON n.halfLifeUnit = u.id "
+                        "LEFT JOIN unit_halflife u ON n.halfLifeUnit = u.id "
                         "WHERE n.symbol = '%1'")
             .arg(symbol);
     QVector<QVariantList> result = db->read(statement);
