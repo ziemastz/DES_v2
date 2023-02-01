@@ -23,6 +23,8 @@ BaseController::BaseController()
     Database::setDriver(driver);
     Database::setDatabaseName(databaseName);
     db = Database::database();
+    if(!db->write("PRAGMA foreign_keys = ON"))
+        qDebug() << "Error with foreign keys";
 }
 
 BaseController::~BaseController()
