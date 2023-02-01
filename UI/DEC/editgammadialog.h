@@ -20,6 +20,9 @@ public:
     GammaModel gamma() const;
 
 private slots:
+    void urealNumberLineEdit(const QString &arg1);
+    void percentageNumberLineEdit(const QString &arg1);
+
     void on_cancel_pushButton_clicked();
 
     void on_addUpdate_subshell_pushButton_clicked();
@@ -33,12 +36,6 @@ private slots:
     void on_total_internal_conversion_lineEdit_editingFinished();
 
     void on_multipolarity_lineEdit_editingFinished();
-
-    void on_energy_g_lineEdit_textChanged(const QString &arg1);
-
-    void on_intensity_g_lineEdit_textChanged(const QString &arg1);
-
-    void on_total_internal_conversion_lineEdit_textChanged(const QString &arg1);
 
 private:
     Ui::EditGammaDialog *ui;

@@ -51,6 +51,7 @@ private slots:
     void urealNumberLineEdit(const QString &arg1);
     void realNumberLineEdit(const QString &arg1);
     void percentageNumberLineEdit(const QString &arg1);
+
     void on_alpha_energy_lineEdit_editingFinished();
 
     void on_beta_endpoint_energy_lineEdit_editingFinished();

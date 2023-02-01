@@ -7,6 +7,11 @@ EditGammaDialog::EditGammaDialog(QWidget *parent) :
     ui(new Ui::EditGammaDialog)
 {
     ui->setupUi(this);
+
+    connect(ui->energy_g_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->total_internal_conversion_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->intensity_g_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
+    connect(ui->intensity_cc_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
 }
 
 EditGammaDialog::~EditGammaDialog()
@@ -74,6 +79,26 @@ GammaModel EditGammaDialog::gamma() const
     return _gamma;
 }
 
+void EditGammaDialog::urealNumberLineEdit(const QString &arg1)
+{
+    QLineEdit *line = (QLineEdit *)sender();
+    ToolWidget::realNumberModeLineEdit(arg1,line);
+    if(line->text().toDouble() < 0) {
+        line->setText("0");
+    }
+}
+
+void EditGammaDialog::percentageNumberLineEdit(const QString &arg1)
+{
+    QLineEdit *line = (QLineEdit *)sender();
+    ToolWidget::realNumberModeLineEdit(arg1,line);
+    if(line->text().toDouble() < 0) {
+        line->setText("0");
+    }else if(line->text().toDouble() > 100) {
+        line->setText("100");
+    }
+}
+
 void EditGammaDialog::on_update_pushButton_clicked()
 {
     accept();
@@ -97,34 +122,5 @@ void EditGammaDialog::on_total_internal_conversion_lineEdit_editingFinished()
 void EditGammaDialog::on_multipolarity_lineEdit_editingFinished()
 {
     _gamma.multipolarity = ui->multipolarity_lineEdit->text();
-}
-
-
-void EditGammaDialog::on_energy_g_lineEdit_textChanged(const QString &arg1)
-{
-    ToolWidget::realNumberModeLineEdit(arg1,ui->energy_g_lineEdit);
-    if(ui->energy_g_lineEdit->text().toDouble()<0) {
-        ui->energy_g_lineEdit->setText("0");
-    }
-}
-
-
-void EditGammaDialog::on_intensity_g_lineEdit_textChanged(const QString &arg1)
-{
-    ToolWidget::realNumberModeLineEdit(arg1,ui->intensity_g_lineEdit);
-    if(ui->intensity_g_lineEdit->text().toDouble() < 0 ) {
-        ui->intensity_g_lineEdit->setText("0");
-    }else if(ui->intensity_g_lineEdit->text().toDouble() > 100 ) {
-        ui->intensity_g_lineEdit->setText("100");
-    }
-}
-
-
-void EditGammaDialog::on_total_internal_conversion_lineEdit_textChanged(const QString &arg1)
-{
-    ToolWidget::realNumberModeLineEdit(arg1,ui->total_internal_conversion_lineEdit);
-    if(ui->total_internal_conversion_lineEdit->text().toDouble()<0) {
-        ui->total_internal_conversion_lineEdit->setText("0");
-    }
 }
 
