@@ -195,6 +195,7 @@ bool AtomicDataController::updateAtomicData(const QString &nuclide, const Atomic
             db->write("ROLLBACK");
             return false;
         }
+        ++f_iter;
     }
     //end
     db->write("COMMIT");
