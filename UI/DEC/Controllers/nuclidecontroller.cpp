@@ -46,7 +46,10 @@ NuclideModel NuclideController::getNuclide(const QString &symbol)
 QStringList NuclideController::getNuclides()
 {
     QStringList ret;
-    statement = QString("SELECT DISTINCT idRadionuclide from branch ORDER by idRadionuclide");
+    statement = QString("SELECT DISTINCT b.idRadionuclide "
+                        "FROM branch b "
+                        "LEFT JOIN nuclide n on n.symbol = b.idRadionuclide "
+                        "ORDER BY n.a");
     QVector<QVariantList> result = db->read(statement);
     for(int i=0; i<result.size(); i++) {
         ret << result.at(i).first().toString();
