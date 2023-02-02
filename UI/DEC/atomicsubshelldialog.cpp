@@ -161,3 +161,15 @@ void AtomicSubshellDialog::percentageNumberLineEdit(const QString &arg1)
     }
 }
 
+
+void AtomicSubshellDialog::on_lineEdit_energy_editingFinished()
+{
+    data.binding_energy_keV = ui->lineEdit_energy->text().toDouble();
+}
+
+
+void AtomicSubshellDialog::on_lineEdit_electrons_editingFinished()
+{
+    data.elektrons_max = ui->lineEdit_electrons->text().toInt();
+}
+

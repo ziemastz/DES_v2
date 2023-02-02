@@ -81,6 +81,26 @@ bool AtomicDataController::updateAtomicData(const QString &nuclide, const Atomic
         db->write("ROLLBACK");
         return false;
     }
+    if(!db->write(QString("DELETE FROM atomic_auger_transition WHERE idNuclide='%1'").arg(nuclide))) {
+        db->write("ROLLBACK");
+        return false;
+    }
+    if(!db->write(QString("DELETE FROM atomic_x_ray_transition WHERE idNuclide='%1'").arg(nuclide))) {
+        db->write("ROLLBACK");
+        return false;
+    }
+    if(!db->write(QString("DELETE FROM coster_kronig_yield WHERE idNuclide='%1'").arg(nuclide))) {
+        db->write("ROLLBACK");
+        return false;
+    }
+    if(!db->write(QString("DELETE FROM fluorescence_yield WHERE idNuclide='%1'").arg(nuclide))) {
+        db->write("ROLLBACK");
+        return false;
+    }
+    if(!db->write(QString("DELETE FROM radius_nuclide WHERE id='%1'").arg(nuclide))) {
+        db->write("ROLLBACK");
+        return false;
+    }
     // step 2 insert subshell data
     QMap<QString,AtomicSubshellModel>::const_iterator iter = atomic.subshells.begin();
     while(iter != atomic.subshells.end()) {

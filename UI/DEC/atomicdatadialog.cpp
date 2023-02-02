@@ -45,6 +45,13 @@ AtomicDataDialog::AtomicDataDialog(QWidget *parent) :
     connect(ui->pushButton_P5, &QPushButton::clicked, this, &AtomicDataDialog::openSubshell);
 
     connect(ui->pushButton_Q1, &QPushButton::clicked, this, &AtomicDataDialog::openSubshell);
+
+    connect(ui->radius_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->lineEdit_f12,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->lineEdit_f13,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->lineEdit_f23,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+
+    connect(ui->intensity_w_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
 }
 
 AtomicDataDialog::~AtomicDataDialog()
@@ -111,6 +118,66 @@ void AtomicDataDialog::reloadFluorescenceTable()
         row << keys.at(i)
             << QString::number(data.fluorescenceYields.value(keys.at(i)));
         ToolWidget::addRecord(ui->subshell_w_tableWidget,row);
+    }
+}
+
+
+void AtomicDataDialog::on_radius_lineEdit_editingFinished()
+{
+    data.radius = ui->radius_lineEdit->text().toDouble();
+}
+
+
+void AtomicDataDialog::on_lineEdit_f12_editingFinished()
+{
+    data.f12 = ui->lineEdit_f12->text().toDouble();
+}
+
+
+void AtomicDataDialog::on_lineEdit_f13_editingFinished()
+{
+     data.f13 = ui->lineEdit_f13->text().toDouble();
+}
+
+
+void AtomicDataDialog::on_lineEdit_f23_editingFinished()
+{
+     data.f23 = ui->lineEdit_f23->text().toDouble();
+}
+
+
+void AtomicDataDialog::on_addUpdate_subshell_pushButton_clicked()
+{
+    QString subshell = ui->subshell_w_comboBox->currentText();
+    QString intensity = ui->intensity_w_lineEdit->text();
+    if(subshell.isEmpty() || intensity.isEmpty())
+        return;
+
+    if(intensity.toDouble() == 0.0) {
+        data.fluorescenceYields.remove(subshell);
+    }else{
+        data.fluorescenceYields.insert(subshell,intensity.toDouble());
+    }
+    reloadFluorescenceTable();
+}
+
+void AtomicDataDialog::urealNumberLineEdit(const QString &arg1)
+{
+    QLineEdit *line = (QLineEdit *)sender();
+    ToolWidget::realNumberModeLineEdit(arg1,line);
+    if(line->text().toDouble() < 0) {
+        line->setText("0");
+    }
+}
+
+void AtomicDataDialog::percentageNumberLineEdit(const QString &arg1)
+{
+    QLineEdit *line = (QLineEdit *)sender();
+    ToolWidget::realNumberModeLineEdit(arg1,line);
+    if(line->text().toDouble() < 0) {
+        line->setText("0");
+    }else if(line->text().toDouble() > 100) {
+        line->setText("100");
     }
 }
 

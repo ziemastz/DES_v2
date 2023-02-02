@@ -32,6 +32,10 @@ private slots:
     void urealNumberLineEdit(const QString &arg1);
     void uintegerNumberLineEdit(const QString &arg1);
     void percentageNumberLineEdit(const QString &arg1);
+    void on_lineEdit_energy_editingFinished();
+
+    void on_lineEdit_electrons_editingFinished();
+
 private:
     Ui::AtomicSubshellDialog *ui;
     QString _symbol;
