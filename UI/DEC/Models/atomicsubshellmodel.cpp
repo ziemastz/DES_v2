@@ -2,6 +2,15 @@
 
 
 
+AtomicSubshellModel &AtomicSubshellModel::operator =(const AtomicSubshellModel &other)
+{
+    this->binding_energy_keV = other.binding_energy_keV;
+    this->elektrons_max = other.elektrons_max;
+    this->auger = other.auger;
+    this->xRay = other.xRay;
+    return *this;
+}
+
 QStringList AtomicSubshellModel::getSubshells() const
 {
     return subshells;

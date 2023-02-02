@@ -9,6 +9,7 @@ class AtomicDataController : public BaseController
 public:
     AtomicDataController();
     AtomicDataModel getAtomicData(const QString &nuclide);
+    bool updateAtomicData(const QString &nuclide, const AtomicDataModel &atomic);
 
 };
 

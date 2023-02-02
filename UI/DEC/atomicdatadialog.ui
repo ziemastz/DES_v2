@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>623</width>
-    <height>674</height>
+    <height>769</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -95,28 +95,15 @@ color: rgb(238, 238, 238)
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QGroupBox" name="groupBox">
         <property name="title">
          <string>X-A</string>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="0" column="0">
           <layout class="QHBoxLayout" name="horizontalLayout_2">
-           <item>
-            <spacer name="horizontalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
            <item>
             <widget class="QLabel" name="label_38">
              <property name="font">
@@ -133,7 +120,7 @@ color: rgb(238, 238, 238)
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit_wK_2">
+            <widget class="QLineEdit" name="radius_lineEdit">
              <property name="text">
               <string>0.0</string>
              </property>
@@ -157,22 +144,315 @@ color: rgb(238, 238, 238)
            </item>
           </layout>
          </item>
-         <item>
-          <widget class="QLabel" name="label_29">
+         <item row="0" column="1" rowspan="2">
+          <widget class="QGroupBox" name="groupBox_4">
            <property name="font">
             <font>
              <bold>true</bold>
             </font>
            </property>
-           <property name="text">
+           <property name="title">
             <string>Fluorescence Yields</string>
            </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_7">
+              <item>
+               <spacer name="horizontalSpacer_20">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_28">
+                <property name="font">
+                 <font>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Subshell</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="subshell_w_comboBox">
+                <property name="font">
+                 <font>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>K</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>L1</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>L2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>L3</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>M1</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>M2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>M3</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>M4</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>M5</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>N1</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>N2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>N3</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>N4</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>N5</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>N6</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>N7</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>O1</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>O2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>O3</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>O4</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>O5</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>O6</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>O7</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>P1</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>P2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>P3</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>P4</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>P5</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Q1</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_39">
+                <property name="font">
+                 <font>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Intensity</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="intensity_w_lineEdit">
+                <property name="font">
+                 <font>
+                  <bold>false</bold>
+                 </font>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="addUpdate_subshell_pushButton">
+                <property name="font">
+                 <font>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Add / Update</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resources.qrc">
+                  <normaloff>:/Images/update.png</normaloff>:/Images/update.png</iconset>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_19">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
+              <item>
+               <spacer name="horizontalSpacer_15">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>37</width>
+                  <height>58</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QTableWidget" name="subshell_w_tableWidget">
+                <property name="font">
+                 <font>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string>Subshell</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Intensity</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_16">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>37</width>
+                  <height>58</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
          </item>
-         <item>
-          <layout class="QGridLayout" name="gridLayout_7">
-           <item row="1" column="4">
-            <widget class="QLineEdit" name="lineEdit_wL3">
+         <item row="1" column="0">
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="lineEdit_f23">
              <property name="text">
               <string>0.0</string>
              </property>
@@ -180,181 +460,6 @@ color: rgb(238, 238, 238)
               <set>Qt::AlignCenter</set>
              </property>
             </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="label_30">
-             <property name="text">
-              <string>ωL2</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="6" rowspan="2">
-            <spacer name="horizontalSpacer_21">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>38</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="5">
-            <widget class="QLabel" name="label_32">
-             <property name="text">
-              <string>ωM</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="5">
-            <widget class="QLineEdit" name="lineEdit_wM">
-             <property name="text">
-              <string>0.0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QLineEdit" name="lineEdit_wL2">
-             <property name="text">
-              <string>0.0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_33">
-             <property name="text">
-              <string>ωL1</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QLabel" name="label_34">
-             <property name="text">
-              <string>ωL3</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_wK">
-             <property name="text">
-              <string>0.0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLineEdit" name="lineEdit_wL1">
-             <property name="text">
-              <string>0.0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <spacer name="horizontalSpacer_22">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_31">
-             <property name="text">
-              <string>ωK</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_26">
-           <property name="font">
-            <font>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Coster-Kronig Yields</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QGridLayout" name="gridLayout_8">
-           <item row="0" column="3">
-            <widget class="QLabel" name="label_35">
-             <property name="text">
-              <string>f23</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_36">
-             <property name="text">
-              <string>f12</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLineEdit" name="lineEdit_f13">
-             <property name="text">
-              <string>0.0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <spacer name="horizontalSpacer_23">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
            </item>
            <item row="1" column="1">
             <widget class="QLineEdit" name="lineEdit_f12">
@@ -366,7 +471,49 @@ color: rgb(238, 238, 238)
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_36">
+             <property name="text">
+              <string>f12</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="lineEdit_f13">
+             <property name="text">
+              <string>0.0</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_35">
+             <property name="text">
+              <string>f23</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QLabel" name="label_26">
+             <property name="font">
+              <font>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Coster-Kronig Yields</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
             <widget class="QLabel" name="label_37">
              <property name="text">
               <string>f13</string>
@@ -376,17 +523,7 @@ color: rgb(238, 238, 238)
              </property>
             </widget>
            </item>
-           <item row="1" column="3">
-            <widget class="QLineEdit" name="lineEdit_f23">
-             <property name="text">
-              <string>0.0</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
+           <item row="1" column="2">
             <spacer name="horizontalSpacer_24">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -401,7 +538,7 @@ color: rgb(238, 238, 238)
            </item>
           </layout>
          </item>
-         <item>
+         <item row="2" column="0" colspan="2">
           <widget class="QLabel" name="label_27">
            <property name="font">
             <font>
@@ -413,7 +550,7 @@ color: rgb(238, 238, 238)
            </property>
           </widget>
          </item>
-         <item>
+         <item row="3" column="0" colspan="2">
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="0" column="0">
             <widget class="QGroupBox" name="groupBox_K">
@@ -538,7 +675,7 @@ color: rgb(238, 238, 238)
            </item>
           </layout>
          </item>
-         <item>
+         <item row="4" column="0" colspan="2">
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
             <widget class="QGroupBox" name="groupBox_O">
@@ -670,7 +807,7 @@ color: rgb(238, 238, 238)
            </item>
           </layout>
          </item>
-         <item>
+         <item row="5" column="0" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
             <widget class="QGroupBox" name="groupBox_P">

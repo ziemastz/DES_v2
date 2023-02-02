@@ -17,7 +17,7 @@ public:
     double f13;
     double f23;
 
-    QMap<QString, AtomicSubshellModel> subshells;
+    QMap<QString, AtomicSubshellModel> subshells; // <Subshell, data of subshell>
 
 };
 

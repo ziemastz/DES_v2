@@ -28,7 +28,7 @@ private:
 
     AtomicDataModel data;
 
-
+    void reloadFluorescenceTable();
     void loadData();
 };
 

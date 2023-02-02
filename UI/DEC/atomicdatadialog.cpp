@@ -3,6 +3,7 @@
 #include "atomicsubshelldialog.h"
 #include <QPushButton>
 #include "Controllers/atomicdatacontroller.h"
+#include "toolwidget.h"
 
 AtomicDataDialog::AtomicDataDialog(QWidget *parent) :
     QDialog(parent),
@@ -63,16 +64,27 @@ void AtomicDataDialog::setNuclide(const QString &symbol)
 void AtomicDataDialog::openSubshell()
 {
     QPushButton *pushButton = (QPushButton*)sender();
-    AtomicSubshellDialog *subshell;
+    AtomicSubshellDialog subshellDialog(_symbol,pushButton->text(),this);
 
-    subshell = new AtomicSubshellDialog(_symbol,pushButton->text(),this);
-    subshell->show();
+    subshellDialog.load(data.subshells.value(pushButton->text()));
+    if(subshellDialog.exec() == QDialog::Accepted) {
+        data.subshells.insert(pushButton->text(),subshellDialog.getData())
+    }
 }
 
 void AtomicDataDialog::loadData()
 {
     AtomicDataController atomicContr;
     data = atomicContr.getAtomicData(_symbol);
+
+    ui->radius_lineEdit->setText(QString::number(data.radius));
+
+    ui->lineEdit_f12->setText(QString::number(data.f12));
+    ui->lineEdit_f13->setText(QString::number(data.f13));
+    ui->lineEdit_f23->setText(QString::number(data.f23));
+
+    reloadFluorescenceTable();
+
 }
 
 void AtomicDataDialog::on_cancel_pushButton_clicked()
@@ -84,5 +96,19 @@ void AtomicDataDialog::on_cancel_pushButton_clicked()
 void AtomicDataDialog::on_save_pushButton_clicked()
 {
 
+}
+
+void AtomicDataDialog::reloadFluorescenceTable()
+{
+    ToolWidget::clearTableWidget(ui->subshell_w_tableWidget);
+    QStringList keys = data.fluorescenceYields.keys();
+    std::sort(keys.begin(), keys.end());
+
+    for(int i=0;i<keys.size();i++) {
+        QStringList row;
+        row << keys.at(i)
+            << QString::number(data.fluorescenceYields.value(keys.at(i)));
+        ToolWidget::addRecord(ui->subshell_w_tableWidget,row);
+    }
 }
 

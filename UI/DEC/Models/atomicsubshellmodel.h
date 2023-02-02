@@ -3,14 +3,15 @@
 
 #include <QString>
 #include <QMap>
-
+#include <QStringList>
 class AtomicSubshellModel
 {
 public:
+    AtomicSubshellModel& operator =(const AtomicSubshellModel &other);
     double binding_energy_keV;
     int elektrons_max;
-    QMap<QString,QString> auger;
-    QMap<QString,QString> xRay;
+    QMap<QString,double> auger;
+    QMap<QString,double> xRay;
 
     QStringList getSubshells() const;
     QStringList getSubshells(const QString &fromSubshell) const;
