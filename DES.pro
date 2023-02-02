@@ -6,4 +6,4 @@ SUBDIRS += \
     lib/WrapperENSDF \
     lib/ToolWidget
 
-DEC.depends = WrapperENSDF
+DEC.depends = WrapperENSDF Database ToolWidget
