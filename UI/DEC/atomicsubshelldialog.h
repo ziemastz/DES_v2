@@ -1,4 +1,4 @@
-#ifndef ATOMICSUBSHELLDIALOG_H
+﻿#ifndef ATOMICSUBSHELLDIALOG_H
 #define ATOMICSUBSHELLDIALOG_H
 
 #include <QDialog>
@@ -21,12 +21,25 @@ public:
 private slots:
     void on_comboBox_occupancy_currentTextChanged(const QString &arg1);
 
+    void on_pushButton_addAugerTransition_clicked();
+
+    void on_pushButton_addXRayTransition_clicked();
+
+    void on_cancel_pushButton_clicked();
+
+    void on_save_pushButton_clicked();
+
+    void urealNumberLineEdit(const QString &arg1);
+    void uintegerNumberLineEdit(const QString &arg1);
+    void percentageNumberLineEdit(const QString &arg1);
 private:
     Ui::AtomicSubshellDialog *ui;
     QString _symbol;
     QString _subshell;
 
     AtomicSubshellModel data;
+    void reloadAugerTable();
+    void reloadXRayTable();
 };
 
 #endif // ATOMICSUBSHELLDIALOG_H

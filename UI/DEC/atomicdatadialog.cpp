@@ -68,7 +68,7 @@ void AtomicDataDialog::openSubshell()
 
     subshellDialog.load(data.subshells.value(pushButton->text()));
     if(subshellDialog.exec() == QDialog::Accepted) {
-        data.subshells.insert(pushButton->text(),subshellDialog.getData())
+        data.subshells.insert(pushButton->text(),subshellDialog.getData());
     }
 }
 
@@ -95,7 +95,9 @@ void AtomicDataDialog::on_cancel_pushButton_clicked()
 
 void AtomicDataDialog::on_save_pushButton_clicked()
 {
-
+    AtomicDataController atomicContr;
+    if(atomicContr.updateAtomicData(_symbol,data))
+        qDebug() << "Saved atomic data";
 }
 
 void AtomicDataDialog::reloadFluorescenceTable()
