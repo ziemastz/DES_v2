@@ -6,6 +6,7 @@
 #include "toolwidget.h"
 #include "editbranchdialog.h"
 #include "editgammadialog.h"
+#include "generatespectrumdialog.h"
 
 #include <QMessageBox>
 #include "Controllers/nuclidecontroller.h"
@@ -296,7 +297,7 @@ void MainWindow::on_selected_radionuclide_comboBox_currentTextChanged(const QStr
 
 void MainWindow::on_save_data_pushButton_clicked()
 {
-    if(QMessageBox::question(this,tr("Save to database"),tr("Existing data will be permanently replaced with new data. Do you want to continue?")) != QMessageBox::Yes) {
+    if(QMessageBox::question(this,tr("Save to database"),tr("Existinwill be permanently replaced with new data. Do you want to continue?")) != QMessageBox::Yes) {
         return;
     }
     BranchController branchContr;
@@ -327,5 +328,12 @@ void MainWindow::on_gamma_emissions_tableWidget_cellDoubleClicked(int row, int c
     if(editGamma.exec() == QDialog::Accepted) {
         decay.branches[b].gammes[g] = editGamma.gamma();
     }
+}
+
+
+void MainWindow::on_generate_spectrumpushButton_clicked()
+{
+    GenerateSpectrumDialog gener(decay,this);
+    gener.exec();
 }
 

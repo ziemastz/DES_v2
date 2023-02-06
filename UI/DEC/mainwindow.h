@@ -27,6 +27,8 @@ private slots:
 
     void on_gamma_emissions_tableWidget_cellDoubleClicked(int row, int column);
 
+    void on_generate_spectrumpushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 

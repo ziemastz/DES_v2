@@ -13,6 +13,10 @@ SOURCES += \
     Controllers/basecontroller.cpp \
     Controllers/branchcontroller.cpp \
     Controllers/nuclidecontroller.cpp \
+    Decay/datavector.cpp \
+    Decay/decaysimulator.cpp \
+    Decay/ecsimulation.cpp \
+    Decay/random.cpp \
     Models/alphatransitionmodel.cpp \
     Models/atomicdatamodel.cpp \
     Models/atomicsubshellmodel.cpp \
@@ -37,6 +41,10 @@ HEADERS += \
     Controllers/basecontroller.h \
     Controllers/branchcontroller.h \
     Controllers/nuclidecontroller.h \
+    Decay/datavector.h \
+    Decay/decaysimulator.h \
+    Decay/ecsimulation.h \
+    Decay/random.h \
     Models/alphatransitionmodel.h \
     Models/atomicdatamodel.h \
     Models/atomicsubshellmodel.h \

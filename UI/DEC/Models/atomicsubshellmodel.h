@@ -10,6 +10,8 @@ public:
     AtomicSubshellModel& operator =(const AtomicSubshellModel &other);
     double binding_energy_keV;
     int elektrons_max;
+    int availablelElectrons;
+
     QMap<QString,double> auger;
     QMap<QString,double> xRay;
 

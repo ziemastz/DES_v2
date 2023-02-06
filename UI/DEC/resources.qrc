@@ -10,5 +10,6 @@
         <file>Images/atomic-data.png</file>
         <file>DB/des_1.db</file>
         <file>Images/database.png</file>
+        <file>Images/play.png</file>
     </qresource>
 </RCC>

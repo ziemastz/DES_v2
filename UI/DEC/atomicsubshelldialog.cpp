@@ -90,7 +90,7 @@ void AtomicSubshellDialog::on_pushButton_addAugerTransition_clicked()
     if(ui->comboBox_occupancy->currentText().isEmpty() || ui->comboBox_emitting->currentText().isEmpty() || ui->lineEdit_intensity->text().isEmpty()) {
         return;
     }
-    QString transition = QString("%1 %2 %3").arg(ui->label_vacancy->text(),ui->comboBox_occupancy->currentText(),ui->comboBox_emitting->currentText());
+    QString transition = QString("%2 %3").arg(ui->label_vacancy->text(),ui->comboBox_occupancy->currentText(),ui->comboBox_emitting->currentText());
     QString intensity = ui->lineEdit_intensity->text();
 
     if(intensity.toDouble() == 0.0) {
@@ -108,7 +108,7 @@ void AtomicSubshellDialog::on_pushButton_addXRayTransition_clicked()
     if(ui->comboBox_occupancy_x->currentText().isEmpty() || ui->lineEdit_intensity_x->text().isEmpty()) {
         return;
     }
-    QString transition = QString("%1 %2").arg(ui->label_vacancy_x->text(),ui->comboBox_occupancy_x->currentText());
+    QString transition = QString("%2").arg(ui->label_vacancy_x->text(),ui->comboBox_occupancy_x->currentText());
     QString intensity = ui->lineEdit_intensity_x->text();
 
     if(intensity.toDouble() == 0.0) {
