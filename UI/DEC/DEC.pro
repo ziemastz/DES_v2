@@ -28,6 +28,7 @@ SOURCES += \
     editbranchdialog.cpp \
     editgammadialog.cpp \
     formnuclide.cpp \
+    generatespectrumdialog.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -51,6 +52,7 @@ HEADERS += \
     editbranchdialog.h \
     editgammadialog.h \
     formnuclide.h \
+    generatespectrumdialog.h \
     mainwindow.h
 
 FORMS += \
@@ -59,6 +61,7 @@ FORMS += \
     editbranchdialog.ui \
     editgammadialog.ui \
     formnuclide.ui \
+    generatespectrumdialog.ui \
     mainwindow.ui
 
 RESOURCES += \
