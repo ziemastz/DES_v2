@@ -12,13 +12,21 @@ ECSimulation::ECSimulation(const BranchModel &branch) :
 
 void ECSimulation::start()
 {
+    //EC or beta+
+    if(isBetaPlus()) {
+        qDebug() << "Beta+ transition";
+        return;
+    }
+
     QVector<QString> vacancies;
     ElectronConfiguration();
 
     QString ec = ElectronCapture();
 
-    if(ec.isEmpty())
+    if(ec.isEmpty()) {
+        qWarning() << "No electron capture!";
         return;
+    }
 
     vacancies << ec;
 
@@ -97,6 +105,17 @@ void ECSimulation::ElectronConfiguration()
     foreach (QString subshell, keys) {
         atomicData.subshells[subshell].availablelElectrons =  atomicData.subshells[subshell].elektrons_max;
     }
+}
+
+bool ECSimulation::isBetaPlus()
+{
+    DataVector p_beta;
+    p_beta.put(0,_branch.ec.intensityEC);
+    p_beta.put(1,_branch.ec.intensityBetaPlus);
+    if(p_beta.random() == 1)
+        return true;
+    else
+        return false;
 }
 
 QString ECSimulation::ElectronCapture()

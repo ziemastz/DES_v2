@@ -26,6 +26,8 @@ private:
     AtomicDataModel atomicData;
     void ElectronConfiguration();
 
+    bool isBetaPlus();
+
     QString ElectronCapture();
 
     TRANSITIONS Transition(const QString &subshell);
