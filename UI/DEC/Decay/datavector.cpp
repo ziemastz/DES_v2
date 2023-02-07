@@ -15,10 +15,13 @@ void DataVector::put(const double &X, const double &Y)
 
 double DataVector::random() const
 {
+    if(_histo.size() == 0)
+        return -1;
+
     Random rn;
     double gn = rn.randNumber();
     double sum = 0;
-    size_t i;
+    size_t i=0;
 
     for(i=0; i < _histo.size(); i++)
     {
