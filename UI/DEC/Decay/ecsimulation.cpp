@@ -62,7 +62,7 @@ void ECSimulation::start()
         }
         default:
         {
-            qWarning() << "Wrong random transistions: " << trans;
+            qWarning() << "Wrong random transistions: " << index;
             break;
         }
         }

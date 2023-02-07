@@ -7,6 +7,7 @@
 class AtomicSubshellModel
 {
 public:
+    AtomicSubshellModel();
     AtomicSubshellModel& operator =(const AtomicSubshellModel &other);
     double binding_energy_keV;
     int elektrons_max;

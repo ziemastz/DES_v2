@@ -2,6 +2,13 @@
 
 
 
+AtomicSubshellModel::AtomicSubshellModel()
+{
+    binding_energy_keV = 0.0;
+    availablelElectrons = 0.0;
+    elektrons_max = 0.0;
+}
+
 AtomicSubshellModel &AtomicSubshellModel::operator =(const AtomicSubshellModel &other)
 {
     this->binding_energy_keV = other.binding_energy_keV;

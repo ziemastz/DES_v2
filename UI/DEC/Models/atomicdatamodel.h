@@ -9,6 +9,7 @@
 class AtomicDataModel
 {
 public:
+    AtomicDataModel();
     double radius;
     //fluorescence Yields
     QMap<QString, double> fluorescenceYields; // <1, 2> 1:subshell, 2:intensity

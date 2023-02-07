@@ -7,6 +7,7 @@
 class ECModel
 {
 public:
+    ECModel();
     uint idBranch;
     double intensityEC;
     double intensityBetaPlus;
