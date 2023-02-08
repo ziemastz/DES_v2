@@ -8,6 +8,7 @@ AtomicDataController::AtomicDataController() : BaseController()
 AtomicDataModel AtomicDataController::getAtomicData(const QString &nuclide)
 {
     AtomicDataModel ret;
+    ret.nuclide = nuclide;
     //coster-kronig
     QVector<QVariantList> result = db->read(QString("SELECT f12, f13, f23 FROM coster_kronig_yield WHERE idNuclide = '%1'").arg(nuclide));
     if(result.count() == 1) {
@@ -68,6 +69,7 @@ AtomicDataModel AtomicDataController::getAtomicData(const QString &nuclide)
         }
         ret.subshells.insert(key,subshell);
     }
+
     return ret;
 }
 

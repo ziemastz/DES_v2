@@ -6,8 +6,15 @@
 ECSimulation::ECSimulation(const BranchModel &branch) :
     _branch(branch)
 {
-    AtomicDataController atomicContr;
-    atomicData = atomicContr.getAtomicData(_branch.daughter.symbol);
+    _branch = branch;
+}
+
+void ECSimulation::loadAtomicData()
+{
+    if(atomicData.nuclide != _branch.daughter.symbol) {
+        AtomicDataController atomicContr;
+        atomicData = atomicContr.getAtomicData(_branch.daughter.symbol);
+    }
 }
 
 void ECSimulation::start()
@@ -45,6 +52,10 @@ void ECSimulation::start()
             QStringList augerTransition = transition.split(QRegExp("\\s+"));
             vacancies << augerTransition.last() << augerTransition.first();
             emittedElectrons << ElectronEnergy(index,augerTransition.first(),augerTransition.last());
+            qDebug() << "Auger "
+                     << index
+                     << augerTransition.first()
+                     << augerTransition.last();
             break;
         }
         case Xray:
@@ -55,6 +66,9 @@ void ECSimulation::start()
 
             vacancies << transition;
             emittedXRay << XRayEnergy(index,vacancies.last());
+            qDebug() << "XRay "
+                     << index
+                     << transition;
             break;
         }
         case C_KL1L2:
@@ -66,6 +80,10 @@ void ECSimulation::start()
             vacancies << emitting
                       << "L2";
             emittedElectrons << ElectronEnergy(index,"L2",emitting);
+            qDebug() << "C-K(f12) "
+                     << index
+                     << "L2"
+                     << emitting;
             break;
         }
         case C_KL1L3:
@@ -77,6 +95,10 @@ void ECSimulation::start()
             vacancies << emitting
                       << "L3";
             emittedElectrons << ElectronEnergy(index,"L3",emitting);
+            qDebug() << "C-K(f13) "
+                     << index
+                     << "L3"
+                     << emitting;
             break;
         }
         case C_KL2L3:
@@ -88,6 +110,10 @@ void ECSimulation::start()
             vacancies << emitting
                       << "L3";
             emittedElectrons << ElectronEnergy(index,"L3",emitting);
+            qDebug() << "C-K(f23) "
+                     << index
+                     << "L3"
+                     << emitting;
             break;
         }
         default:
@@ -269,6 +295,11 @@ QString ECSimulation::CosterKronigEmissions(const QString &subshell, const QStri
 QVector<double> ECSimulation::getEmittedXRay() const
 {
     return emittedXRay;
+}
+
+void ECSimulation::setBranch(const BranchModel &newBranch)
+{
+    _branch = newBranch;
 }
 
 QVector<double> ECSimulation::getEmittedElectrons() const

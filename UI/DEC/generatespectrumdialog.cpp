@@ -1,6 +1,7 @@
 #include "generatespectrumdialog.h"
 #include "ui_generatespectrumdialog.h"
 #include "toolwidget.h"
+#include "Decay/decaysimulator.h"
 
 GenerateSpectrumDialog::GenerateSpectrumDialog(const DecaySchemeModel &radionuclideDecay, QWidget *parent) :
     QDialog(parent),
@@ -28,7 +29,11 @@ void GenerateSpectrumDialog::on_cancel_pushButton_clicked()
 
 void GenerateSpectrumDialog::on_start_pushButton_clicked()
 {
-
+    DecaySimulator sim(decay,ui->decayEvents_lineEdit->text().toInt());
+    if(!sim.start()) {
+        qWarning() << "Error decay simulation";
+    }
+    accept();
 }
 
 void GenerateSpectrumDialog::uintegerNumberLineEdit(const QString &arg1)

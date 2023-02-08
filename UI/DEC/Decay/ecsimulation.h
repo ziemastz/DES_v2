@@ -14,12 +14,15 @@ public:
         C_KL1L3,
         C_KL2L3
     };
-    ECSimulation(const BranchModel &branch);
+    ECSimulation(const BranchModel &branch = BranchModel());
+    void loadAtomicData();
     void start();
 
     QVector<double> getEmittedElectrons() const;
 
     QVector<double> getEmittedXRay() const;
+
+    void setBranch(const BranchModel &newBranch);
 
 private:
     BranchModel _branch;

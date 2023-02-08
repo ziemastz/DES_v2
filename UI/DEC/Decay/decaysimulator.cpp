@@ -54,11 +54,15 @@ bool DecaySimulator::start()
     }
 
     // loop of decays
+    ECSimulation ecSim;
     while(decayEvents >= ++currentDecay) {
+        qDebug() << "Event: "<<currentDecay;
         BranchModel branch = decay.branches.at((int)p_branches.random());
 
         if(branch.transition == "EC") {
-            ECSimulation ecSim(branch);
+            qDebug() << "Transition EC";
+            ecSim.setBranch(branch);
+            ecSim.loadAtomicData();
             ecSim.start();
 
             *outElectron << currentDecay;
