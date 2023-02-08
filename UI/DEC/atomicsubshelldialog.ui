@@ -276,7 +276,7 @@ color: rgb(238, 238, 238)
                  <string>Add/Update</string>
                 </property>
                 <property name="autoDefault">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -363,7 +363,7 @@ color: rgb(238, 238, 238)
                  <string>Add/Update</string>
                 </property>
                 <property name="autoDefault">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -489,6 +489,9 @@ color: rgb(238, 238, 238)
            <iconset resource="resources.qrc">
             <normaloff>:/Images/cancel.png</normaloff>:/Images/cancel.png</iconset>
           </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
          </widget>
         </item>
         <item>
@@ -517,6 +520,9 @@ color: rgb(238, 238, 238)
           <property name="icon">
            <iconset resource="resources.qrc">
             <normaloff>:/Images/downloads.png</normaloff>:/Images/downloads.png</iconset>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
           </property>
          </widget>
         </item>

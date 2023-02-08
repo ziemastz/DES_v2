@@ -569,6 +569,9 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>K</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
              </layout>
@@ -591,6 +594,9 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>L2</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="0">
@@ -598,12 +604,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>L1</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="2">
                <widget class="QPushButton" name="pushButton_L3">
                 <property name="text">
                  <string>L3</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -640,12 +652,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>M1</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="1">
                <widget class="QPushButton" name="pushButton_M2">
                 <property name="text">
                  <string>M2</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -654,6 +672,9 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>M3</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="3">
@@ -661,12 +682,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>M4</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="4">
                <widget class="QPushButton" name="pushButton_M5">
                 <property name="text">
                  <string>M5</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -694,12 +721,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>O5</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="3">
                <widget class="QPushButton" name="pushButton_O4">
                 <property name="text">
                  <string>O4</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -708,12 +741,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>O3</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="6">
                <widget class="QPushButton" name="pushButton_O7">
                 <property name="text">
                  <string>O7</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -722,6 +761,9 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>O6</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="0">
@@ -729,12 +771,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>O1</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="1">
                <widget class="QPushButton" name="pushButton_O2">
                 <property name="text">
                  <string>O2</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -758,12 +806,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>N6</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="1">
                <widget class="QPushButton" name="pushButton_N2">
                 <property name="text">
                  <string>N2</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -772,12 +826,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>N5</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="0">
                <widget class="QPushButton" name="pushButton_N1">
                 <property name="text">
                  <string>N1</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -786,6 +846,9 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>N4</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="2">
@@ -793,12 +856,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>N3</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="6">
                <widget class="QPushButton" name="pushButton_N7">
                 <property name="text">
                  <string>N7</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -826,12 +895,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>P1</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="1">
                <widget class="QPushButton" name="pushButton_P2">
                 <property name="text">
                  <string>P2</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -840,6 +915,9 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>P3</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="3">
@@ -847,12 +925,18 @@ color: rgb(238, 238, 238)
                 <property name="text">
                  <string>P4</string>
                 </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
+                </property>
                </widget>
               </item>
               <item row="0" column="4">
                <widget class="QPushButton" name="pushButton_P5">
                 <property name="text">
                  <string>P5</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -875,6 +959,9 @@ color: rgb(238, 238, 238)
                <widget class="QPushButton" name="pushButton_Q1">
                 <property name="text">
                  <string>Q1</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>false</bool>
                 </property>
                </widget>
               </item>
@@ -910,6 +997,9 @@ color: rgb(238, 238, 238)
            <iconset resource="resources.qrc">
             <normaloff>:/Images/cancel.png</normaloff>:/Images/cancel.png</iconset>
           </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
          </widget>
         </item>
         <item>
@@ -938,6 +1028,9 @@ color: rgb(238, 238, 238)
           <property name="icon">
            <iconset resource="resources.qrc">
             <normaloff>:/Images/database.png</normaloff>:/Images/database.png</iconset>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
