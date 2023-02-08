@@ -28,8 +28,8 @@ DecaySimulator::~DecaySimulator()
 bool DecaySimulator::start()
 {
     //contenery
-    fElectrons.setFileName("emittedElectrons_"+decay.radionuclide+".txt");
-    fGammas.setFileName("emittedGammas_"+decay.radionuclide+".txt");
+    fElectrons.setFileName(decay.radionuclide+"_emittedElectrons.txt");
+    fGammas.setFileName(decay.radionuclide+"_emittedGammas.txt");
     if(!fElectrons.open(QIODevice::WriteOnly | QIODevice::Text)) {
         qWarning() << "Creating error "
                    << fElectrons.fileName()
@@ -45,7 +45,7 @@ bool DecaySimulator::start()
     }
 
     outElectron = new QTextStream(&fElectrons);
-    outGamma = new QTextStream(&fElectrons);
+    outGamma = new QTextStream(&fGammas);
 
     //histogram of probability of branch
     DataVector p_branches;

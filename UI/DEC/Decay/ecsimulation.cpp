@@ -28,6 +28,9 @@ void ECSimulation::start()
     QVector<QString> vacancies;
     ElectronConfiguration();
 
+    emittedElectrons.clear();
+    emittedXRay.clear();
+
     QString ec = ElectronCapture();
 
     if(ec.isEmpty()) {
@@ -51,7 +54,7 @@ void ECSimulation::start()
 
             QStringList augerTransition = transition.split(QRegExp("\\s+"));
             vacancies << augerTransition.last() << augerTransition.first();
-            emittedElectrons << ElectronEnergy(index,augerTransition.first(),augerTransition.last());
+            emittedElectrons << ElectronEnergy(index,augerTransition.first(),augerTransition.last())/1000;
             qDebug() << "Auger "
                      << index
                      << augerTransition.first()
@@ -65,7 +68,7 @@ void ECSimulation::start()
                 break;
 
             vacancies << transition;
-            emittedXRay << XRayEnergy(index,vacancies.last());
+            emittedXRay << XRayEnergy(index,vacancies.last())/1000; //unit keV
             qDebug() << "XRay "
                      << index
                      << transition;
@@ -79,7 +82,7 @@ void ECSimulation::start()
 
             vacancies << emitting
                       << "L2";
-            emittedElectrons << ElectronEnergy(index,"L2",emitting);
+            emittedElectrons << ElectronEnergy(index,"L2",emitting)/1000;
             qDebug() << "C-K(f12) "
                      << index
                      << "L2"
@@ -94,7 +97,7 @@ void ECSimulation::start()
 
             vacancies << emitting
                       << "L3";
-            emittedElectrons << ElectronEnergy(index,"L3",emitting);
+            emittedElectrons << ElectronEnergy(index,"L3",emitting)/1000;
             qDebug() << "C-K(f13) "
                      << index
                      << "L3"
@@ -109,7 +112,7 @@ void ECSimulation::start()
 
             vacancies << emitting
                       << "L3";
-            emittedElectrons << ElectronEnergy(index,"L3",emitting);
+            emittedElectrons << ElectronEnergy(index,"L3",emitting)/1000;
             qDebug() << "C-K(f23) "
                      << index
                      << "L3"
@@ -203,31 +206,32 @@ QString ECSimulation::AugerEmissions(const QString &subshell)
     if(!atomicData.subshells.contains(subshell))
         return ret;
 
-    QStringList keys = atomicData.subshells[subshell].auger.keys();
+    QStringList keys = atomicData.subshells.value(subshell).auger.keys();
     if(keys.size() == 0)
         return ret;
 
     DataVector p_auger;
     for(int i=0; i<keys.size(); i++) {
-        double intensity = atomicData.subshells[subshell].auger[keys.at(i)];
-        if(intensity > 0.0 && atomicData.subshells[keys.at(i).split(QRegExp("\\s++")).last()].availablelElectrons > 0)
+        double intensity = atomicData.subshells.value(subshell).auger.value(keys.at(i));
+        int electron = atomicData.subshells.value(keys.at(i).split(QRegExp("\\s+")).last()).availablelElectrons;
+        if(intensity > 0.0 && electron > 0)
             p_auger.put(i,intensity);
     }
     int index = (int)p_auger.random();
     if(index == -1)
         return ret;
     ret = keys.at(index);
-    atomicData.subshells[ret.split(QRegExp("\\s++")).first()].availablelElectrons--;
-    atomicData.subshells[ret.split(QRegExp("\\s++")).last()].availablelElectrons--;
+    atomicData.subshells[ret.split(QRegExp("\\s+")).first()].availablelElectrons--;
+    atomicData.subshells[ret.split(QRegExp("\\s+")).last()].availablelElectrons--;
     atomicData.subshells[subshell].availablelElectrons++;
     return ret;
 }
 
 double ECSimulation::ElectronEnergy(const QString &vacancy, const QString &occupancy, const QString &emitting)
 {
-    double Ev = atomicData.subshells[vacancy].binding_energy_keV;
-    double Eo = atomicData.subshells[occupancy].binding_energy_keV;
-    double Ee = atomicData.subshells[emitting].binding_energy_keV;
+    double Ev = atomicData.subshells.value(vacancy).binding_energy_keV;
+    double Eo = atomicData.subshells.value(occupancy).binding_energy_keV;
+    double Ee = atomicData.subshells.value(emitting).binding_energy_keV;
     return Ev - Eo - Ee;
 }
 
@@ -237,14 +241,14 @@ QString ECSimulation::XRayEmissions(const QString &subshell)
     if(!atomicData.subshells.contains(subshell))
         return ret;
 
-    QStringList keys = atomicData.subshells[subshell].xRay.keys();
+    QStringList keys = atomicData.subshells.value(subshell).xRay.keys();
     if(keys.size() == 0)
         return ret;
 
     DataVector p_xRay;
     for(int i=0; i<keys.size(); i++) {
-        double intensity = atomicData.subshells[subshell].xRay[keys.at(i)];
-        if(intensity > 0.0 && atomicData.subshells[keys.at(i)].availablelElectrons > 0)
+        double intensity = atomicData.subshells.value(subshell).xRay.value(keys.at(i));
+        if(intensity > 0.0 && atomicData.subshells.value(keys.at(i)).availablelElectrons > 0)
             p_xRay.put(i,intensity);
     }
     int index = (int)p_xRay.random();
@@ -258,8 +262,8 @@ QString ECSimulation::XRayEmissions(const QString &subshell)
 
 double ECSimulation::XRayEnergy(const QString &vacancy, const QString &occupancy)
 {
-    double Ev = atomicData.subshells[vacancy].binding_energy_keV;
-    double Eo = atomicData.subshells[occupancy].binding_energy_keV;
+    double Ev = atomicData.subshells.value(vacancy).binding_energy_keV;
+    double Eo = atomicData.subshells.value(occupancy).binding_energy_keV;
     return Ev - Eo;
 }
 
@@ -269,17 +273,17 @@ QString ECSimulation::CosterKronigEmissions(const QString &subshell, const QStri
     if(!atomicData.subshells.contains(subshell))
         return ret;
 
-    QStringList keys = atomicData.subshells[subshell].auger.keys();
+    QStringList keys = atomicData.subshells.value(subshell).auger.keys();
     if(keys.size() == 0)
         return ret;
 
     DataVector p_auger;
     for(int i=0; i<keys.size(); i++) {
         QStringList transitions = keys.at(i).split(QRegExp("\\s+"));
-        double intensity = atomicData.subshells[subshell].auger[keys.at(i)];
+        double intensity = atomicData.subshells.value(subshell).auger.value(keys.at(i));
         if(intensity > 0.0 &&
            transitions.first() == occupancy &&
-           atomicData.subshells[transitions.last()].availablelElectrons > 0) {
+           atomicData.subshells.value(transitions.last()).availablelElectrons > 0) {
 
             p_auger.put(i,intensity);
         }
@@ -287,7 +291,7 @@ QString ECSimulation::CosterKronigEmissions(const QString &subshell, const QStri
     int index = (int)p_auger.random();
     if(index == -1)
         return ret;
-    ret = keys.at(index).split(QRegExp("\\s++")).last();
+    ret = keys.at(index).split(QRegExp("\\s+")).last();
     atomicData.subshells[ret].availablelElectrons--;
     return ret;
 }
