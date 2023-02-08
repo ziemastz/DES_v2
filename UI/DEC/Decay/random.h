@@ -1,10 +1,13 @@
 #ifndef RANDOM_H
 #define RANDOM_H
 
+#include <ctime>
+#include <random>
+
 class Random
 {
 public:
-    Random();
+    Random(const unsigned int &seed = std::time(NULL));
     double randNumber();
 private:
     const int FLOAT_MIN = 0;

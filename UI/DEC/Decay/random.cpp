@@ -1,10 +1,8 @@
 #include "random.h"
-#include <ctime>
-#include <random>
 
-Random::Random()
+Random::Random(const uint &seed)
 {
-   std::srand(std::time(nullptr));
+   std::srand(seed);
 }
 
 double Random::randNumber()
