@@ -1,5 +1,6 @@
 #include "datavector.h"
-#include "Decay/random.h"
+
+Random DataVector::rn = Random();
 
 DataVector::DataVector()
 {
@@ -18,7 +19,6 @@ double DataVector::random() const
     if(_histo.size() == 0)
         return -1;
 
-    Random rn;
     double gn = rn.randNumber();
     double sum = 0;
     size_t i=0;
