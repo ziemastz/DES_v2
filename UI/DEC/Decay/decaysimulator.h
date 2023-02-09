@@ -28,8 +28,10 @@ private:
 
     QFile fElectrons;
     QFile fGammas;
+    QFile fTag;
     QTextStream *outElectron;
     QTextStream *outGamma;
+    QTextStream *outTag;
 
 
     void ElectronsConfiguration();

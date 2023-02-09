@@ -11,6 +11,7 @@ DecaySimulator::DecaySimulator(const DecaySchemeModel &decayScheme, const uint &
     currentDecay = 0;
     outElectron = nullptr;
     outGamma = nullptr;
+    outTag = nullptr;
 }
 
 DecaySimulator::~DecaySimulator()
@@ -23,6 +24,10 @@ DecaySimulator::~DecaySimulator()
         delete outGamma;
         fGammas.close();
     }
+    if(outTag != nullptr) {
+        delete outTag;
+        fTag.close();
+    }
 }
 
 bool DecaySimulator::start()
@@ -30,6 +35,8 @@ bool DecaySimulator::start()
     //contenery
     fElectrons.setFileName(decay.radionuclide+"_emittedElectrons.txt");
     fGammas.setFileName(decay.radionuclide+"_emittedGammas.txt");
+    fTag.setFileName(decay.radionuclide+"_Tags.txt");
+
     if(!fElectrons.open(QIODevice::WriteOnly | QIODevice::Text)) {
         qWarning() << "Creating error "
                    << fElectrons.fileName()
@@ -44,8 +51,16 @@ bool DecaySimulator::start()
         return false;
     }
 
+    if(!fTag.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qWarning() << "Creating error "
+                   << fTag.fileName()
+                   << " : " <<fTag.errorString();
+        return false;
+    }
+
     outElectron = new QTextStream(&fElectrons);
     outGamma = new QTextStream(&fGammas);
+    outTag = new QTextStream(&fTag);
 
     //histogram of probability of branch
     DataVector p_branches;
@@ -56,11 +71,11 @@ bool DecaySimulator::start()
     // loop of decays
     ECSimulation ecSim;
     while(decayEvents >= ++currentDecay) {
-        qDebug() << "Event: "<<currentDecay;
+        //qDebug() << "Event: "<<currentDecay;
         BranchModel branch = decay.branches.at((int)p_branches.random());
 
         if(branch.transition == "EC") {
-            qDebug() << "Transition EC";
+            //qDebug() << "Transition EC";
             ecSim.setBranch(branch);
             ecSim.loadAtomicData();
             ecSim.start();
@@ -76,6 +91,12 @@ bool DecaySimulator::start()
                 *outGamma << "\t" << energy;
             }
             *outGamma << "\n";
+
+            *outTag << currentDecay;
+            foreach (QString tag, ecSim.getTagEmitted()) {
+                *outTag << "\t" << tag;
+            }
+            *outTag << "\n";
         }
 
         //gamma emisions

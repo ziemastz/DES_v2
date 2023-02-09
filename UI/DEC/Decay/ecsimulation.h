@@ -24,6 +24,8 @@ public:
 
     void setBranch(const BranchModel &newBranch);
 
+    QStringList getTagEmitted() const;
+
 private:
     BranchModel _branch;
     AtomicDataModel atomicData;
@@ -45,6 +47,7 @@ private:
 
     QVector<double> emittedElectrons;
     QVector<double> emittedXRay;
+    QStringList tagEmitted;
 };
 
 #endif // ECSIMULATION_H

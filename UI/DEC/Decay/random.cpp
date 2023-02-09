@@ -1,6 +1,6 @@
 #include "random.h"
 
-Random::Random(const uint &seed)
+Random::Random(const  unsigned int &seed)
 {
    std::srand(seed);
 }

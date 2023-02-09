@@ -55,6 +55,7 @@ void ECSimulation::start()
             QStringList augerTransition = transition.split(QRegExp("\\s+"));
             vacancies << augerTransition.last() << augerTransition.first();
             emittedElectrons << ElectronEnergy(index,augerTransition.first(),augerTransition.last())/1000;
+            tagEmitted << "A_"+augerTransition.last();
             qDebug() << "Auger "
                      << index
                      << augerTransition.first()
@@ -68,10 +69,9 @@ void ECSimulation::start()
                 break;
 
             vacancies << transition;
-            emittedXRay << XRayEnergy(index,vacancies.last())/1000; //unit keV
-            qDebug() << "XRay "
-                     << index
-                     << transition;
+            emittedXRay << XRayEnergy(index,transition)/1000; //unit keV
+            tagEmitted << "X_"+transition;
+
             break;
         }
         case C_KL1L2:
@@ -83,10 +83,8 @@ void ECSimulation::start()
             vacancies << emitting
                       << "L2";
             emittedElectrons << ElectronEnergy(index,"L2",emitting)/1000;
-            qDebug() << "C-K(f12) "
-                     << index
-                     << "L2"
-                     << emitting;
+            tagEmitted << "C-Kf12_"+emitting;
+
             break;
         }
         case C_KL1L3:
@@ -98,10 +96,8 @@ void ECSimulation::start()
             vacancies << emitting
                       << "L3";
             emittedElectrons << ElectronEnergy(index,"L3",emitting)/1000;
-            qDebug() << "C-K(f13) "
-                     << index
-                     << "L3"
-                     << emitting;
+            tagEmitted << "C-Kf13_"+emitting;
+
             break;
         }
         case C_KL2L3:
@@ -113,10 +109,8 @@ void ECSimulation::start()
             vacancies << emitting
                       << "L3";
             emittedElectrons << ElectronEnergy(index,"L3",emitting)/1000;
-            qDebug() << "C-K(f23) "
-                     << index
-                     << "L3"
-                     << emitting;
+            tagEmitted << "C-Kf23_"+emitting;
+
             break;
         }
         default:
@@ -294,6 +288,11 @@ QString ECSimulation::CosterKronigEmissions(const QString &subshell, const QStri
     ret = keys.at(index).split(QRegExp("\\s+")).last();
     atomicData.subshells[ret].availablelElectrons--;
     return ret;
+}
+
+QStringList ECSimulation::getTagEmitted() const
+{
+    return tagEmitted;
 }
 
 QVector<double> ECSimulation::getEmittedXRay() const
