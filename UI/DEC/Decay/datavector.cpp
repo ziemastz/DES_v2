@@ -25,12 +25,12 @@ double DataVector::random() const
 
     for(i=0; i < _histo.size(); i++)
     {
-        sum += _histo.at(i);
+        sum += _histo[i];
         if(gn <= sum)
             break;
     }
 
-    return _X.at(i);
+    return _X[i];
 }
 
 bool DataVector::isEmpty() const
@@ -49,6 +49,6 @@ void DataVector::normalize()
         sum += _Y.at(i);
     }
     for(size_t i=0; i<_Y.size(); i++) {
-        _histo.push_back(_Y.at(i)/sum);
+        _histo.push_back(_Y[i]/sum);
     }
 }
