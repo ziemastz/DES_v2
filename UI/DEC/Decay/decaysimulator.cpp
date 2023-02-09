@@ -77,6 +77,9 @@ bool DecaySimulator::start()
     while(decayEvents >= ++currentDecay) {
         //qDebug() << "Event: "<<currentDecay;
         BranchModel branch = decay.branches.at((int)p_branches.random());
+        *outElectron << currentDecay;
+        *outGamma << currentDecay;
+        *outTag << currentDecay;
 
         if(branch.transition == "EC") {
             //qDebug() << "Transition EC";
@@ -84,19 +87,12 @@ bool DecaySimulator::start()
             ecSim.loadAtomicData();
             ecSim.start();
 
-            *outElectron << currentDecay;
             foreach (double energy, ecSim.getEmittedElectrons()) {
                 *outElectron << "\t" << energy;
             }
-
-
-            *outGamma << currentDecay;
             foreach (double energy, ecSim.getEmittedXRay()) {
                 *outGamma << "\t" << energy;
             }
-
-
-            *outTag << currentDecay;
             foreach (QString tag, ecSim.getTagEmitted()) {
                 *outTag << "\t" << tag;
             }
@@ -115,6 +111,7 @@ bool DecaySimulator::start()
                 p_g.put(i,total_g_ce);
             }
             int index = (int)p_g.random();
+            final_level = branch.gammes.at(index).finalLevel_keV;
             DataVector p_ce;
             p_ce.put(0,1-branch.gammes.at(index).total_internal_conversion);
             p_ce.put(1,branch.gammes.at(index).total_internal_conversion);
@@ -123,26 +120,21 @@ bool DecaySimulator::start()
                 ceSim.setGamma(branch.gammes.at(index));
                 ceSim.loadAtomicData();
                 ceSim.start();
-                *outElectron << currentDecay;
+
                 foreach (double energy, ceSim.getEmittedElectrons()) {
                     *outElectron << "\t" << energy;
                 }
-
-
-                *outGamma << currentDecay;
                 foreach (double energy, ceSim.getEmittedXRay()) {
                     *outGamma << "\t" << energy;
                 }
-
-
-                *outTag << currentDecay;
                 foreach (QString tag, ceSim.getTagEmitted()) {
                     *outTag << "\t" << tag;
                 }
+
             }else {
                 //gamma
                 *outGamma << "\t" << branch.gammes.at(index).energy;
-                *outTag << "\t" << "γ";
+                *outTag << "\t" << "G";
             }
         }
         }
