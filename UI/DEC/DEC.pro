@@ -13,6 +13,7 @@ SOURCES += \
     Controllers/basecontroller.cpp \
     Controllers/branchcontroller.cpp \
     Controllers/nuclidecontroller.cpp \
+    Decay/cesimulation.cpp \
     Decay/datavector.cpp \
     Decay/decaysimulator.cpp \
     Decay/ecsimulation.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     Controllers/basecontroller.h \
     Controllers/branchcontroller.h \
     Controllers/nuclidecontroller.h \
+    Decay/cesimulation.h \
     Decay/datavector.h \
     Decay/decaysimulator.h \
     Decay/ecsimulation.h \

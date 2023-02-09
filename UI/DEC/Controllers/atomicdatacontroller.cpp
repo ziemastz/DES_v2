@@ -30,7 +30,7 @@ AtomicDataModel AtomicDataController::getAtomicData(const QString &nuclide)
         ret.radius = result.first().first().toDouble();
     }
     // subshells
-    statement = QString("SELECT s.symbol, a.binding_energy_keV, a.electrons, s.id "
+    statement = QString("SELECT s.symbol, a.binding_energy_eV, a.electrons, s.id "
                         "FROM atomic_subshell a "
                         "LEFT JOIN subshell s ON s.id = a.idSubshell "
                         "WHERE idNuclide = '%1'")
@@ -40,7 +40,7 @@ AtomicDataModel AtomicDataController::getAtomicData(const QString &nuclide)
         int j=0;
         QString key = result.at(i).at(j++).toString();
         AtomicSubshellModel subshell;
-        subshell.binding_energy_keV = result.at(i).at(j++).toDouble();
+        subshell.binding_energy_eV = result.at(i).at(j++).toDouble();
         subshell.elektrons_max = result.at(i).at(j++).toInt();
         int idSubshell = result.at(i).at(j++).toInt();
         //auger
@@ -114,7 +114,7 @@ bool AtomicDataController::updateAtomicData(const QString &nuclide, const Atomic
                             "%3, %4)")
                 .arg(nuclide)
                 .arg(subshell)
-                .arg(data.binding_energy_keV)
+                .arg(data.binding_energy_eV)
                 .arg(data.elektrons_max);
 
         if(!db->write(statement)) {

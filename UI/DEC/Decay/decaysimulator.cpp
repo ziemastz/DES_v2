@@ -1,4 +1,5 @@
 #include "decaysimulator.h"
+#include "Decay/cesimulation.h"
 #include "qdebug.h"
 #include "Decay/datavector.h"
 #include <QElapsedTimer>
@@ -70,6 +71,7 @@ bool DecaySimulator::start()
 
     // loop of decays
     ECSimulation ecSim;
+    CESimulation ceSim;
     QElapsedTimer timer;
     timer.start();
     while(decayEvents >= ++currentDecay) {
@@ -86,28 +88,67 @@ bool DecaySimulator::start()
             foreach (double energy, ecSim.getEmittedElectrons()) {
                 *outElectron << "\t" << energy;
             }
-            *outElectron << "\n";
+
 
             *outGamma << currentDecay;
             foreach (double energy, ecSim.getEmittedXRay()) {
                 *outGamma << "\t" << energy;
             }
-            *outGamma << "\n";
+
 
             *outTag << currentDecay;
             foreach (QString tag, ecSim.getTagEmitted()) {
                 *outTag << "\t" << tag;
             }
-            *outTag << "\n";
+
         }
 
         //gamma emisions
         if(!branch.gammes.isEmpty()) {
         double final_level = -1;
-        //while(final_level != 0.0) {
+        while(final_level != 0.0) {
+            DataVector p_g;
+            for (int i = 0; i < branch.gammes.size(); i++) {
+                double total_g_ce = branch.gammes.at(i).total_internal_conversion
+                                  * branch.gammes.at(i).intensity
+                                  + branch.gammes.at(i).intensity;
+                p_g.put(i,total_g_ce);
+            }
+            int index = (int)p_g.random();
+            DataVector p_ce;
+            p_ce.put(0,1-branch.gammes.at(index).total_internal_conversion);
+            p_ce.put(1,branch.gammes.at(index).total_internal_conversion);
+            if((int)p_ce.random()) {
+                //CE
+                ceSim.setGamma(branch.gammes.at(index));
+                ceSim.loadAtomicData();
+                ceSim.start();
+                *outElectron << currentDecay;
+                foreach (double energy, ceSim.getEmittedElectrons()) {
+                    *outElectron << "\t" << energy;
+                }
 
-       // }
+
+                *outGamma << currentDecay;
+                foreach (double energy, ceSim.getEmittedXRay()) {
+                    *outGamma << "\t" << energy;
+                }
+
+
+                *outTag << currentDecay;
+                foreach (QString tag, ceSim.getTagEmitted()) {
+                    *outTag << "\t" << tag;
+                }
+            }else {
+                //gamma
+                *outGamma << "\t" << branch.gammes.at(index).energy;
+                *outTag << "\t" << "γ";
+            }
         }
+        }
+        *outElectron << "\n";
+        *outGamma << "\n";
+        *outTag << "\n";
     }
     qInfo() << "Simulation time: "<< timer.elapsed() << " ms";
     return true;

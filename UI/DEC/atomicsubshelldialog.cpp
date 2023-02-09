@@ -34,7 +34,7 @@ void AtomicSubshellDialog::load(const AtomicSubshellModel &loadData)
 {
     data = loadData;
 
-    ui->lineEdit_energy->setText(QString::number(data.binding_energy_keV));
+    ui->lineEdit_energy->setText(QString::number(data.binding_energy_eV));
     ui->lineEdit_electrons->setText(QString::number(data.elektrons_max));
 
     reloadAugerTable();
@@ -164,7 +164,7 @@ void AtomicSubshellDialog::percentageNumberLineEdit(const QString &arg1)
 
 void AtomicSubshellDialog::on_lineEdit_energy_editingFinished()
 {
-    data.binding_energy_keV = ui->lineEdit_energy->text().toDouble();
+    data.binding_energy_eV = ui->lineEdit_energy->text().toDouble();
 }
 
 

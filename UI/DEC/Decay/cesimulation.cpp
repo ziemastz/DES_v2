@@ -1,30 +1,26 @@
-#include "ecsimulation.h"
+#include "cesimulation.h"
 #include "Decay/datavector.h"
 
-
-
-ECSimulation::ECSimulation(const BranchModel &branch) :
-    _branch(branch)
+CESimulation::CESimulation()
 {
-    _branch = branch;
+    gamma = GammaModel();
 }
 
-void ECSimulation::loadAtomicData()
+void CESimulation::loadAtomicData()
 {
-    if(atomicData.nuclide != _branch.daughter.symbol) {
+    if(atomicData.nuclide != gamma.nuclide) {
         AtomicDataController atomicContr;
-        atomicData = atomicContr.getAtomicData(_branch.daughter.symbol);
+        atomicData = atomicContr.getAtomicData(gamma.nuclide);
     }
 }
 
-void ECSimulation::start()
+void CESimulation::setGamma(const GammaModel &newGamma)
 {
-    //EC or beta+
-    if(isBetaPlus()) {
-        qDebug() << "Beta+ transition";
-        return;
-    }
+    gamma = newGamma;
+}
 
+void CESimulation::start()
+{
     QVector<QString> vacancies;
     ElectronConfiguration();
 
@@ -32,14 +28,16 @@ void ECSimulation::start()
     emittedXRay.clear();
     tagEmitted.clear();
 
-    QString ec = ElectronCapture();
+    QString ce = ConversionElectron();
 
-    if(ec.isEmpty()) {
-        qWarning() << "No electron capture!";
+    if(ce.isEmpty()) {
+        qWarning() << "No conversion electron!";
         return;
     }
 
-    vacancies << ec;
+    vacancies << ce;
+    emittedElectrons << gamma.energy - (atomicData.subshells.value(ce).binding_energy_eV/1000);
+    tagEmitted << "ce_"+ce;
 
     while(!vacancies.isEmpty()) {
         QString index = vacancies.last();
@@ -115,38 +113,19 @@ void ECSimulation::start()
     }
 }
 
-void ECSimulation::ElectronConfiguration()
-{
-    QStringList keys = atomicData.subshells.keys();
-    foreach (QString subshell, keys) {
-        atomicData.subshells[subshell].availablelElectrons =  atomicData.subshells[subshell].elektrons_max;
-    }
-}
-
-bool ECSimulation::isBetaPlus()
-{
-    DataVector p_beta;
-    p_beta.put(0,_branch.ec.intensityEC);
-    p_beta.put(1,_branch.ec.intensityBetaPlus);
-    if(p_beta.random() == 1)
-        return true;
-    else
-        return false;
-}
-
-QString ECSimulation::ElectronCapture()
+QString CESimulation::ConversionElectron()
 {
     QString ret;
 
-    QStringList keys = _branch.ec.subshell_probability.keys();
+    QStringList keys = gamma.conversion_electrons.keys();
     if(keys.size() == 0)
         return ret;
 
-    DataVector p_ec;
+    DataVector p_ce;
     for(int i=0;i<keys.size();i++) {
-        p_ec.put(i, _branch.ec.subshell_probability[keys.at(i)]);
+        p_ce.put(i, gamma.conversion_electrons.value(keys.at(i)));
     }
-    int index = (int)p_ec.random();
+    int index = (int)p_ce.random();
     if(index == -1)
         return ret;
 
@@ -158,7 +137,7 @@ QString ECSimulation::ElectronCapture()
     return ret;
 }
 
-ECSimulation::TRANSITIONS ECSimulation::Transition(const QString &subshell)
+CESimulation::TRANSITIONS CESimulation::Transition(const QString &subshell)
 {
     double f12 = 0;
     double f13 = 0;
@@ -187,7 +166,7 @@ ECSimulation::TRANSITIONS ECSimulation::Transition(const QString &subshell)
     return static_cast<TRANSITIONS>(p_trans.random());
 }
 
-QString ECSimulation::AugerEmissions(const QString &subshell)
+QString CESimulation::AugerEmissions(const QString &subshell)
 {
     QString ret;
     if(!atomicData.subshells.contains(subshell))
@@ -214,7 +193,7 @@ QString ECSimulation::AugerEmissions(const QString &subshell)
     return ret;
 }
 
-double ECSimulation::ElectronEnergy(const QString &vacancy, const QString &occupancy, const QString &emitting)
+double CESimulation::ElectronEnergy(const QString &vacancy, const QString &occupancy, const QString &emitting)
 {
     double Ev = atomicData.subshells.value(vacancy).binding_energy_eV;
     double Eo = atomicData.subshells.value(occupancy).binding_energy_eV;
@@ -222,7 +201,7 @@ double ECSimulation::ElectronEnergy(const QString &vacancy, const QString &occup
     return Ev - Eo - Ee;
 }
 
-QString ECSimulation::XRayEmissions(const QString &subshell)
+QString CESimulation::XRayEmissions(const QString &subshell)
 {
     QString ret;
     if(!atomicData.subshells.contains(subshell))
@@ -247,14 +226,14 @@ QString ECSimulation::XRayEmissions(const QString &subshell)
     return ret;
 }
 
-double ECSimulation::XRayEnergy(const QString &vacancy, const QString &occupancy)
+double CESimulation::XRayEnergy(const QString &vacancy, const QString &occupancy)
 {
     double Ev = atomicData.subshells.value(vacancy).binding_energy_eV;
     double Eo = atomicData.subshells.value(occupancy).binding_energy_eV;
     return Ev - Eo;
 }
 
-QString ECSimulation::CosterKronigEmissions(const QString &subshell, const QString &occupancy)
+QString CESimulation::CosterKronigEmissions(const QString &subshell, const QString &occupancy)
 {
     QString ret;
     if(!atomicData.subshells.contains(subshell))
@@ -283,22 +262,25 @@ QString ECSimulation::CosterKronigEmissions(const QString &subshell, const QStri
     return ret;
 }
 
-QStringList ECSimulation::getTagEmitted() const
+QStringList CESimulation::getTagEmitted() const
 {
     return tagEmitted;
 }
 
-QVector<double> ECSimulation::getEmittedXRay() const
+void CESimulation::ElectronConfiguration()
+{
+    QStringList keys = atomicData.subshells.keys();
+    foreach (QString subshell, keys) {
+        atomicData.subshells[subshell].availablelElectrons =  atomicData.subshells[subshell].elektrons_max;
+    }
+}
+
+QVector<double> CESimulation::getEmittedXRay() const
 {
     return emittedXRay;
 }
 
-void ECSimulation::setBranch(const BranchModel &newBranch)
-{
-    _branch = newBranch;
-}
-
-QVector<double> ECSimulation::getEmittedElectrons() const
+QVector<double> CESimulation::getEmittedElectrons() const
 {
     return emittedElectrons;
 }
