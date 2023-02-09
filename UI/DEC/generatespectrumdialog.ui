@@ -215,6 +215,9 @@ color: rgb(238, 238, 238)
            <iconset resource="resources.qrc">
             <normaloff>:/Images/cancel.png</normaloff>:/Images/cancel.png</iconset>
           </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
          </widget>
         </item>
         <item>
