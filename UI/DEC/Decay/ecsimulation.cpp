@@ -30,6 +30,7 @@ void ECSimulation::start()
 
     emittedElectrons.clear();
     emittedXRay.clear();
+    tagEmitted.clear();
 
     QString ec = ElectronCapture();
 
@@ -56,10 +57,6 @@ void ECSimulation::start()
             vacancies << augerTransition.last() << augerTransition.first();
             emittedElectrons << ElectronEnergy(index,augerTransition.first(),augerTransition.last())/1000;
             tagEmitted << "A_"+augerTransition.last();
-            qDebug() << "Auger "
-                     << index
-                     << augerTransition.first()
-                     << augerTransition.last();
             break;
         }
         case Xray:
@@ -71,7 +68,6 @@ void ECSimulation::start()
             vacancies << transition;
             emittedXRay << XRayEnergy(index,transition)/1000; //unit keV
             tagEmitted << "X_"+transition;
-
             break;
         }
         case C_KL1L2:
@@ -84,7 +80,6 @@ void ECSimulation::start()
                       << "L2";
             emittedElectrons << ElectronEnergy(index,"L2",emitting)/1000;
             tagEmitted << "C-Kf12_"+emitting;
-
             break;
         }
         case C_KL1L3:
@@ -97,7 +92,6 @@ void ECSimulation::start()
                       << "L3";
             emittedElectrons << ElectronEnergy(index,"L3",emitting)/1000;
             tagEmitted << "C-Kf13_"+emitting;
-
             break;
         }
         case C_KL2L3:
@@ -110,7 +104,6 @@ void ECSimulation::start()
                       << "L3";
             emittedElectrons << ElectronEnergy(index,"L3",emitting)/1000;
             tagEmitted << "C-Kf23_"+emitting;
-
             break;
         }
         default:

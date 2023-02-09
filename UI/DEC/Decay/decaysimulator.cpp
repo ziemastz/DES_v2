@@ -1,7 +1,7 @@
 #include "decaysimulator.h"
 #include "qdebug.h"
 #include "Decay/datavector.h"
-
+#include <QElapsedTimer>
 DecaySimulator::DecaySimulator(const DecaySchemeModel &decayScheme, const uint &setDecayEvents, const double &setResolvingTime, const double &setDeadTime) :
     decay(decayScheme),
     decayEvents(setDecayEvents),
@@ -70,6 +70,8 @@ bool DecaySimulator::start()
 
     // loop of decays
     ECSimulation ecSim;
+    QElapsedTimer timer;
+    timer.start();
     while(decayEvents >= ++currentDecay) {
         //qDebug() << "Event: "<<currentDecay;
         BranchModel branch = decay.branches.at((int)p_branches.random());
@@ -101,10 +103,13 @@ bool DecaySimulator::start()
 
         //gamma emisions
         if(!branch.gammes.isEmpty()) {
+        double final_level = -1;
+        //while(final_level != 0.0) {
 
+       // }
         }
     }
-
+    qInfo() << "Simulation time: "<< timer.elapsed() << " ms";
     return true;
 }
 
