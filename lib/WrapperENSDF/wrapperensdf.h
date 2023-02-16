@@ -20,11 +20,16 @@
  *
  ******************************************************************************
  */
-#include "WrapperENSDF_global.h"
+#include <QtCore/qglobal.h>
+#include <QDebug>
+#include <QString>
+#include <QStringRef>
+#include <QFile>
+#include <QTextStream>
 #include "ensdf.h"
 #include "recordensdf.h"
 
-class WRAPPERENSDF_EXPORT WrapperENSDF
+class WrapperENSDF
 {
 public:
     WrapperENSDF(const QString &filename);

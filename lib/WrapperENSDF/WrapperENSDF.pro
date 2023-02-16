@@ -2,7 +2,7 @@ QT -= gui
 
 TEMPLATE = lib
 DEFINES += WRAPPERENSDF_LIBRARY
-
+CONFIG += staticlib
 CONFIG += c++17
 
 # You can make your code fail to compile if it uses deprecated APIs.
