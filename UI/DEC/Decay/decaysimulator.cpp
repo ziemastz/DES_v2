@@ -2,6 +2,7 @@
 #include "Decay/cesimulation.h"
 #include "qdebug.h"
 #include "Decay/datavector.h"
+#include <cmath>
 #include <QElapsedTimer>
 DecaySimulator::DecaySimulator(const DecaySchemeModel &decayScheme, const uint &setDecayEvents, const double &setResolvingTime, const double &setDeadTime) :
     decay(decayScheme),
@@ -13,6 +14,17 @@ DecaySimulator::DecaySimulator(const DecaySchemeModel &decayScheme, const uint &
     outElectron = nullptr;
     outGamma = nullptr;
     outTag = nullptr;
+    convertToNS["y"] =  3.1556925974592E+16;
+    convertToNS["d"] =  8.64E+13;
+    convertToNS["h"] =  3.6E+12;
+    convertToNS["min"]= 6E+10;
+    convertToNS["s"] =  1E+09;
+    convertToNS["ms"] = 1E+06;
+    convertToNS["μs"] = 1E+03;
+    convertToNS["ns"] = 1E+00;
+    convertToNS["ps"] = 1E-03;
+    convertToNS["fs"] = 1E-06;
+    convertToNS["as"] = 1E-09;
 }
 
 DecaySimulator::~DecaySimulator()
@@ -33,7 +45,7 @@ DecaySimulator::~DecaySimulator()
 
 bool DecaySimulator::start()
 {
-    //contenery
+    //contenery - open file to write
     fElectrons.setFileName(decay.radionuclide+"_emittedElectrons.txt");
     fGammas.setFileName(decay.radionuclide+"_emittedGammas.txt");
     fTag.setFileName(decay.radionuclide+"_Tags.txt");
@@ -101,8 +113,15 @@ bool DecaySimulator::start()
 
         //gamma emisions
         if(!branch.gammes.isEmpty()) {
-        double final_level = -1;
-        while(final_level != 0.0) {
+            // level T1/2
+            if(branch.level.halfLifeValue >0.) {
+                double l_t12 = branch.level.halfLifeValue*convertToNS.value(branch.level.halfLifeUnit);
+
+                double p_rt = 1-exp(-log(2)*(reslovingTime/l_t12));
+                double p_dt = exp(-log(2)*(deadTime*1000/l_t12));
+            }
+            double final_level = -1;
+            while(final_level != 0.0) {
             DataVector p_g;
             for (int i = 0; i < branch.gammes.size(); i++) {
                 double total_g_ce = branch.gammes.at(i).total_internal_conversion
