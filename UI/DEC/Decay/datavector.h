@@ -11,6 +11,7 @@ public:
     void put(const double& X, const double& Y);
     double random() const;
     bool isEmpty() const;
+    double at(const int& index) const;
 private:
     std::vector<double> _X;
     std::vector<double> _Y;

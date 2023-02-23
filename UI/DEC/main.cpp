@@ -12,13 +12,15 @@
  *  Upgrade
  *  v1.0.1:
  *      - Import dateset of radionuclide from ENSDF
+ *  v1.0.2:
+ *      - Fixed calculation of electron conversion intensity
  */
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QApplication::setApplicationName("DES");
-    QApplication::setApplicationVersion("v1.0.1");
+    QApplication::setApplicationVersion("v1.0.2");
 
     MainWindow w;
     w.show();

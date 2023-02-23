@@ -113,8 +113,9 @@ bool DecaySimulator::start()
             int index = (int)p_g.random();
             final_level = branch.gammes.at(index).finalLevel_keV;
             DataVector p_ce;
-            p_ce.put(0,1-branch.gammes.at(index).total_internal_conversion);
-            p_ce.put(1,branch.gammes.at(index).total_internal_conversion);
+
+            p_ce.put(0,branch.gammes.at(index).intensity);
+            p_ce.put(1,p_g.at(index)-branch.gammes.at(index).intensity);
             if((int)p_ce.random()) {
                 //CE
                 ceSim.setGamma(branch.gammes.at(index));

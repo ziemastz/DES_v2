@@ -41,6 +41,11 @@ bool DataVector::isEmpty() const
         return false;
 }
 
+double DataVector::at(const int &index) const
+{
+    return _Y.at(index);
+}
+
 void DataVector::normalize()
 {
     _histo.clear();
