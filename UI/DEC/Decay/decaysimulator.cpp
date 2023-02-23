@@ -112,6 +112,7 @@ bool DecaySimulator::start()
         }
 
         //gamma emisions
+        QVector<QStringList> secendary(3);
         if(!branch.gammes.isEmpty()) {
             // level T1/2
             if(branch.level.halfLifeValue >0.) {
@@ -131,36 +132,112 @@ bool DecaySimulator::start()
             }
             int index = (int)p_g.random();
             final_level = branch.gammes.at(index).finalLevel_keV;
-            DataVector p_ce;
+            if(branch.level.halfLifeValue >0.) {
+                double l_t12 = branch.level.halfLifeValue*convertToNS.value(branch.level.halfLifeUnit);
 
-            p_ce.put(0,branch.gammes.at(index).intensity);
-            p_ce.put(1,p_g.at(index)-branch.gammes.at(index).intensity);
-            if((int)p_ce.random()) {
-                //CE
-                ceSim.setGamma(branch.gammes.at(index));
-                ceSim.loadAtomicData();
-                ceSim.start();
+                double p_rt = 1-exp(-log(2)*(reslovingTime/l_t12));
+                double p_dt = exp(-log(2)*(deadTime*1000/l_t12));
 
-                foreach (double energy, ceSim.getEmittedElectrons()) {
-                    *outElectron << "\t" << energy;
-                }
-                foreach (double energy, ceSim.getEmittedXRay()) {
-                    *outGamma << "\t" << energy;
-                }
-                foreach (QString tag, ceSim.getTagEmitted()) {
-                    *outTag << "\t" << tag;
+                DataVector rt;
+                rt.put(1,p_rt);
+                rt.put(0,1-p_rt);
+                if((int)rt.random()) {
+                    DataVector p_ce;
+                    p_ce.put(0,branch.gammes.at(index).intensity);
+                    p_ce.put(1,p_g.at(index)-branch.gammes.at(index).intensity);
+                    if((int)p_ce.random()) {
+                        //CE
+                        ceSim.setGamma(branch.gammes.at(index));
+                        ceSim.loadAtomicData();
+                        ceSim.start();
+
+                        foreach (double energy, ceSim.getEmittedElectrons()) {
+                            *outElectron << "\t" << energy;
+                        }
+                        foreach (double energy, ceSim.getEmittedXRay()) {
+                            *outGamma << "\t" << energy;
+                        }
+                        foreach (QString tag, ceSim.getTagEmitted()) {
+                            *outTag << "\t" << tag;
+                        }
+
+                    }else {
+                            //gamma
+                        *outGamma << "\t" << branch.gammes.at(index).energy;
+                        *outTag << "\t" << "G";
+                    }
+                }else {
+                    DataVector dt;
+                    dt.put(1,p_dt);
+                    dt.put(0,1-p_dt);
+                    if((int)dt.random()) {
+                        DataVector p_ce;
+                        p_ce.put(0,branch.gammes.at(index).intensity);
+                        p_ce.put(1,p_g.at(index)-branch.gammes.at(index).intensity);
+                        if((int)p_ce.random()) {
+                            //CE
+                            ceSim.setGamma(branch.gammes.at(index));
+                            ceSim.loadAtomicData();
+                            ceSim.start();
+
+                            foreach (double energy, ceSim.getEmittedElectrons()) {
+                               secendary[0] << QString::number(energy);
+                            }
+                            foreach (double energy, ceSim.getEmittedXRay()) {
+                                secendary[1] << QString::number(energy);
+                            }
+                            foreach (QString tag, ceSim.getTagEmitted()) {
+                               secendary[2] <<  tag;
+                            }
+
+                        }else {
+                                //gamma
+                            secendary[1] << QString::number(branch.gammes.at(index).energy);
+                            secendary[2] << "G";
+                        }
+                    }
                 }
 
             }else {
-                //gamma
-                *outGamma << "\t" << branch.gammes.at(index).energy;
-                *outTag << "\t" << "G";
+                DataVector p_ce;
+                p_ce.put(0,branch.gammes.at(index).intensity);
+                p_ce.put(1,p_g.at(index)-branch.gammes.at(index).intensity);
+                if((int)p_ce.random()) {
+                    //CE
+                    ceSim.setGamma(branch.gammes.at(index));
+                    ceSim.loadAtomicData();
+                    ceSim.start();
+
+                    foreach (double energy, ceSim.getEmittedElectrons()) {
+                        *outElectron << "\t" << energy;
+                    }
+                    foreach (double energy, ceSim.getEmittedXRay()) {
+                        *outGamma << "\t" << energy;
+                    }
+                    foreach (QString tag, ceSim.getTagEmitted()) {
+                        *outTag << "\t" << tag;
+                    }
+
+                }else {
+                        //gamma
+                    *outGamma << "\t" << branch.gammes.at(index).energy;
+                    *outTag << "\t" << "G";
+                }
             }
+
+
         }
         }
         *outElectron << "\n";
         *outGamma << "\n";
         *outTag << "\n";
+        if(!secendary.at(2).isEmpty()) { // after dead time decay record by counter as secendary chain
+            *outElectron << currentDecay<<"\t"<<secendary.at(0).join("\t")<<"\n";
+            *outGamma << currentDecay<<"\t"<<secendary.at(1).join("\t") << "\n";
+            *outTag << currentDecay<<"\t"<<secendary.at(2).join("\t")<< "\n";
+        }
+
+
     }
     qInfo() << "Simulation time: "<< timer.elapsed() << " ms";
     return true;

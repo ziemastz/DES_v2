@@ -5,7 +5,7 @@
 #include <QTextStream>
 #include <QFile>
 #include "Models/decayschememodel.h"
-
+#include <QMap>
 #include "Decay/ecsimulation.h"
 
 class DecaySimulator
@@ -33,6 +33,7 @@ private:
     QTextStream *outGamma;
     QTextStream *outTag;
 
+    QMap<QString,double> convertToNS;
 
     void ElectronsConfiguration();
 };

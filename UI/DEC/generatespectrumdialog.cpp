@@ -29,7 +29,10 @@ void GenerateSpectrumDialog::on_cancel_pushButton_clicked()
 
 void GenerateSpectrumDialog::on_start_pushButton_clicked()
 {
-    DecaySimulator sim(decay,ui->decayEvents_lineEdit->text().toInt());
+    DecaySimulator sim(decay,
+                       ui->decayEvents_lineEdit->text().toInt(),
+                       ui->resolvingTime_lineEdit->text().toDouble(),
+                       ui->deadTime_lineEdit->text().toDouble());
     if(!sim.start()) {
         qWarning() << "Error decay simulation";
     }
