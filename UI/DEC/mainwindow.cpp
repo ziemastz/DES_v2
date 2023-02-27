@@ -116,6 +116,7 @@ void MainWindow::on_import_ensdf_pushButton_clicked()
                 decay.branches.last().ec.intensityEC = ensdf.getIntensityEC(i,j).toDouble();
                 decay.branches.last().ec.intensityBetaPlus= ensdf.getIntensityBetaPlus(i,j).toDouble();
             }else {
+
                 decay.branches.last().parent.a = ensdf.getA_Parent(i).toInt();
                 decay.branches.last().parent.z = ensdf.getZ_Parent(i);
                 decay.branches.last().parent.symbol = ensdf.getParent(i);
@@ -181,7 +182,8 @@ void MainWindow::loadENSDF()
             << QString::number(decay.branches.at(i).intensity)
             << QString::number(decay.branches.at(i).level.excited_level_keV)
             << decay.branches.at(i).daughter.symbol;
-        ToolWidget::addRecord(ui->branches_tableWidget,row);
+        if(decay.branches.at(i).transition != "GAMMA")
+            ToolWidget::addRecord(ui->branches_tableWidget,row);
 
     }
 

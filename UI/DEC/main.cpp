@@ -14,13 +14,16 @@
  *      - Import dateset of radionuclide from ENSDF
  *  v1.0.2:
  *      - Fixed calculation of electron conversion intensity
+ *  v1.0.3:
+ *      - Remove from branches 'GAMMA' transitions
+ *      - Fixed the randomization of gamma transitions
  */
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QApplication::setApplicationName("DES");
-    QApplication::setApplicationVersion("v1.0.2");
+    QApplication::setApplicationVersion("v1.0.3");
 
     MainWindow w;
     w.show();

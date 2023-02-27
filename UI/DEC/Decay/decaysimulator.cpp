@@ -114,13 +114,6 @@ bool DecaySimulator::start()
         //gamma emisions
         QVector<QStringList> secendary(3);
         if(!branch.gammes.isEmpty()) {
-            // level T1/2
-            if(branch.level.halfLifeValue >0.) {
-                double l_t12 = branch.level.halfLifeValue*convertToNS.value(branch.level.halfLifeUnit);
-
-                double p_rt = 1-exp(-log(2)*(reslovingTime/l_t12));
-                double p_dt = exp(-log(2)*(deadTime*1000/l_t12));
-            }
             double final_level = -1;
             while(final_level != 0.0) {
             DataVector p_g;
@@ -132,7 +125,7 @@ bool DecaySimulator::start()
             }
             int index = (int)p_g.random();
             final_level = branch.gammes.at(index).finalLevel_keV;
-            if(branch.level.halfLifeValue >0.) {
+            if(branch.level.halfLifeValue > 0. && reslovingTime > 0. && deadTime >0.) {
                 double l_t12 = branch.level.halfLifeValue*convertToNS.value(branch.level.halfLifeUnit);
 
                 double p_rt = 1-exp(-log(2)*(reslovingTime/l_t12));
@@ -224,9 +217,13 @@ bool DecaySimulator::start()
                     *outTag << "\t" << "G";
                 }
             }
+            for(int i = 0; i < decay.branches.size();i++) {
+                if(decay.branches.at(i).level.excited_level_keV == final_level)
+                    branch = decay.branches.at(i);
+            }
 
+            }
 
-        }
         }
         *outElectron << "\n";
         *outGamma << "\n";
