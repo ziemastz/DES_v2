@@ -17,13 +17,15 @@
  *  v1.0.3:
  *      - Remove from branches 'GAMMA' transitions
  *      - Fixed the randomization of gamma transitions
+ *  v1.0.4:
+ *      - Add beta transition
  */
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QApplication::setApplicationName("DES");
-    QApplication::setApplicationVersion("v1.0.3");
+    QApplication::setApplicationVersion("v1.0.4");
 
     MainWindow w;
     w.show();

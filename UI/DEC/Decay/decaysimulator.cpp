@@ -1,5 +1,7 @@
 #include "decaysimulator.h"
 #include "Decay/cesimulation.h"
+#include "Decay/betasimulator.h"
+
 #include "qdebug.h"
 #include "Decay/datavector.h"
 #include <cmath>
@@ -84,6 +86,8 @@ bool DecaySimulator::start()
     // loop of decays
     ECSimulation ecSim;
     CESimulation ceSim;
+    BetaSimulator betaSim;
+
     QElapsedTimer timer;
     timer.start();
     while(decayEvents >= ++currentDecay) {
@@ -93,6 +97,15 @@ bool DecaySimulator::start()
         *outGamma << currentDecay;
         *outTag << currentDecay;
 
+        //beta-
+        if(branch.transition == "BETA-") {
+            double energy;
+            betaSim.setBranch(branch);
+            energy = betaSim.start();
+            *outElectron << "\t" << energy;
+        }
+
+        // ec
         if(branch.transition == "EC") {
             //qDebug() << "Transition EC";
             ecSim.setBranch(branch);

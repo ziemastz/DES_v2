@@ -46,6 +46,13 @@ double DataVector::at(const int &index) const
     return _Y.at(index);
 }
 
+void DataVector::clear()
+{
+    _X.clear();
+    _Y.clear();
+    _histo.clear();
+}
+
 void DataVector::normalize()
 {
     _histo.clear();

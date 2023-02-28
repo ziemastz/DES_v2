@@ -12,6 +12,8 @@ public:
     double random() const;
     bool isEmpty() const;
     double at(const int& index) const;
+    void clear();
+
 private:
     std::vector<double> _X;
     std::vector<double> _Y;
