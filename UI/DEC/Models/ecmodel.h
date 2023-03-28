@@ -4,6 +4,8 @@
 #include <QString>
 #include <QVector>
 #include <QMap>
+#include "Models/betatransitionmodel.h"
+
 class ECModel
 {
 public:
@@ -11,6 +13,7 @@ public:
     uint idBranch;
     double intensityEC;
     double intensityBetaPlus;
+    BetaTransitionModel betaPlus;
     QMap<QString,double> subshell_probability;
 
 

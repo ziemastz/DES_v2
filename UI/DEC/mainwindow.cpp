@@ -184,6 +184,12 @@ void MainWindow::loadENSDF()
             << decay.branches.at(i).daughter.symbol;
         if(decay.branches.at(i).transition != "GAMMA")
             ToolWidget::addRecord(ui->branches_tableWidget,row);
+        else {
+            int rows = ui->branches_tableWidget->rowCount();
+            ui->branches_tableWidget->insertRow(rows);
+            ui->branches_tableWidget->hideRow(rows);
+        }
+
 
     }
 

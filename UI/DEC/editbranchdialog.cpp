@@ -20,6 +20,10 @@ EditBranchDialog::EditBranchDialog(QWidget *parent) :
     ui->forbiddenness_comboBox->addItems(branchContr.forbiddenness());
     ui->expShapeFactor_comboBox->addItem("");
     ui->expShapeFactor_comboBox->addItems(branchContr.expShapeFactors());
+    ui->forbiddenness_comboBox_2->addItem("");
+    ui->forbiddenness_comboBox_2->addItems(branchContr.forbiddenness());
+    ui->expShapeFactor_comboBox_2->addItem("");
+    ui->expShapeFactor_comboBox_2->addItems(branchContr.expShapeFactors());
 
 
     connect(ui->parent_half_life_value_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
@@ -47,6 +51,18 @@ EditBranchDialog::EditBranchDialog(QWidget *parent) :
     connect(ui->intensity_ec_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
     connect(ui->intensity_beta_plus_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
     connect(ui->subshell_intensity_ec_lineEdit,SIGNAL(textChanged(QString)),this,SLOT(percentageNumberLineEdit(QString)));
+    //beta+
+    connect(ui->beta_endpoint_energy_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
+    connect(ui->coeff_a_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->coeff_b_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->coeff_c_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->coeff_d_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->coeff_e_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->exp_a_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->exp_b_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->exp_c_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->exp_d_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(realNumberLineEdit(QString)));
+    connect(ui->mixing_ratio_lineEdit_2,SIGNAL(textChanged(QString)),this,SLOT(urealNumberLineEdit(QString)));
 }
 
 EditBranchDialog::~EditBranchDialog()
@@ -103,6 +119,21 @@ void EditBranchDialog::load(BranchModel *branch)
         ui->intensity_beta_plus_lineEdit->setText(QString::number(branch->ec.intensityBetaPlus));
         ui->intensity_ec_lineEdit->setText(QString::number(branch->ec.intensityEC));
         ReloadECSubshellPropabilityTable();
+        //beta+
+        ui->beta_endpoint_energy_lineEdit_2->setText(QString::number(branch->ec.betaPlus.endpoint_energy_keV));
+        ui->forbiddenness_comboBox_2->setCurrentIndex(ui->forbiddenness_comboBox->findText(branch->ec.betaPlus.forbiddenness));
+        ui->coeff_a_lineEdit_2->setText(QString::number(branch->ec.betaPlus.coeff_a));
+        ui->coeff_b_lineEdit_2->setText(QString::number(branch->ec.betaPlus.coeff_b));
+        ui->coeff_c_lineEdit_2->setText(QString::number(branch->ec.betaPlus.coeff_c));
+        ui->coeff_d_lineEdit_2->setText(QString::number(branch->ec.betaPlus.coeff_d));
+        ui->coeff_e_lineEdit_2->setText(QString::number(branch->ec.betaPlus.coeff_e));
+        ui->expShapeFactor_comboBox_2->setCurrentIndex(ui->expShapeFactor_comboBox->findText(branch->ec.betaPlus.exp_shape_factor));
+        ui->exp_a_lineEdit_2->setText(QString::number(branch->ec.betaPlus.exp_coeff_a));
+        ui->exp_b_lineEdit_2->setText(QString::number(branch->ec.betaPlus.exp_coeff_b));
+        ui->exp_c_lineEdit_2->setText(QString::number(branch->ec.betaPlus.exp_coeff_c));
+        ui->exp_d_lineEdit_2->setText(QString::number(branch->ec.betaPlus.exp_coeff_d));
+        ui->mixing_ratio_lineEdit_2->setText(QString::number(branch->ec.betaPlus.mixing_ratio));
+
     }
 }
 
@@ -334,15 +365,88 @@ void EditBranchDialog::on_mixing_ratio_lineEdit_editingFinished()
     _branch.beta.mixing_ratio = ui->mixing_ratio_lineEdit->text().toDouble();
 }
 
-
 void EditBranchDialog::on_intensity_ec_lineEdit_editingFinished()
 {
     _branch.ec.intensityEC = ui->intensity_ec_lineEdit->text().toDouble();
 }
 
-
 void EditBranchDialog::on_intensity_beta_plus_lineEdit_editingFinished()
 {
     _branch.ec.intensityBetaPlus = ui->intensity_beta_plus_lineEdit->text().toDouble();
+}
+
+void EditBranchDialog::on_beta_endpoint_energy_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.endpoint_energy_keV = ui->beta_endpoint_energy_lineEdit_2->text().toDouble();
+}
+
+void EditBranchDialog::on_forbiddenness_comboBox_2_currentTextChanged(const QString &arg1)
+{
+    _branch.ec.betaPlus.forbiddenness = arg1;
+}
+
+void EditBranchDialog::on_coeff_a_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.coeff_a = ui->coeff_a_lineEdit_2->text().toDouble();
+}
+
+
+void EditBranchDialog::on_coeff_b_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.coeff_b = ui->coeff_b_lineEdit_2->text().toDouble();
+}
+
+
+void EditBranchDialog::on_coeff_c_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.coeff_c = ui->coeff_c_lineEdit_2->text().toDouble();
+}
+
+
+void EditBranchDialog::on_coeff_d_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.coeff_d = ui->coeff_d_lineEdit_2->text().toDouble();
+}
+
+
+void EditBranchDialog::on_coeff_e_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.coeff_e = ui->coeff_e_lineEdit_2->text().toDouble();
+}
+
+
+void EditBranchDialog::on_expShapeFactor_comboBox_2_currentTextChanged(const QString &arg1)
+{
+    _branch.ec.betaPlus.exp_shape_factor = arg1;
+}
+
+
+void EditBranchDialog::on_exp_a_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.exp_coeff_a = ui->exp_a_lineEdit_2->text().toDouble();
+}
+
+
+void EditBranchDialog::on_exp_b_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.exp_coeff_b = ui->exp_b_lineEdit_2->text().toDouble();
+}
+
+
+void EditBranchDialog::on_exp_c_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.exp_coeff_c = ui->exp_c_lineEdit_2->text().toDouble();
+}
+
+
+void EditBranchDialog::on_exp_d_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.exp_coeff_d = ui->exp_d_lineEdit_2->text().toDouble();
+}
+
+
+void EditBranchDialog::on_mixing_ratio_lineEdit_2_editingFinished()
+{
+    _branch.ec.betaPlus.mixing_ratio = ui->mixing_ratio_lineEdit_2->text().toDouble();
 }
 

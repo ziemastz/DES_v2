@@ -263,7 +263,7 @@ QString WrapperENSDF::getIntensityTotalEC(const int &noDaughter, const int &noLe
     if(!isBlank(raw.at(noDaughter).getEC().value(noLevel).getTi()))
         return raw.at(noDaughter).getEC().value(noLevel).getTi();
     else
-        return getIntensityEC(noDaughter,noLevel);
+        return QString::number(getIntensityEC(noDaughter,noLevel).toDouble()+getIntensityEC(noDaughter,noLevel).toDouble());
 }
 
 int WrapperENSDF::countGammas(const int &noDaughter, const int &noLevel) const

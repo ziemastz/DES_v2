@@ -1,8 +1,6 @@
 #include "ecsimulation.h"
 #include "Decay/datavector.h"
 
-
-
 ECSimulation::ECSimulation(const BranchModel &branch) :
     _branch(branch)
 {
@@ -19,18 +17,23 @@ void ECSimulation::loadAtomicData()
 
 void ECSimulation::start()
 {
+    emittedElectrons.clear();
+    emittedXRay.clear();
+    tagEmitted.clear();
+
     //EC or beta+
     if(isBetaPlus()) {
         qDebug() << "Beta+ transition";
+        betaPlus.setBranch(_branch);
+        emittedElectrons << betaPlus.start();
+        tagEmitted << "Beta+";
         return;
     }
 
     QVector<QString> vacancies;
     ElectronConfiguration();
 
-    emittedElectrons.clear();
-    emittedXRay.clear();
-    tagEmitted.clear();
+
 
     QString ec = ElectronCapture();
 

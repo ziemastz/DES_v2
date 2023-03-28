@@ -132,6 +132,34 @@ QVector<BranchModel> BranchController::getBranches(const QString &nuclide)
                 double value = e_res.at(i).at(1).toDouble();
                 ret.last().ec.subshell_probability.insert(key,value);
             }
+            statement = QString("SELECT b.endpoint_energy_keV, "
+                                "f.type, b.coeff_a, b.coeff_b, b.coeff_c, b.coeff_d, b.coeff_e, "
+                                "e.type, b.exp_coeff_a, b.exp_coeff_b, b.exp_coeff_c, b.exp_coeff_d, "
+                                "b.mixing_ratio "
+                                "FROM betaPlus_transition b "
+                                "LEFT JOIN forbiddenness_type f on b.forbiddenness = f.id "
+                                "LEFT JOIN exp_shape_factor_type e on b.exp_shape_factor = e.id "
+                                "WHERE b.id_branch = %1")
+                    .arg(ret.last().id);
+
+            QVector<QVariantList> b_res = db->read(statement);
+            if(b_res.size() == 1) {
+                ret.last().ec.betaPlus.idBranch = ret.last().id;
+                int i=0;
+                ret.last().ec.betaPlus.endpoint_energy_keV = b_res.first().at(i++).toDouble();
+                ret.last().ec.betaPlus.forbiddenness = b_res.first().at(i++).toString();
+                ret.last().ec.betaPlus.coeff_a = b_res.first().at(i++).toDouble();
+                ret.last().ec.betaPlus.coeff_b = b_res.first().at(i++).toDouble();
+                ret.last().ec.betaPlus.coeff_c = b_res.first().at(i++).toDouble();
+                ret.last().ec.betaPlus.coeff_d = b_res.first().at(i++).toDouble();
+                ret.last().ec.betaPlus.coeff_e = b_res.first().at(i++).toDouble();
+                ret.last().ec.betaPlus.exp_shape_factor = b_res.first().at(i++).toString();
+                ret.last().ec.betaPlus.exp_coeff_a = b_res.first().at(i++).toDouble();
+                ret.last().ec.betaPlus.exp_coeff_b = b_res.first().at(i++).toDouble();
+                ret.last().ec.betaPlus.exp_coeff_c = b_res.first().at(i++).toDouble();
+                ret.last().ec.betaPlus.exp_coeff_d = b_res.first().at(i++).toDouble();
+                ret.last().ec.betaPlus.mixing_ratio = b_res.first().at(i++).toDouble();
+            }
         }
 
     }
@@ -286,6 +314,30 @@ bool BranchController::updateBranches(const QString &radionuclide, const QVector
                     return false;
                 }
                 ++iter;
+            }
+            statement = QString("INSERT INTO betaPlus_transition "
+                                "VALUES(%1, %2, "
+                                "(SELECT id FROM forbiddenness_type WHERE type='%3'), "
+                                "%4, %5, %6, %7, %8,"
+                                "(SELECT id FROM exp_shape_factor_type WHERE type='%9'), "
+                                "%10, %11, %12, %13, %14)")
+                    .arg(id_branch)
+                    .arg(branches.at(i).ec.betaPlus.endpoint_energy_keV)
+                    .arg(branches.at(i).ec.betaPlus.forbiddenness)
+                    .arg(branches.at(i).ec.betaPlus.coeff_a)
+                    .arg(branches.at(i).ec.betaPlus.coeff_b)
+                    .arg(branches.at(i).ec.betaPlus.coeff_c)
+                    .arg(branches.at(i).ec.betaPlus.coeff_d)
+                    .arg(branches.at(i).ec.betaPlus.coeff_e)
+                    .arg(branches.at(i).ec.betaPlus.exp_shape_factor)
+                    .arg(branches.at(i).ec.betaPlus.exp_coeff_a)
+                    .arg(branches.at(i).ec.betaPlus.exp_coeff_b)
+                    .arg(branches.at(i).ec.betaPlus.exp_coeff_c)
+                    .arg(branches.at(i).ec.betaPlus.exp_coeff_d)
+                    .arg(branches.at(i).ec.betaPlus.mixing_ratio);
+            if(!db->write(statement)) {
+                db->write("ROLLBACK");
+                return false;
             }
         }
     }

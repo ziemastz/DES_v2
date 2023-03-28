@@ -84,6 +84,33 @@ private slots:
 
     void on_intensity_beta_plus_lineEdit_editingFinished();
 
+    void on_beta_endpoint_energy_lineEdit_2_editingFinished();
+
+
+    void on_forbiddenness_comboBox_2_currentTextChanged(const QString &arg1);
+
+    void on_coeff_a_lineEdit_2_editingFinished();
+
+    void on_coeff_b_lineEdit_2_editingFinished();
+
+    void on_coeff_c_lineEdit_2_editingFinished();
+
+    void on_coeff_d_lineEdit_2_editingFinished();
+
+    void on_coeff_e_lineEdit_2_editingFinished();
+
+    void on_expShapeFactor_comboBox_2_currentTextChanged(const QString &arg1);
+
+    void on_exp_a_lineEdit_2_editingFinished();
+
+    void on_exp_b_lineEdit_2_editingFinished();
+
+    void on_exp_c_lineEdit_2_editingFinished();
+
+    void on_exp_d_lineEdit_2_editingFinished();
+
+    void on_mixing_ratio_lineEdit_2_editingFinished();
+
 private:
     Ui::EditBranchDialog *ui;
     BranchModel _branch;

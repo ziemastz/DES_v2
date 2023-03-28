@@ -103,6 +103,7 @@ bool DecaySimulator::start()
             betaSim.setBranch(branch);
             energy = betaSim.start();
             *outElectron << "\t" << energy;
+            *outTag << "\t" << "Beta-";
         }
 
         // ec

@@ -33,7 +33,7 @@ void BetaSpectra::config(const BetaTransitionModel &beta, const NuclideModel &da
         W0 = beta.endpoint_energy_keV/ELECTRON_MASS_KEV - 1;
     }
     W0 = W0 - (W0 * W0 - 1) / 2. / A / (NUCLEON_MASS_KEV / ELECTRON_MASS_KEV);
-
+    W0 = 1+ (beta.endpoint_energy_keV*0.001 /0.510998928);
     // coeffciency of forms
     coeff[0] = beta.coeff_a;
     coeff[1] = beta.coeff_b;
@@ -56,7 +56,7 @@ double BetaSpectra::value(const double energy_keV)
         W = energy_keV/ELECTRON_MASS_KEV - 1;
     }
     W = W - (W * W - 1) / 2. / A / (NUCLEON_MASS_KEV / ELECTRON_MASS_KEV);
-
+    W = 1+ (energy_keV*0.001 /0.510998928);
     double res = 1;
 
     res *= PhaseSpace(W);

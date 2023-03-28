@@ -1,5 +1,6 @@
 #ifndef ECSIMULATION_H
 #define ECSIMULATION_H
+#include "Decay/betasimulator.h"
 #include "Models/branchmodel.h"
 #include "Controllers/atomicdatacontroller.h"
 
@@ -32,6 +33,7 @@ private:
     void ElectronConfiguration();
 
     bool isBetaPlus();
+    BetaSimulator betaPlus;
 
     QString ElectronCapture();
 
